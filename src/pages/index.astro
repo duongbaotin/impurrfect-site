@@ -1,17 +1,35 @@
 ---
-
+import '../styles/global.css';
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Impurrfect Speakeasy</title>
+  </head>
+  <body class="bg-stone-950 text-stone-200 flex flex-col items-center justify-center min-h-screen font-sans">
+    <main class="text-center space-y-6 px-4">
+      <h1 class="text-4xl md:text-5xl font-serif tracking-widest text-stone-100 uppercase">
+        THE IMPURRFECT SPEAKEASY
+      </h1>
+      <p class="text-stone-400 max-w-md mx-auto text-sm">
+        Our digital space is currently under construction, but our menu is fully live and ready for your viewing.
+      </p>
+      <div>
+        <a 
+          href="/bar-menu" 
+          class="inline-block bg-amber-200 text-stone-950 font-medium px-6 py-3 rounded-sm hover:bg-amber-300 transition-colors duration-200 text-sm tracking-wide uppercase"
+        >
+          View Bar Menu
+        </a>
+      </div>
+    </main>
+  </body>
 </html>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap');
+  h1 { font-family: 'Cormorant Garamond', serif; }
+  body { font-family: 'Inter', sans-serif; }
+</style>
