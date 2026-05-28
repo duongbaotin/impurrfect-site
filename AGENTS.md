@@ -61,6 +61,7 @@ tags?: string[]        # e.g. ["Smoky", "Bitter"]
 featured?: boolean     # shows ★ Bartender's Pick badge
 image?: string         # path to thumbnail in public/, e.g. "/cocktail-placeholder.svg"
 subcategory?: string   # optional grouping within a category, e.g. "Whiskey-based"
+available?: boolean    # default true; set false to show "Currently unavailable"
 ```
 
 To add a new menu item: create a new `.yaml` file, commit, and Vercel auto-deploys.
@@ -78,6 +79,8 @@ To add a new menu item: create a new `.yaml` file, commit, and Vercel auto-deplo
 - **DNS:** Cloudflare (proxied, orange cloud). Root `meowracle.space` has an A record forwarding to Cloudflare's edge.
 - **Redirect:** Cloudflare Page Rule — `meowracle.space/impurrfect-bar*` → `https://impurrfect-bar.meowracle.space/$1` (301). This is independent of this repo; do not remove.
 - **Root domain** (`meowracle.space`) is a separate future project, not this repo.
+- No CI / no `.github` directory — all testing is local-only via `npm run check`.
+- **vercel.json** also defines two permanent redirects: `/bar-menu` → `/menu` and `/bar-menu/:path*` → `/menu/:path*`.
 
 ## References
 

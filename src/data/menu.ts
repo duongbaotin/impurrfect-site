@@ -6,6 +6,7 @@ export interface MenuItemData {
   featured?: boolean;
   image?: string;
   subcategory?: string;
+  available: boolean;
 }
 
 export interface MenuCategoryData {

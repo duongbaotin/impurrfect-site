@@ -38,6 +38,7 @@ order: number             # sort position within category (lower = first)
 tags?: string[]           # optional, e.g. ["Smoky", "Bitter"]
 featured?: boolean        # shows ★ Bartender's Pick badge
 image?: string          # path in public/, e.g. "/cocktail-placeholder.svg"
+available?: boolean     # default true; set false to show "Currently unavailable"
 ```
 
 ### Adding a drink

@@ -14,6 +14,7 @@ const menuCollection = defineCollection({
     featured: z.boolean().optional(),
     image: z.string().optional(),
     subcategory: z.string().optional(),
+    available: z.boolean().optional().default(true),
   }),
 });
 

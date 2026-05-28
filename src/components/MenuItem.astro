@@ -6,9 +6,10 @@ interface Props {
 }
 
 const { item } = Astro.props;
+const unavailable = item.available === false;
 ---
 
-<div class="group font-body flex gap-4">
+<div class={`group font-body flex gap-4${unavailable ? ' opacity-50' : ''}`}>
     {item.image && (
       <div class="shrink-0 pt-1">
         <img src={item.image} alt="" class="w-10 h-auto opacity-50" aria-hidden="true" />
@@ -16,7 +17,7 @@ const { item } = Astro.props;
     )}
     <div class="flex-1 min-w-0">
       <div class="flex justify-between items-baseline gap-4 mb-1">
-        <h3 class="font-normal text-sm md:text-base text-[#F6F3EF] group-hover:text-[#875A2A] transition-colors duration-200 tracking-wide">
+        <h3 class={`font-normal text-sm md:text-base transition-colors duration-200 tracking-wide${unavailable ? ' line-through text-stone-500' : ' text-[#F6F3EF] group-hover:text-[#875A2A]'}`}>
           {item.name}
         </h3>
         <div class="flex items-center gap-2 shrink-0">
@@ -40,6 +41,11 @@ const { item } = Astro.props;
             </span>
           ))}
         </div>
+      )}
+      {unavailable && (
+        <span class="inline-block mt-2 text-[9px] uppercase tracking-widest text-stone-500 border border-dashed border-stone-500 px-2 py-[1px] rounded-sm">
+          Currently unavailable
+        </span>
       )}
     </div>
 </div>
