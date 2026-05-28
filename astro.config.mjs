@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://impurrfect.com',
+  site: 'https://impurrfect-bar.meowracle.space',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]

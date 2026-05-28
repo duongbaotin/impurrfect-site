@@ -7,6 +7,20 @@ interface Props {
 }
 
 const { category: cat } = Astro.props;
+
+const grouped = new Map<string, typeof cat.items>();
+const ungrouped: typeof cat.items = [];
+
+for (const item of cat.items) {
+  if (item.subcategory) {
+    const group = grouped.get(item.subcategory) ?? [];
+    group.push(item);
+    grouped.set(item.subcategory, group);
+  } else {
+    ungrouped.push(item);
+  }
+}
+const sortedGroups = [...grouped.entries()];
 ---
 
 <section class="space-y-8">
@@ -21,8 +35,16 @@ const { category: cat } = Astro.props;
     )}
   </div>
   <div class="space-y-6">
-    {cat.items.map((item) => (
-      <MenuItem item={item} />
+    {ungrouped.map((item) => <MenuItem item={item} />)}
+    {sortedGroups.map(([sub, items]) => (
+      <div class="space-y-4">
+        <h3 class="font-display text-xs uppercase tracking-widest text-[#875A2A]/70 border-b border-[#33363A]/50 pb-1">
+          {sub}
+        </h3>
+        <div class="space-y-5">
+          {items.map((item) => <MenuItem item={item} />)}
+        </div>
+      </div>
     ))}
   </div>
 </section>

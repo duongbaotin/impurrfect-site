@@ -13,6 +13,7 @@ const menuCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     featured: z.boolean().optional(),
     image: z.string().optional(),
+    subcategory: z.string().optional(),
   }),
 });
 

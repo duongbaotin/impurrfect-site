@@ -14,7 +14,7 @@ Brand site for **The Impurrfect Speakeasy** — a dark-themed speakeasy bar buil
 | Route    | Page                |
 | -------- | ------------------- |
 | `/`      | Landing             |
-| `/bar-menu` | Menu listing     |
+| `/menu` | Menu listing     |
 | `/about`   | Brand story      |
 | `/contact` | Location & hours |
 | Any      | 404 page            |
@@ -50,7 +50,7 @@ src/
 ├── pages/
 │   ├── 404.astro
 │   ├── about.astro
-│   ├── bar-menu/
+│   ├── menu/
 │   │   └── index.astro
 │   ├── contact.astro
 │   └── index.astro

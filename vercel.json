@@ -2,5 +2,17 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "astro",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/bar-menu",
+      "destination": "/menu",
+      "permanent": true
+    },
+    {
+      "source": "/bar-menu/:path*",
+      "destination": "/menu/:path*",
+      "permanent": true
+    }
+  ]
 }

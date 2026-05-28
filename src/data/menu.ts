@@ -5,6 +5,7 @@ export interface MenuItemData {
   tags?: string[];
   featured?: boolean;
   image?: string;
+  subcategory?: string;
 }
 
 export interface MenuCategoryData {
