@@ -1,0 +1,19 @@
+---
+interface Props {
+  tagline: string;
+}
+
+const { tagline } = Astro.props;
+---
+
+<header class="text-center mb-16 space-y-2">
+  <h1 class="font-display text-4xl md:text-5xl tracking-widest text-[#F6F3EF]">
+    <a href="/" class="no-underline text-inherit">
+      im<span class="font-accent text-[#875A2A] normal-case italic">purr</span>fect
+    </a>
+  </h1>
+  <div class="h-[1px] w-20 bg-[#33363A] mx-auto my-3"></div>
+  <p class="font-accent text-[#F6F3EF] text-sm md:text-base tracking-wide opacity-80">
+    {tagline}
+  </p>
+</header>

@@ -1,35 +1,27 @@
 ---
-import '../styles/global.css';
+import MainLayout from '../layouts/MainLayout.astro';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Impurrfect Speakeasy</title>
-  </head>
-  <body class="bg-stone-950 text-stone-200 flex flex-col items-center justify-center min-h-screen font-sans">
-    <main class="text-center space-y-6 px-4">
-      <h1 class="text-4xl md:text-5xl font-serif tracking-widest text-stone-100 uppercase">
+<MainLayout title="The Impurrfect Speakeasy" description="The Impurrfect Speakeasy — a hidden bar embracing wabi-sabi philosophy. Handcrafted cocktails and classic twists with a modern edge.">
+  <div class="relative">
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.10]">
+      <img src="/hero.svg" alt="" class="w-72 h-auto" aria-hidden="true" />
+    </div>
+    <div class="relative min-h-[80dvh] flex flex-col items-center justify-center text-center space-y-6">
+      <h1 class="font-display text-4xl md:text-5xl tracking-widest text-[#F6F3EF] uppercase">
         THE IMPURRFECT SPEAKEASY
       </h1>
-      <p class="text-stone-400 max-w-md mx-auto text-sm">
+      <p class="font-body text-stone-400 max-w-md mx-auto text-sm">
         Our digital space is currently under construction, but our menu is fully live and ready for your viewing.
       </p>
       <div>
-        <a 
-          href="/bar-menu" 
-          class="inline-block bg-amber-200 text-stone-950 font-medium px-6 py-3 rounded-sm hover:bg-amber-300 transition-colors duration-200 text-sm tracking-wide uppercase"
+        <a
+          href="/bar-menu"
+          class="inline-block bg-[#875A2A] text-[#F6F3EF] font-medium px-6 py-3 rounded-sm hover:bg-[#6b4620] transition-colors duration-200 text-sm tracking-wide uppercase"
         >
           View Bar Menu
         </a>
       </div>
-    </main>
-  </body>
-</html>
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap');
-  h1 { font-family: 'Cormorant Garamond', serif; }
-  body { font-family: 'Inter', sans-serif; }
-</style>
+    </div>
+  </div>
+</MainLayout>

@@ -1,0 +1,21 @@
+---
+const linkClass = (path: string) =>
+  `font-body text-xs tracking-widest uppercase no-underline transition-colors duration-200 ${
+    Astro.url.pathname === path || (path !== '/' && Astro.url.pathname.startsWith(path))
+      ? 'text-[#F6F3EF]'
+      : 'text-stone-400 hover:text-[#F6F3EF]'
+  }`;
+---
+
+<nav class="border-b border-[#33363A]">
+  <div class="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-accent text-[#F6F3EF] text-lg tracking-widest no-underline">
+      im<span class="text-[#875A2A]">purr</span>fect
+    </a>
+    <div class="flex items-center gap-6">
+      <a href="/bar-menu" class={linkClass('/bar-menu')}>Menu</a>
+      <a href="/about" class={linkClass('/about')}>About</a>
+      <a href="/contact" class={linkClass('/contact')}>Contact</a>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,54 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="contact - impurrfect" description="Get in touch with The Impurrfect Speakeasy. Find our location, hours, and how to reach us.">
+  <section class="space-y-12">
+    <div class="text-center space-y-4">
+      <h1 class="font-display text-3xl md:text-4xl tracking-widest text-[#F6F3EF] uppercase">
+        Contact
+      </h1>
+      <div class="h-[1px] w-16 bg-[#875A2A] mx-auto"></div>
+    </div>
+
+    <div class="space-y-8 font-body text-sm">
+      <div class="border border-[#33363A] rounded-sm p-6 space-y-4">
+        <div class="flex items-baseline gap-4">
+          <span class="font-accent text-[#875A2A] text-xs tracking-widest uppercase min-w-[80px]">Location</span>
+          <span class="text-stone-400">
+            123 Hidden Lane, Basement Level<br />
+            Ho Chi Minh City, Vietnam
+          </span>
+        </div>
+        <div class="flex items-baseline gap-4">
+          <span class="font-accent text-[#875A2A] text-xs tracking-widest uppercase min-w-[80px]">Hours</span>
+          <span class="text-stone-400">
+            Mon–Sat · 6 PM — 2 AM<br />
+            Sunday · Closed
+          </span>
+        </div>
+        <div class="flex items-baseline gap-4">
+          <span class="font-accent text-[#875A2A] text-xs tracking-widest uppercase min-w-[80px]">Email</span>
+          <a href="mailto:hello@impurrfect.com" class="text-stone-400 hover:text-[#F6F3EF] transition-colors duration-200 no-underline">
+            hello@impurrfect.com
+          </a>
+        </div>
+      </div>
+
+      <div class="border border-[#33363A] rounded-sm p-6">
+        <p class="text-stone-400 leading-relaxed">
+          For private events, reservations, or general inquiries, please reach out via email. We'll respond within 24 hours.
+        </p>
+      </div>
+    </div>
+
+    <div class="text-center pt-4">
+      <a
+        href="/bar-menu"
+        class="inline-block bg-[#875A2A] text-[#F6F3EF] font-medium px-6 py-3 rounded-sm hover:bg-[#6b4620] transition-colors duration-200 text-sm tracking-wide uppercase"
+      >
+        View Our Menu
+      </a>
+    </div>
+  </section>
+</MainLayout>

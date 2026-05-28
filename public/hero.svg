@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <path d="M55 50 L55 195 Q55 245 100 245 Q145 245 145 195 L145 50" stroke="#F6F3EF" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M75 50 L125 50 L138 25 L62 25 Z" stroke="#F6F3EF" stroke-width="2.5" fill="none" opacity="0.5"/>
+  <line x1="100" y1="245" x2="100" y2="275" stroke="#F6F3EF" stroke-width="2.5" opacity="0.5"/>
+  <line x1="65" y1="275" x2="135" y2="275" stroke="#F6F3EF" stroke-width="2.5" opacity="0.4"/>
+  <circle cx="100" cy="145" r="16" stroke="#875A2A" stroke-width="1.5" opacity="0.4" fill="#875A2A" fill-opacity="0.12"/>
+  <circle cx="100" cy="115" r="9" stroke="#875A2A" stroke-width="1.5" opacity="0.3" fill="#875A2A" fill-opacity="0.08"/>
+  <line x1="100" y1="125" x2="100" y2="165" stroke="#875A2A" stroke-width="1.5" opacity="0.3"/>
+  <line x1="87" y1="145" x2="113" y2="145" stroke="#875A2A" stroke-width="1.5" opacity="0.3"/>
+  <path d="M45 195 Q100 215 155 195" stroke="#33363A" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M35 208 Q100 232 165 208" stroke="#33363A" stroke-width="1.5" fill="none" opacity="0.3"/>
+</svg>

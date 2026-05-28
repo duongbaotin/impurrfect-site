@@ -1,0 +1,8 @@
+name: "The Broken Ceramic"
+price: "VND 190k"
+description: "Smoky mezcal, dark amaro, sweet vermouth, and a dash of spiced chocolate bitters."
+category: "Signature Cocktails"
+order: 2
+tags: ["Smoky", "Bitter"]
+featured: true
+image: "/cocktail-placeholder.svg"

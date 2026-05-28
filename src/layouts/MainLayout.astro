@@ -1,0 +1,106 @@
+---
+// src/layouts/MainLayout.astro
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  allergyNotice?: boolean;
+}
+
+const { title = "impurrfect", description, allergyNotice } = Astro.props;
+const ogImage = new URL('/og-image.svg', Astro.site);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={Astro.url} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <ClientRouter />
+    <title>{title}</title>
+    {description && (
+      <>
+        <meta name="description" content={description} />
+        <meta property="og:description" content={description} />
+      </>
+    )}
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  </head>
+  
+  <body class="bg-[#0F0F12] text-[#F6F3EF] min-h-screen selection:bg-[#33363A]">
+
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <Nav />
+    
+    <main id="main-content" class="max-w-2xl mx-auto px-6 py-12 md:py-20 animate-fade-in">
+      <slot />
+    </main>
+
+    <Footer allergyNotice={allergyNotice} />
+
+  </body>
+</html>
+
+<style is:global>
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: 999;
+    padding: 8px 16px;
+    background: #875A2A;
+    color: #F6F3EF;
+    font-size: 14px;
+    text-decoration: none;
+    transition: top 0.1s;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  .font-display {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+  
+  .font-body {
+    font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  .font-accent {
+    font-family: 'Freight Big Pro', 'Playfair Display', Georgia, serif;
+    font-style: italic;
+  }
+
+  @media print {
+    nav, .skip-link, footer { display: none !important; }
+    body { background: white !important; color: black !important; }
+    main { max-width: 100% !important; padding: 0 !important; }
+    .font-display { font-family: Georgia, serif !important; }
+    .font-body { font-family: sans-serif !important; }
+    .font-accent { font-family: Georgia, serif !important; font-style: italic !important; }
+  }
+</style>

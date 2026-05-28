@@ -1,117 +1,33 @@
 ---
-// 1. IMPORT TAILWIND: This fulfills the terminal's action required notice
-import '../../styles/global.css';
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import MenuHeader from '../../components/MenuHeader.astro';
+import MenuCategory from '../../components/MenuCategory.astro';
+import { categories } from '../../data/categories';
+import type { MenuItemData } from '../../data/menu';
 
-// 2. DEFINE YOUR MENU DATA
-const barName = "THE IMPURRFECT SPEAKEASY";
 const tagline = "Embracing flaws, crafting perfection.";
 
-const menuCategories = [
-  {
-    category: "Signature Cocktails",
-    description: "Unique flavor profiles crafted by our mixologists.",
-    items: [
-      { name: "Wabi-Sabi Sour", price: "VND 180k", description: "Matcha-infused gin, fresh lemon juice, egg white, and a touch of honey sweetness. Balanced yet beautifully imperfect." },
-      { name: "The Broken Ceramic", price: "VND 190k", description: "Smoky mezcal, dark amaro, sweet vermouth, and a dash of spiced chocolate bitters." },
-      { name: "Rustic Elegance", price: "VND 170k", description: "Bourbon, rosemary-infused simple syrup, fresh grapefruit juice, served over a clear ice block." }
-    ]
-  },
-  {
-    category: "Classic Twists",
-    description: "Time-tested recipes with a subtle, modern edge.",
-    items: [
-      { name: "Tannic Old Fashioned", price: "VND 180k", description: "Rye whiskey, black tea reduction, Angostura bitters, expressed orange peel." },
-      { name: "The Velvet Boulevardier", price: "VND 190k", description: "Campari, sweet vermouth, bourbon, infused with whole coffee beans." }
-    ]
-  },
-  {
-    category: "Non-Alcoholic",
-    description: "Refreshed minds, clean flavors.",
-    items: [
-      { name: "Mocktail Meow", price: "VND 120k", description: "Fresh cold-pressed pineapple juice, coconut water, and a splash of lime." }
-    ]
-  }
-];
+const items = await getCollection('menu');
+items.sort((a, b) => a.data.order - b.data.order);
+
+const menuCategories = categories
+  .sort((a, b) => a.order - b.order)
+  .map((cat) => ({
+    category: cat.name,
+    description: cat.description,
+    items: items
+      .filter((i) => i.data.category === cat.name)
+      .map((i) => i.data as MenuItemData),
+  }));
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{barName} - Menu</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  </head>
-  
-  <body class="bg-stone-950 text-stone-200 font-sans min-h-screen selection:bg-stone-800">
-    
-    <main class="max-w-2xl mx-auto px-6 py-12 md:py-20">
-      
-      <header class="text-center mb-16 space-y-3">
-        <h1 class="font-serif text-3xl md:text-5xl tracking-widest text-stone-100 uppercase">
-          {barName}
-        </h1>
-        <div class="h-[1px] w-24 bg-stone-700 mx-auto"></div>
-        <p class="font-serif italic text-stone-400 text-xs md:text-sm tracking-wider">
-          {tagline}
-        </p>
-      </header>
+<MainLayout title="bar menu - impurrfect" description="Explore our handcrafted cocktail menu at The Impurrfect Speakeasy. Signature cocktails and classic twists with a modern edge, crafted with meticulous attention to detail.">
+  <MenuHeader tagline={tagline} />
 
-      <div class="space-y-16">
-        {menuCategories.map((cat) => (
-          <section class="space-y-8">
-            <div class="border-b border-stone-800 pb-2">
-              <h2 class="font-serif text-xl md:text-2xl text-amber-100 tracking-wide uppercase">
-                {cat.category}
-              </h2>
-              {cat.description && (
-                <p class="text-xs text-stone-500 italic mt-1 font-serif">
-                  {cat.description}
-                </p>
-              )}
-            </div>
-
-            <div class="space-y-6">
-              {cat.items.map((item) => (
-                <div class="group">
-                  <div class="flex justify-between items-baseline gap-4 mb-1">
-                    <h3 class="font-medium text-sm md:text-base text-stone-200 group-hover:text-amber-200 transition-colors duration-200">
-                      {item.name}
-                    </h3>
-                    <span class="h-[1px] flex-grow border-b border-dashed border-stone-800"></span>
-                    <span class="font-serif font-semibold text-amber-200 text-sm">
-                      {item.price}
-                    </span>
-                  </div>
-                  <p class="text-xs text-stone-400 font-light leading-relaxed max-w-xl">
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
-
-      <footer class="mt-24 pt-8 border-t border-stone-900 text-center space-y-2 text-[10px] text-stone-600 tracking-wide uppercase">
-        <p>Please inform your bartender of any allergies.</p>
-        <p>© {new Date().getFullYear()} {barName}.</p>
-      </footer>
-
-    </main>
-
-  </body>
-</html>
-
-<style>
-  /* Custom fallback handling for fonts alongside Tailwind */
-  .font-serif {
-    font-family: 'Cormorant Garamond', serif;
-  }
-  body {
-    font-family: 'Inter', sans-serif;
-  }
-</style>
+  <div class="space-y-16">
+    {menuCategories.map((cat) => (
+      <MenuCategory category={cat} />
+    ))}
+  </div>
+</MainLayout>

@@ -1,0 +1,7 @@
+name: "The Velvet Boulevardier"
+price: "VND 190k"
+description: "Campari, sweet vermouth, bourbon, infused with whole coffee beans."
+category: "Classic Twists"
+order: 2
+tags: ["Bitter", "Coffee"]
+featured: true

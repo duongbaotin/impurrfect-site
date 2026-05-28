@@ -1,0 +1,18 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="page not found - impurrfect">
+  <div class="min-h-[50dvh] flex flex-col items-center justify-center text-center space-y-6">
+    <h1 class="font-display text-6xl md:text-7xl text-[#875A2A]">404</h1>
+    <p class="font-body text-stone-400 text-sm max-w-md">
+      The page you're looking for doesn't exist — or has been lost to the imperfections of the web.
+    </p>
+    <a
+      href="/"
+      class="inline-block bg-[#875A2A] text-[#F6F3EF] font-medium px-6 py-3 rounded-sm hover:bg-[#6b4620] transition-colors duration-200 text-sm tracking-wide uppercase"
+    >
+      Back Home
+    </a>
+  </div>
+</MainLayout>

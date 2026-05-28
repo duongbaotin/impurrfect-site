@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0F0F12"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#grain)" opacity="0.03"/>
+  
+  <line x1="100" y1="215" x2="1100" y2="215" stroke="#33363A" stroke-width="1"/>
+  <line x1="100" y1="415" x2="1100" y2="415" stroke="#33363A" stroke-width="1"/>
+  
+  <text font-family="Georgia, serif" font-size="72" fill="#F6F3EF" text-anchor="middle" x="600" y="290" letter-spacing="8">
+    im
+    <tspan font-style="italic" fill="#875A2A">purr</tspan>
+    fect
+  </text>
+  
+  <text font-family="Georgia, serif" font-style="italic" font-size="22" fill="#F6F3EF" opacity="0.7" text-anchor="middle" x="600" y="345" letter-spacing="2">
+    Embracing flaws, crafting perfection.
+  </text>
+  
+  <rect x="560" y="440" width="80" height="2" fill="#875A2A"/>
+  
+  <text font-family="sans-serif" font-size="14" fill="#666" text-anchor="middle" x="600" y="480" letter-spacing="4" text-transform="uppercase">
+    The Impurrfect Speakeasy
+  </text>
+</svg>

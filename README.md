@@ -1,43 +1,65 @@
-# Astro Starter Kit: Minimal
+# impurrfect-site
 
-```sh
-npm create astro@latest -- --template minimal
+Brand site for **The Impurrfect Speakeasy** — a dark-themed speakeasy bar built with Astro and Tailwind CSS.
+
+## Stack
+
+- **Astro 6** — static site generation
+- **Tailwind CSS v4** — utility-first styling via `@tailwindcss/vite`
+- **TypeScript** — strict mode
+- **Node** >= 22.12.0, ESM
+
+## Routes
+
+| Route    | Page                |
+| -------- | ------------------- |
+| `/`      | Landing             |
+| `/bar-menu` | Menu listing     |
+| `/about`   | Brand story      |
+| `/contact` | Location & hours |
+| Any      | 404 page            |
+
+## Commands
+
+| Command              | Action                          |
+| -------------------- | ------------------------------- |
+| `npm run dev`        | Start dev server at `:4321`     |
+| `npm run build`      | Build to `./dist/`              |
+| `npm run preview`    | Preview production build        |
+| `npm run check`      | Type-check all `.astro` files   |
+| `npm run astro ...`  | Astro CLI wrapper               |
+
+## Project structure
+
+```
+src/
+├── components/       # Reusable UI components
+│   ├── Footer.astro
+│   ├── MenuCategory.astro
+│   ├── MenuHeader.astro
+│   ├── MenuItem.astro
+│   └── Nav.astro
+├── content/          # Content Collections (menu items as YAML)
+│   └── menu/
+├── content.config.ts # Collection schema
+├── data/             # Typed data & category metadata
+│   ├── categories.ts
+│   └── menu.ts
+├── layouts/
+│   └── MainLayout.astro  # Shared page shell
+├── pages/
+│   ├── 404.astro
+│   ├── about.astro
+│   ├── bar-menu/
+│   │   └── index.astro
+│   ├── contact.astro
+│   └── index.astro
+└── styles/
+    └── global.css
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Brand
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **Colors:** `#0F0F12` (bg), `#F6F3EF` (text), `#875A2A` (gold), `#33363A` (neutral)
+- **Fonts:** Playfair Display, Satoshi, Freight Big Pro (via `font-display`, `font-body`, `font-accent` classes)
+- **Pricing:** VND with "k" shorthand (e.g. `VND 180k`)
