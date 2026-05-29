@@ -6,19 +6,19 @@ interface Props {
 const { allergyNotice = true } = Astro.props;
 ---
 
-<footer class="mt-24 pt-8 pb-8 md:pb-12 border-t border-[#33363A] text-center space-y-2 text-[10px] text-stone-500 font-body tracking-widest">
+<footer class="mt-24 pt-8 pb-8 md:pb-12 border-t border-charcoal text-center space-y-2 text-[10px] text-stone-500 font-body tracking-widest">
   {allergyNotice && (
     <p class="uppercase">Please inform your bartender of any allergies.</p>
   )}
   <p>
-    © {new Date().getFullYear()} im<span class="font-accent text-[#875A2A] italic">purr</span>fect.
+    © {new Date().getFullYear()} im<span class="font-accent text-gold italic">purr</span>fect.
   </p>
   <div class="flex justify-center gap-3 pt-2">
-    <a href="https://instagram.com/impurrfect.bar" target="_blank" rel="noopener noreferrer" class="hover:text-[#F6F3EF] transition-colors duration-200 no-underline">
+    <a href="https://instagram.com/impurrfect.bar" target="_blank" rel="noopener noreferrer" class="hover:text-cream transition-colors duration-200 no-underline">
       Instagram
     </a>
-    <span class="text-[#33363A]">·</span>
-    <a href="https://facebook.com/impurrfect.bar" target="_blank" rel="noopener noreferrer" class="hover:text-[#F6F3EF] transition-colors duration-200 no-underline">
+    <span class="text-charcoal">·</span>
+    <a href="https://facebook.com/impurrfect.bar" target="_blank" rel="noopener noreferrer" class="hover:text-cream transition-colors duration-200 no-underline">
       Facebook
     </a>
   </div>

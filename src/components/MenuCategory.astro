@@ -24,8 +24,8 @@ const sortedGroups = [...grouped.entries()];
 ---
 
 <section class="space-y-8">
-  <div class="border-b border-[#33363A] pb-2">
-    <h2 class="font-display text-xl md:text-2xl text-[#875A2A] tracking-wider uppercase">
+  <div class="border-b border-charcoal pb-2">
+    <h2 class="font-display text-xl md:text-2xl text-gold tracking-wider uppercase">
       {cat.category}
     </h2>
     {cat.description && (
@@ -38,7 +38,7 @@ const sortedGroups = [...grouped.entries()];
     {ungrouped.map((item) => <MenuItem item={item} />)}
     {sortedGroups.map(([sub, items]) => (
       <div class="space-y-4">
-        <h3 class="font-display text-xs uppercase tracking-widest text-[#875A2A]/70 border-b border-[#33363A]/50 pb-1">
+        <h3 class="font-display text-xs uppercase tracking-widest text-gold/70 border-b border-charcoal/50 pb-1">
           {sub}
         </h3>
         <div class="space-y-5">

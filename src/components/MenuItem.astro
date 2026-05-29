@@ -17,15 +17,15 @@ const unavailable = item.available === false;
     )}
     <div class="flex-1 min-w-0">
       <div class="flex justify-between items-baseline gap-4 mb-1">
-        <h3 class={`font-normal text-sm md:text-base transition-colors duration-200 tracking-wide${unavailable ? ' line-through text-stone-500' : ' text-[#F6F3EF] group-hover:text-[#875A2A]'}`}>
+        <h3 class={`font-normal text-sm md:text-base transition-colors duration-200 tracking-wide${unavailable ? ' line-through text-stone-500' : ' text-cream group-hover:text-gold'}`}>
           {item.name}
         </h3>
         <div class="flex items-center gap-2 shrink-0">
           {item.featured && (
-            <span class="font-accent text-[9px] text-[#875A2A] tracking-widest uppercase">&#9733; Bartender's Pick</span>
+            <span class="font-accent text-[9px] text-gold tracking-widest uppercase">&#9733; Bartender's Pick</span>
           )}
-          <span class="h-[1px] w-4 border-b border-dashed border-[#33363A] hidden sm:block"></span>
-          <span class="font-display font-medium text-[#875A2A] text-sm">
+          <span class="h-[1px] w-4 border-b border-dashed border-charcoal hidden sm:block"></span>
+          <span class="font-display font-medium text-gold text-sm">
             {item.price}
           </span>
         </div>
@@ -36,7 +36,7 @@ const unavailable = item.available === false;
       {item.tags && item.tags.length > 0 && (
         <div class="flex gap-2 mt-2">
           {item.tags.map((tag) => (
-            <span class="inline-block text-[9px] uppercase tracking-widest text-[#875A2A] border border-[#875A2A] px-2 py-[1px] rounded-sm">
+            <span class="inline-block text-[9px] uppercase tracking-widest text-gold border border-gold px-2 py-[1px] rounded-sm">
               {tag}
             </span>
           ))}

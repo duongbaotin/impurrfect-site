@@ -5,17 +5,17 @@ const isActive = (path: string) =>
 const linkClass = (path: string) =>
   `font-body text-xs tracking-widest uppercase no-underline transition-colors duration-200 ${
     isActive(path)
-      ? 'text-[#F6F3EF]'
-      : 'text-stone-400 hover:text-[#F6F3EF]'
+      ? 'text-cream'
+      : 'text-stone-400 hover:text-cream'
   }`;
 
 const linkAttrs = (path: string) => ({ class: linkClass(path), 'aria-current': isActive(path) ? 'page' as const : undefined });
 ---
 
-<nav class="border-b border-[#33363A]">
+<nav class="border-b border-charcoal">
   <div class="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="/" class="font-display text-[#F6F3EF] text-lg tracking-widest no-underline">
-      im<span class="font-accent italic text-[#875A2A]">purr</span>fect
+    <a href="/" class="font-display text-cream text-lg tracking-widest no-underline">
+      im<span class="font-accent italic text-gold">purr</span>fect
     </a>
     <div class="flex items-center gap-6">
       <a href="/menu" {...linkAttrs('/menu')}>Menu</a>

@@ -1,1 +1,15 @@
 @import "tailwindcss";
+@theme {
+  --color-night: #0F0F12;
+  --color-cream: #F6F3EF;
+  --color-gold: #875A2A;
+  --color-gold-dark: #6b4620;
+  --color-charcoal: #33363A;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --animate-fade-in: fadeIn 0.5s ease-in;
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
