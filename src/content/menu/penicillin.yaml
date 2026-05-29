@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Penicillin"
+price: "VND 149k"              # always use "VND ...k" format
+description: "A fiery, comforting blend of robust bourbon and blended whiskey, sharpened by fresh lime and spicy ginger syrup, then softened with rich honey and served alongside chewy candied ginger."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 7                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Whiskey-based" # groups drinks within a category
+tags: ["Spirit-Forward", "Spiced", "Sour"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: false             # set to false to show "Currently unavailable"

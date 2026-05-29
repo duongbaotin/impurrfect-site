@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Fine & Dandy"
+price: "VND 149k"              # always use "VND ...k" format
+description: "A vibrant, bone-dry sibling to the White Lady, where crisp botanicals and bright citrus are cut with a steady hand of aromatic bitters for a crisp, punchy finish."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 16                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Gin-based" # groups drinks within a category
+tags: ["Sour", "Citrus", "Aromatic"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

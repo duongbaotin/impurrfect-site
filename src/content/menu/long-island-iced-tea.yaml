@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Long Island Iced Tea"
+price: "VND 149k"              # always use "VND ...k" format
+description: "Five clear spirits—vodka, gin, rum, tequila, and triple sec—unite under a bright burst of fresh lime, finished with just enough cola to lend its iconic amber hue and effervescent sweetness."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 1                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Mixed Spirits" # groups drinks within a category
+tags: ["Spirit-Forward", "Citrus", "Refreshing"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

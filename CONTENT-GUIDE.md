@@ -43,8 +43,8 @@ available?: boolean     # default true; set false to show "Currently unavailable
 
 ### Adding a drink
 
-1. Create a new `.yaml` file in `src/content/menu/`.
-2. Fill in the fields above.
+1. Look at `src/content/menu/TEMPLATE.md` for a copy-ready template with examples.
+2. Create a new `.yaml` file in `src/content/menu/` and fill in your drink's info.
 3. Make sure `category` matches exactly with an entry in `src/data/categories.ts`.
 
 ### Adding / editing a category
@@ -70,4 +70,4 @@ Edit `src/data/categories.ts`. Each entry:
 
 - After any edit, run `npm run dev` to preview immediately.
 - Commit and push — Vercel auto-deploys. No build step needed on your end.
-- **If the codebase structure changes** (e.g. files move, data sources change), this guide should be updated to match.
+- **If the menu item schema changes** (fields, defaults, categories), update all of these in sync: `src/content.config.ts`, `src/data/menu.ts`, `CONTENT-GUIDE.md`, and `src/content/menu/TEMPLATE.md`.

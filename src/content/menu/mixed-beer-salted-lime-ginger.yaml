@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Salted-Lime & Ginger Mixed Beer"
+price: "VND 79k"              # always use "VND ...k" format
+description: "Muddled salted-lime brings a deeply savory, umami-rich punch that locks into a fiery tango with sweet ginger syrup, giving a crisp light lager an incredibly complex, sweet-and-sour depth."
+category: "Mixed Beers" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 36                     # position in the list; lower = first (default: 0 / sorts first)
+# subcategory: "" # groups drinks within a category
+tags: ["Savory", "Spiced", "Tart"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Screwdriver"
+price: "VND 109k"              # always use "VND ...k" format
+description: "Freshly squeezed orange juice completely envelopes a generous pour of crisp vodka, letting the bright, vibrant citrus sweetness effortlessly hide the spirit's clean punch."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 28                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Vodka-based" # groups drinks within a category
+tags: ["Citrus", "Fruity", "Simple"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

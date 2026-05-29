@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Dark 'N' Stormy"
+price: "VND 109k"              # always use "VND ...k" format
+description: "Moody dark rum floats like a tempest over a sharp, fiery layer of ginger beer, creating a visually striking highball that drinks crisp and bites back gently."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 22                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Rum-based" # groups drinks within a category
+tags: ["Spiced", "Bold", "Effervescent"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

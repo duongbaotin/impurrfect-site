@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Fried Chicken Wingettes (4pcs / 6pcs)"
+price: "VND 79k / 109k"              # always use "VND ...k" format
+description: "Crispy, golden-fried chicken wingettes cooked to a perfect crunch while locking in maximum juiciness, served up hot and ready to share in a 4-piece or 6-piece basket."
+category: "Snacks" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 38                     # position in the list; lower = first (default: 0 / sorts first)
+# subcategory: "" # groups drinks within a category
+tags: ["Savory", "Crispy", "Rich"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

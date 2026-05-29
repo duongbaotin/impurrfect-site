@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Fried Chips"
+price: "VND 49k"              # always use "VND ...k" format
+description: "Thick, golden-fried potato batons crisp on the outside and wonderfully fluffy within, lightly salted and served piping hot for the ultimate, crowd-pleasing pub side."
+category: "Snacks" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 39                     # position in the list; lower = first (default: 0 / sorts first)
+# subcategory: "" # groups drinks within a category
+tags: ["Savory", "Crispy", "Salty"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Moscow Mule"
+price: "VND 109k"              # always use "VND ...k" format
+description: "Sharp lime juice and fiery ginger syrup team up to give this clean vodka base a snappy, invigorating bite, finished with a lively splash of club soda that wakes up the palate."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 27                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Vodka-based" # groups drinks within a category
+tags: ["Spiced", "Citrus", "Effervescent"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

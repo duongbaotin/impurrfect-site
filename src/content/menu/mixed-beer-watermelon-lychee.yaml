@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Watermelon-Lychee Mixed Beer"
+price: "VND 79k"              # always use "VND ...k" format
+description: "Juicy watermelon and sweet, floral lychee get an aromatic wake-up call from rosemary, effortlessly lifting the clean crispness of a light lager base into a complex, summer-ready refresher."
+category: "Mixed Beers" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 34                     # position in the list; lower = first (default: 0 / sorts first)
+# subcategory: "" # groups drinks within a category
+tags: ["Fruity", "Floral", "Herbal", "Sweet"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

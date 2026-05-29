@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Fitzgerald"
+price: "VND 149k"              # always use "VND ...k" format
+description: "Botanical gin gets a vibrant, sweet-tart lift from fresh lemon, while a pinch of salt makes the flavors pop against a warm anchor of aromatic bitters."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 14                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Gin-based" # groups drinks within a category
+tags: ["Sour", "Botanical", "Balanced"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

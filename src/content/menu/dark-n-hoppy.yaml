@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Dark 'N' Hoppy"
+price: "VND 109k"              # always use "VND ...k" format
+description: "Fiery ginger and sharp lime collide with the deep, molasses weight of dark rum, while a crisp splash of light lager stretches the flavors out into a refreshingly bitter, effervescent finish."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 23                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Rum-based" # groups drinks within a category
+tags: ["Spiced", "Bitter", "Effervescent"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

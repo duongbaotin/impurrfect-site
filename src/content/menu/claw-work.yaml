@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Claw Work"
+price: "VND 79k"              # always use "VND ...k" format
+description: "Traditional Vietnamese salted lime brings a complex, savory tang to this refreshing blend, sharpened by ginger syrup and topped with the bright fizz of ginger ale."
+category: "Signature" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 4                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Zero Alcohol" # groups drinks within a category
+tags: ["Tart", "Savory"]    # flavor tags shown on the menu
+featured: true               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

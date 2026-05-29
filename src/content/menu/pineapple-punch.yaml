@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Pineapple Punch"
+price: "VND 149k"              # always use "VND ...k" format
+description: "An immediate ticket to the tropics, blending a generous splash of lush pineapple and lime with white rum, awakened by shaken mint and a bubbly, spiced ginger ale finish."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 18                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Rum-based" # groups drinks within a category
+tags: ["Tropical", "Fruity", "Refreshing"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

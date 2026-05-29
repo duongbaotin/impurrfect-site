@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Tequila Gimlet"
+price: "VND 149k"              # always use "VND ...k" format
+description: "A clean, hefty pour of agave-forward tequila blanco is dialed in by a sharp, crisp volume of lime and simple syrup, yielding a perfectly balanced, sweet-and-sour refresher."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 31                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Tequila-based" # groups drinks within a category
+tags: ["Citrus", "Tart", "Clean"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

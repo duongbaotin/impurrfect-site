@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Pinky Paw"
+price: "VND 149k"              # always use "VND ...k" format
+description: "Smooth white rum and bright lime fuse with rich, house-made strawberry syrup and triple sec, lifted by a velvety egg white foam and a subtle, grounding dash of aromatic bitters."
+category: "Signature" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 5                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Signature Cocktails" # groups drinks within a category
+tags: ["Fruity", "Sour", "Velvety"]    # flavor tags shown on the menu
+featured: true               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

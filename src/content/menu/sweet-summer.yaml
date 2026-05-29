@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Sweet Summer"
+price: "VND 79k"              # always use "VND ...k" format
+description: "A vibrant, deeply refreshing blend of crisp watermelon and exotic lychee, brightened by a splash of lime and a subtle hint of aromatic rosemary."
+category: "Signature" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 1                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Zero Alcohol" # groups drinks within a category
+tags: ["Fruity", "Refreshing", "Floral"]    # flavor tags shown on the menu
+featured: true               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

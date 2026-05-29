@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Whiskey Sour"
+price: "VND 129k"              # always use "VND ...k" format
+description: "Bold bourbon and sharp lemon juice find perfect equilibrium with simple syrup, whipped into a luxurious texture with egg white and accented by a fragrant orange twist and aromatic bitters."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 5                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Whiskey-based" # groups drinks within a category
+tags: ["Spirit-Forward", "Sour", "Velvety"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

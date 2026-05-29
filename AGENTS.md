@@ -56,7 +56,7 @@ name: string
 price: string          # e.g. "VND 180k"
 description: string
 category: string       # must match a name in categories.ts
-order: number          # sort position within category
+order: number          # sort position within category (defaults to 0; no order → sorts first)
 tags?: string[]        # e.g. ["Smoky", "Bitter"]
 featured?: boolean     # shows ★ Bartender's Pick badge
 image?: string         # path to thumbnail in public/, e.g. "/cocktail-placeholder.svg"
@@ -65,6 +65,13 @@ available?: boolean    # default true; set false to show "Currently unavailable"
 ```
 
 To add a new menu item: create a new `.yaml` file, commit, and Vercel auto-deploys.
+
+When changing the menu item schema (adding/removing fields, changing defaults, etc.), update all of these in sync:
+- `src/content.config.ts` — zod schema
+- `src/data/menu.ts` — TypeScript types
+- `CONTENT-GUIDE.md` — end-user field docs
+- `src/content/menu/TEMPLATE.md` — copy-ready example template
+- The YAML fields block in this file
 
 ## Style conventions
 
@@ -76,18 +83,11 @@ To add a new menu item: create a new `.yaml` file, commit, and Vercel auto-deplo
 ## Infrastructure
 
 - **Live domain:** `impurrfect-bar.meowracle.space`
-- **DNS:** Cloudflare (proxied, orange cloud). Root `meowracle.space` has an A record forwarding to Cloudflare's edge.
-- **Redirect:** Cloudflare Page Rule — `meowracle.space/impurrfect-bar*` → `https://impurrfect-bar.meowracle.space/$1` (301). This is independent of this repo; do not remove.
-- **Root domain** (`meowracle.space`) is a separate future project, not this repo.
+- **Cloudflare Page Rule** (independent of this repo; do not remove): `meowracle.space/impurrfect-bar*` → `https://impurrfect-bar.meowracle.space/$1` (301)
 - No CI / no `.github` directory — all testing is local-only via `npm run check`.
 - **vercel.json** also defines two permanent redirects: `/bar-menu` → `/menu` and `/bar-menu/:path*` → `/menu/:path*`.
 
-## References
+## Notable files
 
-- **`CONTENT-GUIDE.md`** — end-user guide for editing page text, menu items, prices, categories, and venue info. Keep in sync if the codebase structure changes.
-
-## Generated files (do not edit)
-
-- `.astro/` — Astro-generated type stubs, settings
-- `dist/` — build output
-- `.vercel/` — Vercel output (also in `.gitignore`)
+- **`CONTENT-GUIDE.md`** — end-user guide for editing page content. Keep in sync if the codebase structure changes.
+- **Generated (do not edit):** `.astro/`, `dist/`, `.vercel/` (all in `.gitignore`)

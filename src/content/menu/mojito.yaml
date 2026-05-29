@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Mojito"
+price: "VND 109k"              # always use "VND ...k" format
+description: "A vibrant tropical classic that punches through the heat with muddled lime and fresh mint, carrying the clean warmth of white rum into a crisp, bubbly finish."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 17                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Rum-based" # groups drinks within a category
+tags: ["Herbal", "Refreshing", "Citrus"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

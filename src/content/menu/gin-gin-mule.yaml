@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Gin-Gin Mule"
+price: "VND 149k"              # always use "VND ...k" format
+description: "Crisp gin and fresh, muddled mint are sharpened by a bright splash of lime and spicy ginger syrup, served ice-cold and elongated with clean, bubbly club soda."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 11                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Gin-based" # groups drinks within a category
+tags: ["Refreshing", "Herbal", "Spiced"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

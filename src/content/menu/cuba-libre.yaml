@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Cuba Libre"
+price: "VND 89k"              # always use "VND ...k" format
+description: "Simplicity at its finest: sharp lime juice cuts straight through the rich, dark sweetness of cola, instantly lifting the clean profile of white rum."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 19                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Rum-based" # groups drinks within a category
+tags: ["Sweet", "Citrus", "Effervescent"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

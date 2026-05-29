@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Highlander Highball"
+price: "VND 149k"              # always use "VND ...k" format
+description: "Robust whiskey pairs with tropical pineapple and sharp lime juice, shaken together and topped with crisp club soda for a refreshing, effervescent twist on a classic highball."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 8                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Whiskey-based" # groups drinks within a category
+tags: ["Spirit-Forward", "Tropical", "Refreshing"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: false             # set to false to show "Currently unavailable"

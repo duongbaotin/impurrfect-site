@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "White Lady"
+price: "VND 149k"              # always use "VND ...k" format
+description: "Velvety and sharp, this sophisticated classic wraps the brightness of lime and orange liqueur around a botanical core, whipped with egg white into a cloud-like, silky finish."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 15                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Gin-based" # groups drinks within a category
+tags: ["Sour", "Velvety", "Citrus"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

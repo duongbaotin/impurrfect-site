@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "The Kaku-Hi"
+price: "VND 149k"              # always use "VND ...k" format
+description: "Chilled Japanese blended whiskey meets a lively splash of crisp club soda, brightened by a fresh lemon wheel in a clean, exceptionally effervescent highball."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 3                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Whiskey-based" # groups drinks within a category
+tags: ["Spirit-Forward", "Refreshing"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Strip and Go Naked"
+price: "VND 129k"              # always use "VND ...k" format
+description: "Bright orange and lime juices cut through a potent, crisp baseline of gin and vodka, layered with sweet grenadine and lengthened by the clean, refreshing effervescence of lager."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 2                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Mixed Spirits" # groups drinks within a category
+tags: ["Spirit-Forward", "Refreshing"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

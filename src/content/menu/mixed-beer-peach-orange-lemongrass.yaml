@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Peach, Orange & Lemongrass Mixed Beer"
+price: "VND 79k"              # always use "VND ...k" format
+description: "Sweet peach and bright orange citrus seamlessly blend with the aromatic, herbal fragrance of lemongrass, beautifully softening the crisp bitterness of a light lager for a deeply comforting, local-favorite flavor profile."
+category: "Mixed Beers" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 37                     # position in the list; lower = first (default: 0 / sorts first)
+# subcategory: "" # groups drinks within a category
+tags: ["Fruity", "Citrus", "Herbal"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"

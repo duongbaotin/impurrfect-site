@@ -1,0 +1,15 @@
+# ---- Required fields ----
+
+name: "Watermelon Mint Cooler"
+price: "VND 149k"              # always use "VND ...k" format
+description: "Fresh, juicy watermelon and smacked mint leaves deliver an instant wave of summer coolness, balanced by a sharp hit of lime and a bubbly soda finish that keeps the heavy pour of vodka exceptionally crisp."
+category: "Cocktails" # must match a category exactly (see below)
+
+# ---- Optional fields ----
+
+order: 26                     # position in the list; lower = first (default: 0 / sorts first)
+subcategory: "Vodka-based" # groups drinks within a category
+tags: ["Refreshing", "Fruity", "Herbal"]    # flavor tags shown on the menu
+featured: false               # adds a ★ Bartender's Pick badge
+# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+available: true             # set to false to show "Currently unavailable"
