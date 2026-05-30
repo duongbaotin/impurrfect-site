@@ -11,5 +11,5 @@ order: 34                     # position in the list; lower = first (default: 0 
 # subcategory: "" # groups drinks within a category
 tags: ["Fruity", "Floral", "Herbal", "Sweet"]    # flavor tags shown on the menu
 featured: false               # adds a ★ Bartender's Pick badge
-# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+image: "/tulip-glass.svg"  # path to an image in the public/ folder
 available: true             # set to false to show "Currently unavailable"

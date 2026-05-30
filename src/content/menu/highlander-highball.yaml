@@ -11,5 +11,5 @@ order: 8                     # position in the list; lower = first (default: 0 /
 subcategory: "Whiskey-based" # groups drinks within a category
 tags: ["Spirit-Forward", "Tropical", "Refreshing"]    # flavor tags shown on the menu
 featured: false               # adds a ★ Bartender's Pick badge
-image: "/collins-glass.svg"  # path to an image in the public/ folder
+image: "/highball-glass.svg"  # path to an image in the public/ folder
 available: false             # set to false to show "Currently unavailable"

@@ -11,5 +11,5 @@ order: 2                     # position in the list; lower = first (default: 0 /
 subcategory: "Mixed Spirits" # groups drinks within a category
 tags: ["Spirit-Forward", "Refreshing"]    # flavor tags shown on the menu
 featured: false               # adds a ★ Bartender's Pick badge
-# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+image: "/highball-glass.svg"  # path to an image in the public/ folder
 available: true             # set to false to show "Currently unavailable"

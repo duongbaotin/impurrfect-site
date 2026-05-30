@@ -9,9 +9,9 @@ const { item } = Astro.props;
 const unavailable = item.available === false;
 ---
 
-<div class={`group font-body flex gap-4${unavailable ? ' opacity-50' : ''}`}>
+  <div class={`group font-body flex gap-4 items-center${unavailable ? ' opacity-50' : ''}`}>
     {item.image && (
-      <div class="shrink-0 pt-1">
+      <div class="shrink-0">
         <img src={item.image} alt="" class="w-10 h-auto opacity-50" aria-hidden="true" />
       </div>
     )}
