@@ -1,0 +1,9 @@
+---
+interface Props {
+  normalCase?: boolean;
+}
+
+const { normalCase = false } = Astro.props;
+---
+
+im<span class="font-accent italic text-gold" class:list={{ 'normal-case': normalCase }}>purr</span>fect

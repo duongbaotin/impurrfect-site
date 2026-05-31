@@ -17,13 +17,13 @@ const unavailable = item.available === false;
     )}
     <div class="flex-1 min-w-0">
       <div class="flex justify-between items-baseline gap-4 mb-1">
-        <h3 class={`font-normal text-sm md:text-base transition-colors duration-200 tracking-wide${unavailable ? ' line-through text-stone-500' : ' text-cream group-hover:text-gold'}`}>
+        <h3 class={`font-normal text-sm md:text-base transition-colors duration-200 tracking-wide${unavailable ? ' line-through text-stone-500' : ' text-cream group-hover:text-gold'}${item.featured && !unavailable ? ' featured' : ''}`}>
           {item.name}
+          {item.featured && !unavailable && (
+            <span class="stamp">House's Pick</span>
+          )}
         </h3>
         <div class="flex items-center gap-2 shrink-0">
-          {item.featured && (
-            <span class="font-accent text-[9px] text-gold tracking-widest uppercase">&#9733; Bartender's Pick</span>
-          )}
           <span class="h-[1px] w-4 border-b border-dashed border-charcoal hidden sm:block"></span>
           <span class="font-display font-medium text-gold text-sm">
             {item.price}
@@ -49,3 +49,32 @@ const unavailable = item.available === false;
       )}
     </div>
 </div>
+
+<style>
+  h3.featured {
+    position: relative;
+  }
+  h3.featured::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    bottom: -3px;
+    width: 100%;
+    border-bottom: 1px dashed var(--color-gold);
+  }
+  h3.featured .stamp {
+    position: absolute;
+    left: calc(100% + 1rem + 0.5rem);
+    bottom: -5px;
+    font-family: var(--font-body);
+    font-size: 8px;
+    color: var(--color-gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 1px 5px;
+    border: 1px solid var(--color-gold);
+    opacity: 0.85;
+    transform: rotate(-2deg);
+  }
+</style>

@@ -36,7 +36,7 @@ No tests, no linter, no formatter config in this repo. Pre-merge verification: `
 See [`CODEBASE-MAP.md`](./CODEBASE-MAP.md) for the complete file-by-file edit guide.
 
 Key conventions an agent is likely to miss:
-- **Brand word "impurrfect"** — always lowercase, wrapped as `im<span class="font-accent italic text-gold">purr</span>fect`. Do not hardcode it as plain text in visible HTML.
+- **Brand word "impurrfect"** — use `<BrandNameWord />` component (with `normalCase` prop when inside `uppercase` context). Never hardcode as plain text in visible HTML.
 - **Font classes only:** `.font-display`, `.font-body`, `.font-accent` — do NOT use Tailwind's `fontFamily` theme config. Satoshi and Freight Big Pro are declared but not loaded — they resolve to system fallbacks.
 - **No raw hex colors** — use `bg-night`, `text-cream`, `text-gold`, `border-charcoal` etc. (defined in `src/styles/global.css` `@theme`).
 - **Pricing format:** Vietnamese Dong with "k" shorthand, e.g. `VND 180k`.
@@ -44,6 +44,7 @@ Key conventions an agent is likely to miss:
 - **No React** — pure Astro + Tailwind.
 - `src/styles/global.css` imported only by `MainLayout`.
 - `HoursLocation.astro` — pre-built venue block; import instead of duplicating markup.
+- `BrandNameWord.astro` — pre-built brand word; use `<BrandNameWord />` instead of hand-coding the `<span>` wrapper.
 
 ## Content Collections
 

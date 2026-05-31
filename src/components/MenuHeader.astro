@@ -3,13 +3,14 @@ interface Props {
   tagline: string;
 }
 
+import BrandNameWord from './BrandNameWord.astro';
 const { tagline } = Astro.props;
 ---
 
 <header class="text-center mb-16 space-y-2">
   <h1 class="font-display text-4xl md:text-5xl tracking-widest text-cream">
     <a href="/" class="no-underline text-inherit">
-      im<span class="font-accent text-gold normal-case italic">purr</span>fect
+      <BrandNameWord normalCase />
     </a>
   </h1>
   <div class="h-[1px] w-20 bg-charcoal mx-auto my-3"></div>

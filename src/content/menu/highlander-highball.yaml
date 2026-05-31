@@ -12,4 +12,4 @@ subcategory: "Whiskey-based" # groups drinks within a category
 tags: ["Spirit-Forward", "Tropical", "Refreshing"]    # flavor tags shown on the menu
 featured: false               # adds a ★ Bartender's Pick badge
 image: "/highball-glass.svg"  # path to an image in the public/ folder
-available: false             # set to false to show "Currently unavailable"
+available: true             # set to false to show "Currently unavailable"

@@ -14,6 +14,10 @@ How to edit site content for **The Impurrfect Speakeasy**.
 | 404 page | `src/pages/404.astro` |
 | SEO titles, descriptions | `title` and `description` props on `<MainLayout>` in each page |
 
+The brand word "impurrfect" is a reusable component:
+
+> `src/components/BrandNameWord.astro` — use `<BrandNameWord />` anywhere the brand name appears. Add the `normalCase` prop (e.g. `<BrandNameWord normalCase />`) when rendered inside a parent with `uppercase` text styling.
+
 The venue info block (location, hours, email) is shared:
 
 > `src/components/HoursLocation.astro` — edit in one place, it updates every page that uses it.

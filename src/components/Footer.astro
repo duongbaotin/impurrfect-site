@@ -3,6 +3,7 @@ interface Props {
   allergyNotice?: boolean;
 }
 
+import BrandNameWord from './BrandNameWord.astro';
 const { allergyNotice = true } = Astro.props;
 ---
 
@@ -11,7 +12,7 @@ const { allergyNotice = true } = Astro.props;
     <p class="uppercase">Please inform your bartender of any allergies.</p>
   )}
   <p>
-    © {new Date().getFullYear()} <span class="font-display text-cream">im<span class="font-accent italic text-gold">purr</span>fect</span>.
+    © {new Date().getFullYear()} <span class="font-display text-cream"><BrandNameWord /></span>.
   </p>
   <div class="flex justify-center gap-3 pt-2">
     <a href="https://instagram.com/impurrfect.bar" target="_blank" rel="noopener noreferrer" class="hover:text-cream transition-colors duration-200 no-underline">
