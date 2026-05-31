@@ -36,6 +36,7 @@ No tests, no linter, no formatter config in this repo. Pre-merge verification: `
 See [`CODEBASE-MAP.md`](./CODEBASE-MAP.md) for the complete file-by-file edit guide.
 
 Key conventions an agent is likely to miss:
+- **Brand word "impurrfect"** — always lowercase, wrapped as `im<span class="font-accent italic text-gold">purr</span>fect`. Do not hardcode it as plain text in visible HTML.
 - **Font classes only:** `.font-display`, `.font-body`, `.font-accent` — do NOT use Tailwind's `fontFamily` theme config. Satoshi and Freight Big Pro are declared but not loaded — they resolve to system fallbacks.
 - **No raw hex colors** — use `bg-night`, `text-cream`, `text-gold`, `border-charcoal` etc. (defined in `src/styles/global.css` `@theme`).
 - **Pricing format:** Vietnamese Dong with "k" shorthand, e.g. `VND 180k`.

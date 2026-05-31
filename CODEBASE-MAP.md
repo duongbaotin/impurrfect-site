@@ -160,6 +160,7 @@ Pre-merge verification: `npm run build && npm run preview` (~10 seconds).
 
 ## Brand conventions (don't guess these)
 
+- **Brand word "impurrfect"** — always lowercase, wrapped as `im<span class="font-accent italic text-gold">purr</span>fect`. Do not hardcode as plain text in visible HTML.
 - **No raw hex values** — use `bg-night`, `text-cream`, `text-gold`, `border-charcoal`, etc. from `@theme` in `global.css`
 - **Font classes only:** `.font-display`, `.font-body`, `.font-accent` — do NOT use Tailwind's `fontFamily` theme config
 - **Pricing format:** `"VND 180k"` (Vietnamese Dong with "k" shorthand)
