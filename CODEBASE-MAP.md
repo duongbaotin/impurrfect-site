@@ -12,7 +12,7 @@ src/
 ├── layouts/
 │   └── MainLayout.astro    → HTML shell: <head>, <Nav>, <Footer>, <slot>
 ├── components/
-│   ├── Nav.astro           → Top nav bar (Menu / About / Contact)
+│   ├── Nav.astro           → Top nav bar + mobile hamburger menu (Alpine.js)
 │   ├── Footer.astro        → Allergy notice, copyright, social links
 │   ├── HoursLocation.astro → Reusable address/hours/email block
 │   ├── MenuHeader.astro    → "impurrfect" title + tagline for /menu
@@ -41,7 +41,7 @@ src/
 | Want to change… | File |
 |---|---|
 | Page shell (fonts, meta tags, OG image, analytics) | `src/layouts/MainLayout.astro` |
-| Navigation links / active-state styling | `src/components/Nav.astro` |
+| Navigation links, hamburger menu, mobile panel | `src/components/Nav.astro` — uses Alpine.js |
 | Footer (allergy notice, copyright, social links) | `src/components/Footer.astro` |
 | Content max-width (all pages) | `MainLayout.astro` line 53 (`max-w-2xl`) |
 | Skip-link styling | `MainLayout.astro` lines 62-78 |
@@ -156,7 +156,7 @@ YAML files ──► content.config.ts ──► getCollection('menu')
 | `npm run check` | Type-check `.astro` files |
 | `npm run astro sync` | Regenerate `.astro/types.d.ts` after schema changes |
 
-Pre-merge verification: `npm run build && npm run preview` (~10 seconds).
+Pre-merge verification: `npm run check && npm run build && npm run preview` (~10 seconds).
 
 ---
 
@@ -167,7 +167,7 @@ Pre-merge verification: `npm run build && npm run preview` (~10 seconds).
 - **Font classes only:** `.font-display`, `.font-body`, `.font-accent` — do NOT use Tailwind's `fontFamily` theme config
 - **Pricing format:** `"VND 180k"` (Vietnamese Dong with "k" shorthand)
 - **Images in `public/`** use absolute paths: `"/hero.svg"`
-- **No React** — pure Astro + Tailwind
+- **No React** — pure Astro + Tailwind; client interactivity via Alpine.js
 - **No tests, no linter, no formatter** in the repo
 - **Satoshi and Freight Big Pro** are declared in CSS but not loaded — they resolve to system fallbacks. Only Playfair Display is loaded via Google Fonts.
 

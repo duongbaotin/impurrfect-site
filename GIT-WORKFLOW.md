@@ -24,8 +24,8 @@ git checkout -b feat/what-youre-working-on
 #    (commit often — it's your branch, you can always squash later)
 
 # 3. Before pushing, verify the build
-npm run build && npm run preview
-#    Opens localhost:4321 — exactly what Vercel will serve.
+npm run check && npm run build && npm run preview
+#    Type-check first, then opens localhost:4321 — exactly what Vercel will serve.
 #    Check for errors and visual regressions.
 
 # 4. Push the branch
@@ -60,10 +60,11 @@ git push origin main
 ## Local preview (always do this before pushing)
 
 ```bash
-npm run build && npm run preview
+npm run check && npm run build && npm run preview
 ```
 
 This catches:
+- Type errors (invalid TypeScript)
 - Build errors (missing imports, invalid Astro syntax)
 - Broken pages (wrong routes, missing content)
 - Visual issues (CSS changes you didn't expect)

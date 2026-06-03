@@ -2,27 +2,87 @@
 const isActive = (path: string) =>
   Astro.url.pathname === path || (path !== '/' && Astro.url.pathname.startsWith(path));
 
-const linkClass = (path: string) =>
+const linkClass = (active: boolean) =>
   `font-body text-xs tracking-widest uppercase no-underline transition-colors duration-200 ${
-    isActive(path)
-      ? 'text-cream'
-      : 'text-stone-400 hover:text-cream'
+    active ? 'text-cream' : 'text-stone-400 hover:text-cream'
   }`;
 
-import BrandNameWord from './BrandNameWord.astro';
+const desktopLinkAttrs = (path: string) => ({
+  class: linkClass(isActive(path)),
+  'aria-current': isActive(path) ? 'page' as const : undefined,
+});
 
-const linkAttrs = (path: string) => ({ class: linkClass(path), 'aria-current': isActive(path) ? 'page' as const : undefined });
+import BrandNameWord from './BrandNameWord.astro';
 ---
 
-<nav class="border-b border-charcoal">
+<nav
+  x-data="{ mobileOpen: false }"
+  x-effect="document.body.style.overflow = mobileOpen ? 'hidden' : ''"
+  class="border-b border-charcoal"
+>
   <div class="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="/" class="font-display text-cream text-lg tracking-widest no-underline">
       <BrandNameWord />
     </a>
-    <div class="flex items-center gap-6">
-      <a href="/menu" {...linkAttrs('/menu')}>Menu</a>
-      <a href="/about" {...linkAttrs('/about')}>About</a>
-      <a href="/contact" {...linkAttrs('/contact')}>Contact</a>
+
+    <div class="hidden md:flex items-center gap-6">
+      <a href="/menu" {...desktopLinkAttrs('/menu')}>Menu</a>
+      <a href="/about" {...desktopLinkAttrs('/about')}>About</a>
+      <a href="/contact" {...desktopLinkAttrs('/contact')}>Contact</a>
     </div>
+
+    <button
+      class="md:hidden text-cream p-1 relative z-50"
+      @click="mobileOpen = !mobileOpen"
+      :aria-expanded="mobileOpen"
+      aria-label="Toggle menu"
+    >
+      <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg x-show="mobileOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div
+    class="fixed inset-0 z-40 bg-night flex flex-col items-center justify-center gap-8"
+    x-show="mobileOpen"
+    x-transition:enter="transition transform ease-out duration-300"
+    x-transition:enter-start="translate-x-full"
+    x-transition:enter-end="translate-x-0"
+    x-transition:leave="transition transform ease-in duration-200"
+    x-transition:leave-start="translate-x-0"
+    x-transition:leave-end="translate-x-full"
+    @keydown.escape.window="mobileOpen = false"
+  >
+    <a
+      href="/menu"
+      @click="mobileOpen = false"
+      class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
+      class:list={{ 'text-cream': isActive('/menu'), 'text-stone-400 hover:text-cream': !isActive('/menu') }}
+      aria-current={isActive('/menu') ? 'page' : undefined}
+    >
+      Menu
+    </a>
+    <a
+      href="/about"
+      @click="mobileOpen = false"
+      class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
+      class:list={{ 'text-cream': isActive('/about'), 'text-stone-400 hover:text-cream': !isActive('/about') }}
+      aria-current={isActive('/about') ? 'page' : undefined}
+    >
+      About
+    </a>
+    <a
+      href="/contact"
+      @click="mobileOpen = false"
+      class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
+      class:list={{ 'text-cream': isActive('/contact'), 'text-stone-400 hover:text-cream': !isActive('/contact') }}
+      aria-current={isActive('/contact') ? 'page' : undefined}
+    >
+      Contact
+    </a>
   </div>
 </nav>
