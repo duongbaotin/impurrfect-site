@@ -15,11 +15,7 @@ const desktopLinkAttrs = (path: string) => ({
 import BrandNameWord from './BrandNameWord.astro';
 ---
 
-<nav
-  x-data="{ mobileOpen: false }"
-  x-effect="document.body.style.overflow = mobileOpen ? 'hidden' : ''"
-  class="border-b border-charcoal"
->
+<nav x-data class="border-b border-charcoal relative z-50">
   <div class="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="/" class="font-display text-cream text-lg tracking-widest no-underline">
       <BrandNameWord />
@@ -32,57 +28,63 @@ import BrandNameWord from './BrandNameWord.astro';
     </div>
 
     <button
-      class="md:hidden text-cream p-1 relative z-50"
-      @click="mobileOpen = !mobileOpen"
-      :aria-expanded="mobileOpen"
+      class="md:hidden text-cream p-1"
+      @click="$store.mobileNav.open = !$store.mobileNav.open"
+      :aria-expanded="$store.mobileNav.open"
       aria-label="Toggle menu"
     >
-      <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <svg x-show="!$store.mobileNav.open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
-      <svg x-show="mobileOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <svg x-show="$store.mobileNav.open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
   </div>
-
-  <div
-    class="fixed inset-0 z-40 bg-night flex flex-col items-center justify-center gap-8"
-    x-show="mobileOpen"
-    x-transition:enter="transition transform ease-out duration-300"
-    x-transition:enter-start="translate-x-full"
-    x-transition:enter-end="translate-x-0"
-    x-transition:leave="transition transform ease-in duration-200"
-    x-transition:leave-start="translate-x-0"
-    x-transition:leave-end="translate-x-full"
-    @keydown.escape.window="mobileOpen = false"
-  >
-    <a
-      href="/menu"
-      @click="mobileOpen = false"
-      class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
-      class:list={{ 'text-cream': isActive('/menu'), 'text-stone-400 hover:text-cream': !isActive('/menu') }}
-      aria-current={isActive('/menu') ? 'page' : undefined}
-    >
-      Menu
-    </a>
-    <a
-      href="/about"
-      @click="mobileOpen = false"
-      class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
-      class:list={{ 'text-cream': isActive('/about'), 'text-stone-400 hover:text-cream': !isActive('/about') }}
-      aria-current={isActive('/about') ? 'page' : undefined}
-    >
-      About
-    </a>
-    <a
-      href="/contact"
-      @click="mobileOpen = false"
-      class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
-      class:list={{ 'text-cream': isActive('/contact'), 'text-stone-400 hover:text-cream': !isActive('/contact') }}
-      aria-current={isActive('/contact') ? 'page' : undefined}
-    >
-      Contact
-    </a>
-  </div>
 </nav>
+
+<div
+  x-init="$el.style.top = $el.previousElementSibling.offsetHeight + 'px'"
+  x-effect="document.body.style.overflow = $store.mobileNav.open ? 'hidden' : ''"
+  class="fixed inset-x-0 bottom-0 z-40 bg-night flex flex-col items-center justify-center gap-8"
+  x-show="$store.mobileNav.open"
+  x-transition:enter="transition transform ease-out duration-300"
+  x-transition:enter-start="translate-x-full"
+  x-transition:enter-end="translate-x-0"
+  x-transition:leave="transition transform ease-in duration-200"
+  x-transition:leave-start="translate-x-0"
+  x-transition:leave-end="translate-x-full"
+  @keydown.escape.window="$store.mobileNav.open = false"
+>
+  <a
+    href="/menu"
+    @click="$store.mobileNav.open = false"
+    class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
+    class:list={{ 'text-cream': isActive('/menu'), 'text-stone-400 hover:text-cream': !isActive('/menu') }}
+    aria-current={isActive('/menu') ? 'page' : undefined}
+  >
+    Menu
+  </a>
+  <a
+    href="/about"
+    @click="$store.mobileNav.open = false"
+    class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
+    class:list={{ 'text-cream': isActive('/about'), 'text-stone-400 hover:text-cream': !isActive('/about') }}
+    aria-current={isActive('/about') ? 'page' : undefined}
+  >
+    About
+  </a>
+  <a
+    href="/contact"
+    @click="$store.mobileNav.open = false"
+    class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
+    class:list={{ 'text-cream': isActive('/contact'), 'text-stone-400 hover:text-cream': !isActive('/contact') }}
+    aria-current={isActive('/contact') ? 'page' : undefined}
+  >
+    Contact
+  </a>
+</div>
+
+<script>
+  ;(window as any).Alpine.store('mobileNav', { open: false });
+</script>
