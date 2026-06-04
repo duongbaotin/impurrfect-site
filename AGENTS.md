@@ -46,6 +46,7 @@ Key conventions an agent is likely to miss:
 - `src/styles/global.css` imported only by `MainLayout`.
 - `HoursLocation.astro` — pre-built venue block; import instead of duplicating markup.
 - `BrandNameWord.astro` — pre-built brand word; use `<BrandNameWord />` instead of hand-coding the `<span>` wrapper.
+- **Avoid `fixed` positioning unless unavoidable** — it breaks document flow and creates stacking-context surprises. Prefer `relative` + dynamic sizing (e.g. Alpine `x-init` + `offsetHeight`) when an element must sit adjacent to another. If you use `fixed`, verify it doesn't cover sibling elements.
 
 ## Content Collections
 
