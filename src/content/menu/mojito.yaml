@@ -2,7 +2,7 @@
 
 name: "Mojito"
 price: "VND 109k"              # always use "VND ...k" format
-description: "A vibrant tropical classic that punches through the heat with muddled lime and fresh mint, carrying the clean warmth of white rum into a crisp, bubbly finish."
+description: "Muddled lime and fresh mint layered with white rum for a crisp, minty breeze."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

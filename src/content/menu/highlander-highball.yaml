@@ -2,7 +2,7 @@
 
 name: "Highlander Highball"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Robust whiskey pairs with tropical pineapple and sharp lime juice, shaken together and topped with crisp club soda for a refreshing, effervescent twist on a classic highball."
+description: "Tropical pineapple and tart lime shaken with robust whiskey and topped with bubbly soda."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

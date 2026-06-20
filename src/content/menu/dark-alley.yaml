@@ -2,7 +2,7 @@
 
 name: "Dark Alley"
 price: "VND 79k"              # always use "VND ...k" format
-description: "Tangy tamarind and crisp ginger ale collide in this savory, bold blend, sharply contrasted by a fiery dried shrimp chili salt rim."
+description: "Bold tamarind and ginger ale with a dried shrimp chili salt rim—drinks with claws."
 category: "Signature" # must match a category exactly (see below)
 
 # ---- Optional fields ----

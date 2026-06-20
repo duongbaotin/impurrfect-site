@@ -2,7 +2,7 @@
 
 name: "Margarita"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Crisp tequila blanco cuts through a sharp punch of lime juice and sweet triple sec, finding its perfect savory counterpoint in the classic salted rim."
+description: "Earthy tequila blanco and sharp lime with a savory, classic salted rim."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

@@ -2,7 +2,7 @@
 
 name: "Dark 'N' Hoppy"
 price: "VND 109k"              # always use "VND ...k" format
-description: "Fiery ginger and sharp lime collide with the deep, molasses weight of dark rum, while a crisp splash of light lager stretches the flavors out into a refreshingly bitter, effervescent finish."
+description: "Deep dark rum, fiery ginger, and tart lime stretched out with a splash of lager."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

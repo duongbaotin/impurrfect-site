@@ -2,7 +2,7 @@
 
 name: "Claw Work"
 price: "VND 79k"              # always use "VND ...k" format
-description: "Traditional Vietnamese salted lime brings a complex, savory tang to this refreshing blend, sharpened by ginger syrup and topped with the bright fizz of ginger ale."
+description: "Savory Vietnamese salted lime and fiery ginger syrup to sharpen your claws."
 category: "Signature" # must match a category exactly (see below)
 
 # ---- Optional fields ----

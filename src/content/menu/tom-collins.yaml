@@ -2,7 +2,7 @@
 
 name: "Tom Collins"
 price: "VND 129k"              # always use "VND ...k" format
-description: "Crisp London dry gin meets a sharp, generous burst of fresh lime juice and simple syrup, built over ice and lengthened with the clean effervescence of club soda."
+description: "A tall, breezy glass of crisp gin, sweet-tart lime, and bubbly club soda."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

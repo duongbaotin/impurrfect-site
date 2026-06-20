@@ -23,3 +23,14 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .vercel
+
+# dev tools / agent artifacts
+.commandcode/
+.impeccable/
+graphify-out/
+
+# alternate package manager lockfiles
+bun.lock
+
+# personal agent logs
+FORtin.md

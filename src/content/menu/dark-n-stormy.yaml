@@ -2,7 +2,7 @@
 
 name: "Dark 'N' Stormy"
 price: "VND 109k"              # always use "VND ...k" format
-description: "Moody dark rum floats like a tempest over a sharp, fiery layer of ginger beer, creating a visually striking highball that drinks crisp and bites back gently."
+description: "Moody dark rum layered over fiery ginger beer—drinks crisp and bites back gently."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

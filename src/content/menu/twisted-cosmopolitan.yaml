@@ -2,7 +2,7 @@
 
 name: "Twisted Cosmopolitan"
 price: "VND 129k"              # always use "VND ...k" format
-description: "House-made strawberry syrup replaces the traditional cranberry here, wrapping a velvety berry sweetness around the crisp vodka base while sharp lime and orange liqueur snap the finish back into focus."
+description: "A sweet strawberry twist on the classic, blending vodka, lime, and orange liqueur."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

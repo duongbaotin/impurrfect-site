@@ -41,7 +41,7 @@ Key conventions an agent is likely to miss:
 - **Font classes only:** `.font-display`, `.font-body` (Tailwind `@theme` utilities), `.font-accent` (global style in `MainLayout.astro`, not a Tailwind class). Only Playfair Display is loaded via Google Fonts; Satoshi and Freight Big Pro resolve to system fallbacks.
 - **No raw hex colors** — use `bg-night`, `text-cream`, `text-gold`, `border-charcoal` etc. (defined in `src/styles/global.css` `@theme`).
 - **Pricing format:** Vietnamese Dong with "k" shorthand, e.g. `VND 180k`.
-- **Images:** Absolute paths from `public/`, e.g. `/hero.svg`.
+- **Images:** SVGs live in `src/assets/images/`, imported with `?url` suffix in Astro frontmatter. YAML `image` values are lookup keys resolved by `MenuItem.astro`'s `imageSrcMap`. Only `robots.txt`, `favicon.ico`, and `og-image.svg` stay in `public/` (must be at root URL; OG image needs absolute URL for social crawlers).
 - **No React** — pure Astro + Tailwind; client interactivity via Alpine.js.
 - `src/styles/global.css` imported only by `MainLayout`.
 - `HoursLocation.astro` — pre-built venue block; import instead of duplicating markup.

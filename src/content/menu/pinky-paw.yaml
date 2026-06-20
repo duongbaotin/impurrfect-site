@@ -2,7 +2,7 @@
 
 name: "Pinky Paw"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Smooth white rum and bright lime fuse with rich, house-made strawberry syrup and triple sec, lifted by a velvety egg white foam and a subtle, grounding dash of aromatic bitters."
+description: "Smooth white rum and sweet strawberry syrup topped with a velvety, paw-soft egg white foam."
 category: "Signature" # must match a category exactly (see below)
 
 # ---- Optional fields ----

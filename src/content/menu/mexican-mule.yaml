@@ -2,7 +2,7 @@
 
 name: "Mexican Mule"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Earthy, peppery tequila blanco steps in for vodka, locking into a sharp tango with zesty lime juice and fiery ginger syrup before a crisp soda top-up lightens the finish."
+description: "Earthy tequila blanco locking paws with sharp lime, spicy ginger, and bubbly soda."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

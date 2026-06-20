@@ -2,7 +2,7 @@
 
 name: "Sweet Summer"
 price: "VND 79k"              # always use "VND ...k" format
-description: "A vibrant, deeply refreshing blend of crisp watermelon and exotic lychee, brightened by a splash of lime and a subtle hint of aromatic rosemary."
+description: "Crisp watermelon, exotic lychee, and lime with a playful, aromatic rosemary purr."
 category: "Signature" # must match a category exactly (see below)
 
 # ---- Optional fields ----

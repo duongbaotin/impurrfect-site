@@ -2,7 +2,7 @@
 
 name: "Whiskey Sour"
 price: "VND 129k"              # always use "VND ...k" format
-description: "Bold bourbon and sharp lemon juice find perfect equilibrium with simple syrup, whipped into a luxurious texture with egg white and accented by a fragrant orange twist and aromatic bitters."
+description: "A silky, frothy balance of robust bourbon, tart lime, and velvety egg white."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

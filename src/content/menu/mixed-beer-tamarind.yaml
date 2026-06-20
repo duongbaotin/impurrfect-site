@@ -2,7 +2,7 @@
 
 name: "Tamarind Mixed Beer"
 price: "VND 79k"              # always use "VND ...k" format
-description: "Sweet and sour, sticky tamarind juice and sharp lime cut right through the crisp bite of a light lager, while a complex, savory rim of dried shrimp chili salt delivers a fiery, nostalgic kick with every sip."
+description: "Sticky sweet-sour tamarind and light lager with a fiery chili-shrimp salt rim."
 category: "Mixed Beers" # must match a category exactly (see below)
 
 # ---- Optional fields ----

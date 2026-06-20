@@ -2,7 +2,7 @@
 
 name: "Ranch Water"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Crisp tequila blanco and a generous splash of sharp lime juice get a savory boost from a pinch of salt, stretching out into an ultra-clean, deeply hydrating, and effervescent highball."
+description: "A deeply hydrating highball of crisp tequila, sharp lime, and a savory pinch of salt."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

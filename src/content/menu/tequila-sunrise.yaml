@@ -2,7 +2,7 @@
 
 name: "Tequila Sunrise"
 price: "VND 129k"              # always use "VND ...k" format
-description: "Vibrant orange juice sweetens the earthy, peppery bite of tequila blanco, while a heavy sinker of deep red grenadine pools beautifully at the bottom for an iconic, layered visual finish."
+description: "Earthy tequila, sweet orange juice, and a deep red pool of sweet grenadine."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

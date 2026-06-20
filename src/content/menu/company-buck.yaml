@@ -2,7 +2,7 @@
 
 name: "Company Buck"
 price: "VND 109k"              # always use "VND ...k" format
-description: "Dark rum brings a rich, molasses warmth that anchors this lively highball, flowing seamlessly into lush pineapple and tart lime before a spicy ginger snap and aromatic bitters spark the finish."
+description: "Rich dark rum, sweet pineapple, and tart lime sparked with ginger and bitters."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

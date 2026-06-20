@@ -2,7 +2,7 @@
 
 name: "Moscow Mule"
 price: "VND 109k"              # always use "VND ...k" format
-description: "Sharp lime juice and fiery ginger syrup team up to give this clean vodka base a snappy, invigorating bite, finished with a lively splash of club soda that wakes up the palate."
+description: "Crisp vodka kicked up with sharp lime, sweet-spicy ginger, and bubbly soda."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

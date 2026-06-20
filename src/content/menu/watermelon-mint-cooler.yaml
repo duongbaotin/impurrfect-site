@@ -2,7 +2,7 @@
 
 name: "Watermelon Mint Cooler"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Fresh, juicy watermelon and smacked mint leaves deliver an instant wave of summer coolness, balanced by a sharp hit of lime and a bubbly soda finish that keeps the heavy pour of vodka exceptionally crisp."
+description: "Juicy watermelon and slapped mint leaves shaken with vodka and topped with bubbly soda."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

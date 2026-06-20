@@ -2,7 +2,7 @@
 
 name: "Gin & Tonic"
 price: "VND 109k"              # always use "VND ...k" format
-description: "Crisp London dry gin meets the bittersweet effervescence of premium tonic water, brought together with a gentle stir and finished with a bright squeeze of fresh lime."
+description: "Crisp, botanical London dry gin stirred with premium tonic and fresh lime."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

@@ -2,7 +2,7 @@
 
 name: "Fine & Dandy"
 price: "VND 149k"              # always use "VND ...k" format
-description: "A vibrant, bone-dry sibling to the White Lady, where crisp botanicals and bright citrus are cut with a steady hand of aromatic bitters for a crisp, punchy finish."
+description: "A bone-dry, punchy sibling to the White Lady, seasoned with aromatic bitters."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

@@ -1,12 +1,13 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import BrandNameWord from '../components/BrandNameWord.astro';
+import hero from '../assets/images/hero.svg?url';
 ---
 
 <MainLayout title="The impurrfect Speakeasy" description="The impurrfect Speakeasy — a hidden bar embracing wabi-sabi philosophy. Handcrafted cocktails and classic twists with a modern edge.">
   <div class="relative">
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.10]">
-      <img src="/hero.svg" alt="" class="w-72 h-auto" aria-hidden="true" />
+      <img src={hero} alt="" class="w-72 h-auto" aria-hidden="true" />
     </div>
     <div class="relative min-h-[80dvh] flex flex-col items-center justify-center text-center space-y-6">
       <h1 class="font-display text-4xl md:text-5xl tracking-widest text-cream">

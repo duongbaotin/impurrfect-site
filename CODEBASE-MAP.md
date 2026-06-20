@@ -7,7 +7,8 @@ Quick-reference guide for navigating the codebase. Updated alongside the project
 ## Architecture overview
 
 ```
-public/              → Static assets (SVGs, favicon, robots.txt), referenced as "/filename"
+public/              → Static assets served at root (robots.txt, favicon.ico, og-image.svg). Files must be at exact URL.
+src/assets/images/   → Images imported by components (SVGs). Imported with `?url` suffix for direct URL.
 src/
 ├── layouts/
 │   └── MainLayout.astro    → HTML shell: <head>, <Nav>, <Footer>, <slot>
@@ -65,9 +66,9 @@ src/
 | Font stacks (`.font-display`, `.font-body`) | `src/styles/global.css` lines 8-9 |
 | Google Fonts loaded | `MainLayout.astro` lines 40-42 |
 | Decorative italic font (`.font-accent`) | `MainLayout.astro` lines 80-83 |
-| Favicon | `public/favicon.svg` + `public/favicon.ico` |
-| OG social image | `public/og-image.svg` |
-| Glass/placeholder SVGs | `public/*.svg` |
+| Favicon | `src/assets/images/favicon.svg` (imported), `public/favicon.ico` (root URL) |
+| OG social image | `public/og-image.svg` (must be a real URL for social crawlers) |
+| Glass/placeholder SVGs | `src/assets/images/*.svg` (imported in MenuItem.astro) |
 
 ### Page Content (text)
 | Want to change… | File |
@@ -90,7 +91,7 @@ src/
 | Mark a drink unavailable | Add `available: false` to its YAML |
 | Add / rename / remove a category | Edit `src/data/categories.ts` |
 | Reorder categories | Change `order` in `categories.ts` |
-| Add a new image for a drink | Add SVG to `public/`, reference as `/my-file.svg` in YAML |
+| Add a new image for a drink | Add SVG to `src/assets/images/`, add import + map entry in `MenuItem.astro` |
 
 ### Schema / Data Structure Changes
 | File | Role | Must keep in sync with |
@@ -113,7 +114,7 @@ src/
 | `order` | ❌ | number | Default `0` (sorts before positive numbers) |
 | `tags` | ❌ | string[] | e.g. `["Smoky", "Bitter"]` |
 | `featured` | ❌ | boolean | Shows ★ Bartender's Pick badge |
-| `image` | ❌ | string | Path in `public/`, e.g. `"/cocktail-placeholder.svg"` |
+| `image` | ❌ | string | Path key resolved by `MenuItem.astro`'s `imageSrcMap`, e.g. `"/cocktail-placeholder.svg"` |
 | `subcategory` | ❌ | string | Groups items within a category |
 | `available` | ❌ | boolean | Default `true`; set `false` to show "Currently unavailable" |
 
@@ -166,7 +167,7 @@ Pre-merge verification: `npm run check && npm run build && npm run preview` (~10
 - **No raw hex values** — use `bg-night`, `text-cream`, `text-gold`, `border-charcoal`, etc. from `@theme` in `global.css`
 - **Font classes only:** `.font-display`, `.font-body`, `.font-accent` — do NOT use Tailwind's `fontFamily` theme config
 - **Pricing format:** `"VND 180k"` (Vietnamese Dong with "k" shorthand)
-- **Images in `public/`** use absolute paths: `"/hero.svg"`
+- **Images live in `src/assets/images/`** — imported in components via `?url` suffix. YAML `image` values are lookup keys, resolved by `MenuItem.astro`'s `imageSrcMap`. Only `robots.txt`, `favicon.ico`, and `og-image.svg` remain in `public/` (must be at root URL; OG image needs absolute URL for social crawlers).
 - **No React** — pure Astro + Tailwind; client interactivity via Alpine.js
 - **No tests, no linter, no formatter** in the repo
 - **Satoshi and Freight Big Pro** are declared in CSS but not loaded — they resolve to system fallbacks. Only Playfair Display is loaded via Google Fonts.

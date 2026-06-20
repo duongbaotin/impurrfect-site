@@ -2,7 +2,7 @@
 
 name: "Cuba Libre"
 price: "VND 89k"              # always use "VND ...k" format
-description: "Simplicity at its finest: sharp lime juice cuts straight through the rich, dark sweetness of cola, instantly lifting the clean profile of white rum."
+description: "A simple, timeless mix of white rum, fresh lime, and sweet, fizzy cola."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

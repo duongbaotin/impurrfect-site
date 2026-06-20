@@ -2,7 +2,7 @@
 
 name: "Pineapple Punch"
 price: "VND 149k"              # always use "VND ...k" format
-description: "An immediate ticket to the tropics, blending a generous splash of lush pineapple and lime with white rum, awakened by shaken mint and a bubbly, spiced ginger ale finish."
+description: "Lush pineapple, lime, and white rum shaken with mint and topped with ginger ale."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

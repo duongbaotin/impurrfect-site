@@ -2,7 +2,7 @@
 
 name: "Strawberry Rumble"
 price: "VND 109k"              # always use "VND ...k" format
-description: "Muddled, sugar-glazed strawberries steal the spotlight here, their rich berry sweetness folding into a bright splash of lime that keeps the white rum base remarkably light and lively."
+description: "Muddled sweet strawberries and fresh lime on a light, lively white rum base."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

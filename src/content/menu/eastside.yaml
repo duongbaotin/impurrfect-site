@@ -2,7 +2,7 @@
 
 name: "Eastside"
 price: "VND 129k"              # always use "VND ...k" format
-description: "Crisp gin and fresh, muddled cucumber and mint create an exceptionally cooling baseline, sharpened by a generous pour of lime juice and simple syrup, with the option to lengthen into a refreshing fizz with a splash of club soda."
+description: "An ultra-cooling splash of crisp gin, fresh cucumber, muddled mint, and tart lime."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

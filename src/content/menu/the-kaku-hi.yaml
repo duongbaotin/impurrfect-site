@@ -2,7 +2,7 @@
 
 name: "The Kaku-Hi"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Chilled Japanese blended whiskey meets a lively splash of crisp club soda, brightened by a fresh lemon wheel in a clean, exceptionally effervescent highball."
+description: "Chilled Japanese whiskey and bubbly club soda with a bright lemon twist."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

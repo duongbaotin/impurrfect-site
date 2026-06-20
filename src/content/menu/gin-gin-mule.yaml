@@ -2,7 +2,7 @@
 
 name: "Gin-Gin Mule"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Crisp gin and fresh, muddled mint are sharpened by a bright splash of lime and spicy ginger syrup, served ice-cold and elongated with clean, bubbly club soda."
+description: "Crisp gin and fresh mint muddled with sharp lime and spicy ginger syrup."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

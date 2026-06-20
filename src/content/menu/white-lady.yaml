@@ -2,7 +2,7 @@
 
 name: "White Lady"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Velvety and sharp, this sophisticated classic wraps the brightness of lime and orange liqueur around a botanical core, whipped with egg white into a cloud-like, silky finish."
+description: "A velvety, cloud-like shake of crisp gin, orange liqueur, fresh lime, and egg white."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

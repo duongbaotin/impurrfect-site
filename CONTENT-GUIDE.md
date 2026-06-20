@@ -41,7 +41,7 @@ subcategory?: string    # optional grouping within a category, e.g. "Whiskey-bas
 order: number             # sort position within category (lower = first)
 tags?: string[]           # optional, e.g. ["Smoky", "Bitter"]
 featured?: boolean        # shows ★ Bartender's Pick badge
-image?: string          # path in public/, e.g. "/cocktail-placeholder.svg"
+image?: string          # lookup key resolved by MenuItem.astro, e.g. "/cocktail-placeholder.svg"
 available?: boolean     # default true; set false to show "Currently unavailable"
 ```
 

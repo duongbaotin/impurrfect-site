@@ -2,7 +2,7 @@
 
 name: "Golden Time"
 price: "VND 89k"              # always use "VND ...k" format
-description: "Delicate cherry blossom-scented Umeshu and tropical passion fruit create a vibrant, sweet-tart base, subtly sharpened by ginger syrup and lengthened with crisp, effervescent club soda."
+description: "Cherry blossom-scented Umeshu and tropical passion fruit with a bright, bubbly fizz."
 category: "Signature" # must match a category exactly (see below)
 
 # ---- Optional fields ----

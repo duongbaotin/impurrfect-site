@@ -2,7 +2,7 @@
 
 name: "Penicillin"
 price: "VND 149k"              # always use "VND ...k" format
-description: "A fiery, comforting blend of robust bourbon and blended whiskey, sharpened by fresh lime and spicy ginger syrup, then softened with rich honey and served alongside chewy candied ginger."
+description: "A soothing, fiery kick of whiskey, ginger, and honey, served with candied ginger."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

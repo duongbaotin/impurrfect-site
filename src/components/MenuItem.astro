@@ -1,5 +1,28 @@
 ---
 import type { MenuItemData } from '../data/menu';
+import cocktailPlaceholder from '../assets/images/cocktail-placeholder.svg?url';
+import collinsGlass from '../assets/images/collins-glass.svg?url';
+import coupeGlass from '../assets/images/coupe-glass.svg?url';
+import highballGlass from '../assets/images/highball-glass.svg?url';
+import rockGlass from '../assets/images/rock-glass.svg?url';
+import shotGlass from '../assets/images/shot-glass.svg?url';
+import tulipGlass from '../assets/images/tulip-glass.svg?url';
+import chickenWingettes from '../assets/images/fried-chicken-wingettes-6pcs.webp?url';
+import friedChips from '../assets/images/fried-chips.webp?url';
+import grilledSausages from '../assets/images/grilled-sausages.webp?url';
+
+const imageSrcMap: Record<string, string | undefined> = {
+  '/cocktail-placeholder.svg': cocktailPlaceholder,
+  '/collins-glass.svg': collinsGlass,
+  '/coupe-glass.svg': coupeGlass,
+  '/highball-glass.svg': highballGlass,
+  '/rock-glass.svg': rockGlass,
+  '/shot-glass.svg': shotGlass,
+  '/tulip-glass.svg': tulipGlass,
+  '/fried-chicken-wingettes-6pcs.webp': chickenWingettes,
+  '/fried-chips.webp': friedChips,
+  '/grilled-sausages.webp': grilledSausages,
+};
 
 interface Props {
   item: MenuItemData;
@@ -7,12 +30,14 @@ interface Props {
 
 const { item } = Astro.props;
 const unavailable = item.available === false;
+const imgSrc = item.image ? imageSrcMap[item.image] : undefined;
+const isPhoto = item.image?.endsWith('.webp') ?? false;
 ---
 
   <div class={`group font-body flex gap-4 items-center${unavailable ? ' opacity-50' : ''}`}>
-    {item.image && (
+    {imgSrc && (
       <div class="shrink-0">
-        <img src={item.image} alt="" class="w-10 h-auto opacity-50" aria-hidden="true" />
+        <img src={imgSrc} alt="" class={isPhoto ? 'w-20 sm:w-32 h-auto opacity-100' : 'w-10 h-auto opacity-50'} aria-hidden="true" />
       </div>
     )}
     <div class="flex-1 min-w-0">

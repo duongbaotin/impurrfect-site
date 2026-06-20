@@ -22,7 +22,7 @@ category: "Cocktails"          # must match a category exactly (see below)
 # subcategory: "Whiskey-based" # groups drinks within a category
 # tags: ["Smoky", "Bitter"]    # flavor tags shown on the menu
 # featured: true               # adds a ★ Bartender's Pick badge
-# image: "/cocktail-placeholder.svg"  # path to an image in the public/ folder
+# image: "/cocktail-placeholder.svg"  # lookup key resolved by MenuItem.astro's imageSrcMap
 # available: false             # set to false to show "Currently unavailable"
 ```
 

@@ -2,7 +2,7 @@
 
 name: "Watermelon-Lychee Mixed Beer"
 price: "VND 79k"              # always use "VND ...k" format
-description: "Juicy watermelon and sweet, floral lychee get an aromatic wake-up call from rosemary, effortlessly lifting the clean crispness of a light lager base into a complex, summer-ready refresher."
+description: "A summer-ready refresher of juicy watermelon, sweet lychee, rosemary, and crisp lager."
 category: "Mixed Beers" # must match a category exactly (see below)
 
 # ---- Optional fields ----

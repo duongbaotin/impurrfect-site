@@ -2,7 +2,7 @@
 
 name: "Coco 'Cốm' Highball"
 price: "VND 89k"              # always use "VND ...k" format
-description: "Green, nutty young rice notes from the infused vodka take center stage, flowing effortlessly into the clean sweetness of coconut water before a crisp tonic sparkle dries out the palate."
+description: "Nutty young rice-infused vodka paired with sweet coconut water and a tonic finish."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

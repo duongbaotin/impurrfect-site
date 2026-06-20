@@ -2,7 +2,7 @@
 
 name: "Caipiroska"
 price: "VND 109k"              # always use "VND ...k" format
-description: "Muddled lime releases intense oils and juice directly into a heavy double-pour of vodka, creating a rustic, sweet, and aggressively sharp crusher."
+description: "A rustic, sweet, and aggressively sharp crusher of vodka and muddled lime."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

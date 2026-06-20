@@ -2,7 +2,7 @@
 
 name: "Long Island Iced Tea"
 price: "VND 149k"              # always use "VND ...k" format
-description: "Five clear spirits—vodka, gin, rum, tequila, and triple sec—unite under a bright burst of fresh lime, finished with just enough cola to lend its iconic amber hue and effervescent sweetness."
+description: "Five spirits and fresh lime splashed with cola—strictly for cats on the night shift."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

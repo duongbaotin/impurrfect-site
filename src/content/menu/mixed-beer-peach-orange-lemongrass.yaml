@@ -2,7 +2,7 @@
 
 name: "Peach, Orange & Lemongrass Mixed Beer"
 price: "VND 79k"              # always use "VND ...k" format
-description: "Sweet peach and bright orange citrus seamlessly blend with the aromatic, herbal fragrance of lemongrass, beautifully softening the crisp bitterness of a light lager for a deeply comforting, local-favorite flavor profile."
+description: "Sweet peach, bright orange, and lemongrass softening a crisp, bitter lager."
 category: "Mixed Beers" # must match a category exactly (see below)
 
 # ---- Optional fields ----

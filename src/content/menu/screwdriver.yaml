@@ -2,7 +2,7 @@
 
 name: "Screwdriver"
 price: "VND 109k"              # always use "VND ...k" format
-description: "Freshly squeezed orange juice completely envelopes a generous pour of crisp vodka, letting the bright, vibrant citrus sweetness effortlessly hide the spirit's clean punch."
+description: "Freshly squeezed orange juice completely enveloping a heavy pour of crisp vodka."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

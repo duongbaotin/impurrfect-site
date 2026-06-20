@@ -2,7 +2,7 @@
 
 name: "Strip and Go Naked"
 price: "VND 129k"              # always use "VND ...k" format
-description: "Bright orange and lime juices cut through a potent, crisp baseline of gin and vodka, layered with sweet grenadine and lengthened by the clean, refreshing effervescence of lager."
+description: "Potent gin, vodka, and lager stretched out with sweet-and-sour citrus."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----

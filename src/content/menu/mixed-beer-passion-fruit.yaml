@@ -2,7 +2,7 @@
 
 name: "Passion Fruit Mixed Beer"
 price: "VND 79k"              # always use "VND ...k" format
-description: "Tart, tropical passion fruit pulp gets smoothed out by a soft touch of sweet vanilla, cutting through the crisp bitterness of light lager for a bright, balanced, and highly aromatic blend."
+description: "Tart tropical passion fruit and sweet vanilla cutting through crisp, bitter lager."
 category: "Mixed Beers" # must match a category exactly (see below)
 
 # ---- Optional fields ----

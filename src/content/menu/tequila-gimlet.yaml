@@ -2,7 +2,7 @@
 
 name: "Tequila Gimlet"
 price: "VND 149k"              # always use "VND ...k" format
-description: "A clean, hefty pour of agave-forward tequila blanco is dialed in by a sharp, crisp volume of lime and simple syrup, yielding a perfectly balanced, sweet-and-sour refresher."
+description: "Agave-forward tequila blanco balanced with sharp lime and simple syrup."
 category: "Cocktails" # must match a category exactly (see below)
 
 # ---- Optional fields ----
