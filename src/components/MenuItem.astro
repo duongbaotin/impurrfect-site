@@ -37,7 +37,29 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
   <div class={`group font-body flex gap-4 items-center${unavailable ? ' opacity-50' : ''}`}>
     {imgSrc && (
       <div class="shrink-0">
-        <img src={imgSrc} alt="" class={isPhoto ? 'w-20 sm:w-32 h-auto opacity-100' : 'w-10 h-auto opacity-50'} aria-hidden="true" />
+        {isPhoto ? (
+          <div x-data="{ open: false, activeSrc: '' }">
+            <img src={imgSrc} alt=""
+              class="w-20 sm:w-32 h-auto opacity-100 cursor-pointer transition-opacity hover:opacity-80"
+              @click="open = true; activeSrc = $el.src" />
+
+            <template x-teleport="body">
+              <div x-show="open" x-cloak
+                   x-init="$watch('open', val => document.body.style.overflow = val ? 'hidden' : '')"
+                   @click.away="open = false"
+                   @keydown.escape.window="open = false"
+                   role="dialog" aria-modal="true"
+                   class="fixed inset-0 z-50 flex items-center justify-center bg-night/90">
+                <button @click="open = false"
+                        class="absolute top-4 right-4 text-cream text-3xl leading-none p-2 hover:text-gold transition-colors"
+                        aria-label="Close">&times;</button>
+                <img :src="activeSrc" class="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain rounded" />
+              </div>
+            </template>
+          </div>
+        ) : (
+          <img src={imgSrc} alt="" class="w-10 h-auto opacity-50" aria-hidden="true" />
+        )}
       </div>
     )}
     <div class="flex-1 min-w-0">
