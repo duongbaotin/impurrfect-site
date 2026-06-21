@@ -46,7 +46,7 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
             <template x-teleport="body">
               <div x-show="open" x-cloak
                    x-transition.opacity.duration.150ms
-                   x-init="$watch('open', val => { document.body.style.overflow = val ? 'hidden' : ''; if (val) loading = true; })"
+                   x-init="$watch('open', val => { document.body.style.overflow = val ? 'hidden' : ''; if (val) loading = true; else activeSrc = '' })"
                    @click="open = false"
                    @keydown.escape.window="open = false"
                    role="dialog" aria-modal="true"
@@ -58,7 +58,7 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
                   <button @click="open = false"
                           class="absolute -top-2 -right-2 text-cream text-3xl leading-none p-2 bg-night/50 rounded-full hover:text-gold transition-colors z-10"
                           aria-label="Close">&times;</button>
-                  <img :src="activeSrc" @load="loading = false" @error="loading = false"
+                  <img x-show="activeSrc.length" :src="activeSrc" @load="loading = false" @error="loading = false"
                        :class="['max-w-[90vw] max-h-[90vh] object-contain', loading ? 'opacity-0' : 'opacity-100']" />
                 </div>
               </div>
