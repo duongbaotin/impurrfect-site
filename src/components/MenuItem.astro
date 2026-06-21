@@ -47,18 +47,20 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
               <div x-show="open" x-cloak
                    x-transition.opacity.duration.150ms
                    x-init="$watch('open', val => { document.body.style.overflow = val ? 'hidden' : ''; if (val) loading = true; })"
-                   @click.away="open = false"
+                   @click="open = false"
                    @keydown.escape.window="open = false"
                    role="dialog" aria-modal="true"
                    class="fixed inset-0 z-50 flex items-center justify-center bg-night/90">
-                <div x-show="loading" class="absolute inset-0 flex items-center justify-center">
-                  <div class="w-12 h-12 border-4 border-gold border-t-transparent rounded-full animate-spin"></div>
+                <div @click.stop class="relative flex items-center justify-center">
+                  <div x-show="loading" class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-12 h-12 border-4 border-gold border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                  <button @click="open = false"
+                          class="absolute -top-2 -right-2 text-cream text-3xl leading-none p-2 bg-night/50 rounded-full hover:text-gold transition-colors z-10"
+                          aria-label="Close">&times;</button>
+                  <img :src="activeSrc" @load="loading = false" @error="loading = false"
+                       :class="['max-w-[90vw] max-h-[90vh] object-contain', loading ? 'opacity-0' : 'opacity-100']" />
                 </div>
-                <button @click="open = false"
-                        class="absolute top-4 right-4 text-cream text-3xl leading-none p-2 bg-night/50 rounded-full hover:text-gold transition-colors"
-                        aria-label="Close">&times;</button>
-                <img :src="activeSrc" @load="loading = false" @error="loading = false"
-                     :class="['max-w-[90vw] max-h-[90vh] object-contain', loading ? 'opacity-0' : 'opacity-100']" />
               </div>
             </template>
           </div>
