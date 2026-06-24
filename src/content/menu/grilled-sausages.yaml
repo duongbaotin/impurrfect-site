@@ -1,7 +1,7 @@
 # ---- Required fields ----
 
 name: "Grilled Sausages"
-price: "VND 79k"              # always use "VND ...k" format
+price: "VND 49k"              # always use "VND ...k" format
 description: "Plump, smoky grilled sausages with a perfect snap—ultimate companion for a cold brew."
 category: "Snacks" # must match a category exactly (see below)
 
