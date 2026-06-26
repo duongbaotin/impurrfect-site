@@ -1,36 +1,17 @@
 ---
 import type { MenuItemData } from '../data/menu';
-import cocktailPlaceholder from '../assets/images/cocktail-placeholder.svg?url';
-import collinsGlass from '../assets/images/collins-glass.svg?url';
-import coupeGlass from '../assets/images/coupe-glass.svg?url';
-import highballGlass from '../assets/images/highball-glass.svg?url';
-import rockGlass from '../assets/images/rock-glass.svg?url';
-import shotGlass from '../assets/images/shot-glass.svg?url';
-import tulipGlass from '../assets/images/tulip-glass.svg?url';
-import chickenWingettes from '../assets/images/fried-chicken-wingettes-6pcs.webp?url';
-import friedChips from '../assets/images/fried-chips.webp?url';
-import grilledSausages from '../assets/images/grilled-sausages.webp?url';
-import margarita from '../assets/images/margarita.webp?url';
-import sweetSummer from '../assets/images/sweet-summer.webp?url';
-import pinkyPaw from '../assets/images/pinky-paw.webp?url';
-import goldenTime from '../assets/images/golden-time.webp?url';
 
-const imageSrcMap: Record<string, string | undefined> = {
-  '/cocktail-placeholder.svg': cocktailPlaceholder,
-  '/collins-glass.svg': collinsGlass,
-  '/coupe-glass.svg': coupeGlass,
-  '/highball-glass.svg': highballGlass,
-  '/rock-glass.svg': rockGlass,
-  '/shot-glass.svg': shotGlass,
-  '/tulip-glass.svg': tulipGlass,
-  '/fried-chicken-wingettes-6pcs.webp': chickenWingettes,
-  '/fried-chips.webp': friedChips,
-  '/grilled-sausages.webp': grilledSausages,
-  '/margarita.webp': margarita,
-  '/sweet-summer.webp': sweetSummer,
-  '/pinky-paw.webp': pinkyPaw,
-  '/golden-time.webp': goldenTime,
-};
+const imageModules = import.meta.glob('../assets/images/*.{webp,svg}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
+
+const imageSrcMap: Record<string, string> = {};
+for (const [path, src] of Object.entries(imageModules)) {
+  const filename = '/' + path.split('/').pop()!;
+  imageSrcMap[filename] = src;
+}
 
 interface Props {
   item: MenuItemData;
