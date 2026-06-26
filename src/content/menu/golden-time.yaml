@@ -11,5 +11,5 @@ order: 6                     # position in the list; lower = first (default: 0 /
 subcategory: "Signature Cocktails" # groups drinks within a category
 tags: ["Fruity", "Tart", "Floral"]    # flavor tags shown on the menu
 featured: true               # adds a ★ Bartender's Pick badge
-image: "/collins-glass.svg"  # path to an image in the public/ folder
+image: "/golden-time.webp"  # path to an image in the public/ folder
 available: true             # set to false to show "Currently unavailable"
