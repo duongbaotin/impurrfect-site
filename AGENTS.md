@@ -6,7 +6,7 @@
 
 ## Stack
 
-- **Astro 6** + **Tailwind CSS v4** (via `@tailwindcss/vite`). No React.
+- **Astro 7** + **Tailwind CSS v4** (via `@tailwindcss/vite`). No React.
 - **Alpine.js** via `@astrojs/alpinejs` — client interactivity (hamburger menu, toggles).
 - Node >= 22.12.0. ESM (`"type": "module"`).
 - TypeScript via `astro/tsconfigs/strict`.
