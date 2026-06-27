@@ -37,7 +37,7 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
               this.loading = true;
               this.swipeY = 0;
               this.swiped = false;
-              document.body.style.overflow = '';
+              setTimeout(() => { document.body.style.overflow = ''; }, 160);
               if (history.state?.lightbox) history.back();
             },
             onTouchStart(e) {
@@ -74,7 +74,7 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
             <template x-teleport="body">
               <div x-show="open" x-cloak x-ref="overlay"
                    x-transition.opacity.duration.150ms
-                   x-init="$watch('open', val => { document.body.style.overflow = val ? 'hidden' : ''; if (val) loading = true; else activeSrc = '' })"
+                   x-init="$watch('open', val => { if (val) { document.body.style.overflow = 'hidden'; loading = true; } else { activeSrc = ''; } })"
                    @click="close()"
                    @keydown.escape.window="close()"
                    @popstate.window="close()"
