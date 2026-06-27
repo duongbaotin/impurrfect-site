@@ -27,24 +27,69 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
     {imgSrc && (
       <div class="shrink-0">
         {isPhoto ? (
-          <div x-data="{ open: false, activeSrc: '', loading: true }">
+          <div x-data="{
+            open: false, activeSrc: '', loading: true,
+            touchStartY: 0, swipeY: 0, swiped: false,
+            close() {
+              if (!this.open) return;
+              this.open = false;
+              this.activeSrc = '';
+              this.loading = true;
+              this.swipeY = 0;
+              this.swiped = false;
+              document.body.style.overflow = '';
+              if (history.state?.lightbox) history.back();
+            },
+            onTouchStart(e) {
+              this.touchStartY = e.touches[0].clientY;
+              this.swiped = false;
+            },
+            onTouchMove(e) {
+              if (!this.open) return;
+              const dy = e.touches[0].clientY - this.touchStartY;
+              if (dy > 0) e.preventDefault();
+              if (dy > 10) {
+                this.swiped = true;
+                this.swipeY = dy;
+                this.$refs.img.style.transition = 'none';
+                this.$refs.img.style.transform = 'translateY(' + dy + 'px)';
+                this.$refs.img.style.opacity = Math.max(0, 1 - dy / 300);
+              }
+            },
+            onTouchEnd() {
+              if (this.swipeY > 100) this.close();
+              else {
+                this.$refs.img.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+                this.$refs.img.style.transform = '';
+                this.$refs.img.style.opacity = '';
+                this.swipeY = 0;
+                this.swiped = false;
+              }
+            },
+            init() {
+              this.$refs.overlay.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
+            }
+          }">
             <img src={imgSrc} alt=""
               class="w-20 sm:w-32 h-auto opacity-100 cursor-pointer transition-opacity hover:opacity-80"
-              @click="open = true; activeSrc = $el.src" />
+              @click="open = true; activeSrc = $el.src; swiped = false; history.pushState({ lightbox: true }, '')" />
 
             <template x-teleport="body">
-              <div x-show="open" x-cloak
+              <div x-show="open" x-cloak x-ref="overlay"
                    x-transition.opacity.duration.150ms
                    x-init="$watch('open', val => { document.body.style.overflow = val ? 'hidden' : ''; if (val) loading = true; else activeSrc = '' })"
-                   @click="open = false"
-                   @keydown.escape.window="open = false"
+                   @click="close()"
+                   @keydown.escape.window="close()"
+                   @popstate.window="close()"
+                   @touchstart="onTouchStart($event)"
+                   @touchend="onTouchEnd()"
                    role="dialog" aria-modal="true"
                    class="fixed inset-0 z-50 flex items-center justify-center bg-night/90">
-                <div @click.stop class="relative flex items-center justify-center">
+                <div @click.stop x-ref="img" class="relative flex items-center justify-center">
                   <div x-show="loading" class="absolute inset-0 flex items-center justify-center">
                     <div class="w-12 h-12 border-4 border-gold border-t-transparent rounded-full animate-spin"></div>
                   </div>
-                  <button @click="open = false"
+                  <button @click.stop="close()"
                           class="absolute -top-2 -right-2 text-cream text-3xl leading-none p-2 bg-night/50 rounded-full hover:text-gold transition-colors z-10"
                           aria-label="Close">&times;</button>
                   <img x-show="activeSrc.length" :src="activeSrc" @load="loading = false" @error="loading = false"
