@@ -27,9 +27,13 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
     {imgSrc && (
       <div class="shrink-0">
         {isPhoto ? (
-          <img x-lightbox={`{ url: ${JSON.stringify(imgSrc)}, alt: ${JSON.stringify(item.name)} }`}
-            src={imgSrc} alt={item.name}
-            class="w-20 sm:w-32 h-auto opacity-100 cursor-pointer transition-opacity hover:opacity-80" />
+          <a href="#"
+            x-data={`{ url: ${JSON.stringify(imgSrc)}, alt: ${JSON.stringify(item.name)} }`}
+            x-lightbox="url"
+            class="shrink-0 block w-20 sm:w-32">
+            <img src={imgSrc} alt={item.name}
+              class="w-full h-auto opacity-100 cursor-pointer transition-opacity hover:opacity-80" />
+          </a>
         ) : (
           <img src={imgSrc} alt="" class="w-10 h-auto opacity-50" aria-hidden="true" />
         )}
