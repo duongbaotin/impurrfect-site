@@ -30,15 +30,36 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
           <div x-data="{
             open: false, activeSrc: '', loading: true,
             touchStartY: 0, swipeY: 0, swiped: false,
-            close(fromPopstate) {
+            pushedState: false, overflowTimer: null,
+            init() {
+              window.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
+            },
+            openLightbox() {
+              if (this.open) return;
+              this.open = true;
+              this.activeSrc = this.$refs.thumb.src;
+              this.swiped = false;
+              this.loading = true;
+              clearTimeout(this.overflowTimer);
+              document.body.style.overflow = 'hidden';
+              history.pushState({ lightbox: true }, '');
+              this.pushedState = true;
+              this.$nextTick(() => { this.$refs.overlay.querySelector('button').focus(); });
+            },
+            closeLightbox(fromPopstate) {
               if (!this.open) return;
               this.open = false;
               this.activeSrc = '';
               this.loading = true;
               this.swipeY = 0;
               this.swiped = false;
-              setTimeout(() => { document.body.style.overflow = ''; }, 160);
-              if (!fromPopstate && history.state?.lightbox) history.back();
+              if (this.pushedState && !fromPopstate) history.back();
+              this.pushedState = false;
+              clearTimeout(this.overflowTimer);
+              this.overflowTimer = setTimeout(() => {
+                if (!this.open && !$store.mobileNav.open) document.body.style.overflow = '';
+              }, 160);
+              if (this.$refs.thumb) this.$refs.thumb.focus();
             },
             onTouchStart(e) {
               this.touchStartY = e.touches[0].clientY;
@@ -57,7 +78,7 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
               }
             },
             onTouchEnd() {
-              if (this.swipeY > 100) this.close();
+              if (this.swipeY > 100) this.closeLightbox();
               else {
                 this.$refs.img.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
                 this.$refs.img.style.transform = '';
@@ -65,32 +86,47 @@ const isPhoto = item.image?.endsWith('.webp') ?? false;
                 this.swipeY = 0;
                 this.swiped = false;
               }
+            },
+            onKeydown(e) {
+              if (!this.open || e.key !== 'Tab') return;
+              const focusables = this.$refs.overlay.querySelectorAll('button, [href], img');
+              if (!focusables.length) return;
+              const first = focusables[0];
+              const last = focusables[focusables.length - 1];
+              if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+              } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+              }
             }
           }">
-            <img src={imgSrc} alt=""
+            <img x-ref="thumb" src={imgSrc} alt={item.name}
               class="w-20 sm:w-32 h-auto opacity-100 cursor-pointer transition-opacity hover:opacity-80"
-              @click="open = true; activeSrc = $el.src; swiped = false; history.pushState({ lightbox: true }, '')" />
+              @click="openLightbox()" />
 
             <template x-teleport="body">
               <div x-show="open" x-cloak x-ref="overlay"
                    x-transition.opacity.duration.150ms
-                   x-init="$watch('open', val => { if (val) { document.body.style.overflow = 'hidden'; loading = true; } else { activeSrc = ''; } })"
-                   @click="close()"
-                   @keydown.escape.window="close()"
-                   @popstate.window="close(true)"
+                   x-init="$watch('open', val => { if (val) loading = true; else activeSrc = ''; })"
+                   @click="closeLightbox()"
+                   @keydown.escape.window="closeLightbox()"
+                   @popstate.window="closeLightbox(true)"
                    @touchstart="onTouchStart($event)"
-                   @touchmove.window="onTouchMove($event)"
                    @touchend="onTouchEnd()"
+                   @keydown="onKeydown($event)"
                    role="dialog" aria-modal="true"
+                   aria-label={'Image of ' + item.name}
                    class="fixed inset-0 z-50 flex items-center justify-center bg-night/90">
                 <div @click.stop x-ref="img" class="relative flex items-center justify-center">
                   <div x-show="loading" class="absolute inset-0 flex items-center justify-center">
                     <div class="w-12 h-12 border-4 border-gold border-t-transparent rounded-full animate-spin"></div>
                   </div>
-                  <button @click.stop="close()"
+                  <button @click.stop="closeLightbox()"
                           class="absolute -top-2 -right-2 text-cream text-3xl leading-none p-2 bg-night/50 rounded-full hover:text-gold transition-colors z-10"
                           aria-label="Close">&times;</button>
-                  <img x-show="activeSrc.length" :src="activeSrc" @load="loading = false" @error="loading = false"
+                  <img x-show="activeSrc.length" :src="activeSrc" alt={item.name} @load="loading = false" @error="loading = false"
                        :class="['max-w-[90vw] max-h-[90vh] object-contain', loading ? 'opacity-0' : 'opacity-100']" />
                 </div>
               </div>
