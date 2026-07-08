@@ -15,3 +15,14 @@
 }
 
 [x-cloak] { display: none !important; }
+
+/* Brand-match the alpine-tailwind-lightbox overlay (injected into <body>) */
+[role="region"][aria-modal="true"][aria-roledescription="carousel"] {
+  background-color: rgba(15, 15, 18, 0.9); /* --color-night @ 90% */
+}
+[role="region"][aria-modal="true"] a[aria-label] svg {
+  fill: var(--color-cream);
+}
+[role="region"][aria-modal="true"] a[aria-label]:hover svg {
+  fill: var(--color-gold);
+}

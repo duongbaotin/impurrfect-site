@@ -10,7 +10,7 @@ export default defineConfig({
   site: 'https://impurrfect-bar.meowracle.space',
   integrations: [sitemap({
     namespaces: { news: false, xhtml: false, video: false },
-  }), alpinejs()],
+  }), alpinejs({ entrypoint: '/src/alpine.ts' })],
   vite: {
     plugins: [tailwindcss()]
   }
