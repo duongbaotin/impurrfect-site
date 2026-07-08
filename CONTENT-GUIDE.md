@@ -40,7 +40,7 @@ category: string          # must match a category name in src/data/categories.ts
 subcategory?: string    # optional grouping within a category, e.g. "Whiskey-based"
 order: number             # sort position within category (lower = first)
 tags?: string[]           # optional, e.g. ["Smoky", "Bitter"]
-featured?: boolean        # shows ★ Bartender's Pick badge
+featured?: boolean        # shows ★ staff favorite badge
 image?: string          # lookup key resolved by MenuItem.astro, e.g. "/cocktail-placeholder.svg"
 available?: boolean     # default true; set false to show "Currently unavailable"
 ```

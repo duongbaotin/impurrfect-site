@@ -89,7 +89,7 @@ src/
 | Edit name / price / description / tags | Edit the YAML file for that drink |
 | Reorder drinks within a category | Change `order` in each YAML |
 | Mark a drink unavailable | Add `available: false` to its YAML |
-| Add / rename / remove a category | Edit `src/data/categories.ts` |
+| Add / rename / remove a category | Edit `src/data/categories.ts` (the `Archived` category is internal-only and hidden from `/menu`) |
 | Reorder categories | Change `order` in `categories.ts` |
 | Add a new image for a drink | Add SVG to `src/assets/images/`, add import + map entry in `MenuItem.astro` |
 
@@ -113,7 +113,7 @@ src/
 | `category` | ✅ | string | Must match a name in `categories.ts` exactly |
 | `order` | ❌ | number | Default `0` (sorts before positive numbers) |
 | `tags` | ❌ | string[] | e.g. `["Smoky", "Bitter"]` |
-| `featured` | ❌ | boolean | Shows ★ Bartender's Pick badge |
+| `featured` | ❌ | boolean | Shows ★ staff favorite badge |
 | `image` | ❌ | string | Path key resolved by `MenuItem.astro`'s `imageSrcMap`, e.g. `"/cocktail-placeholder.svg"` |
 | `subcategory` | ❌ | string | Groups items within a category |
 | `available` | ❌ | boolean | Default `true`; set `false` to show "Currently unavailable" |
@@ -138,11 +138,15 @@ YAML files ──► content.config.ts ──► getCollection('menu')
                                     menu/index.astro
                                             │
                                 ┌───────────┴───────────┐
-                                ▼                       ▼
-                        MenuCategory.astro        Items with unknown
-                                │                 category are silently
-                                ▼                 dropped (no warning)
-                        MenuItem.astro
+                                 ▼                       ▼
+                         MenuCategory.astro        The `Archived` category
+                                 │                 is filtered out before
+                                 ▼                 render (samples, hidden)
+                         MenuItem.astro
+                                 │
+                                 ▼
+                         Items with an unknown category
+                         in categories.ts are silently dropped (no warning)
 ```
 
 ---

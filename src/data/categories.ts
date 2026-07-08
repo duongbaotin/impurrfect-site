@@ -25,4 +25,9 @@ export const categories: CategoryMeta[] = [
     description: "A selection of small plates to share.",
     order: 4,
   },
+  {
+    name: "Archived",
+    description: "Internal samples — not shown on the menu.",
+    order: 99,
+  },
 ];

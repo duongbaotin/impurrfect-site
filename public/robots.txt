@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://impurrfect.com/sitemap-index.xml
+Sitemap: https://impurrfect-bar.meowracle.space/sitemap-index.xml

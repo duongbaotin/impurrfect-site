@@ -11,6 +11,7 @@ const items = await getCollection('menu');
 items.sort((a, b) => a.data.order - b.data.order);
 
 const menuCategories = categories
+  .filter((cat) => cat.name !== 'Archived')
   .sort((a, b) => a.order - b.order)
   .map((cat) => ({
     category: cat.name,
