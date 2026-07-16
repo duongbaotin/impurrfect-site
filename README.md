@@ -15,7 +15,6 @@ Brand site for **The Impurrfect Speakeasy** — a dark-themed speakeasy bar buil
 | -------- | ------------------- |
 | `/`      | Landing             |
 | `/menu` | Menu listing     |
-| `/about`   | Brand story      |
 | `/contact` | Location & hours |
 | Any      | 404 page            |
 

@@ -9,7 +9,6 @@ How to edit site content for **The Impurrfect Speakeasy**.
 | What | Where |
 |---|---|
 | Landing page (`/`) | `src/pages/index.astro` |
-| About story (`/about`) | `src/pages/about.astro` — edit the `<p>` tags inline |
 | Contact (`/contact`) | `src/pages/contact.astro` |
 | 404 page | `src/pages/404.astro` |
 | SEO titles, descriptions | `title` and `description` props on `<MainLayout>` in each page |

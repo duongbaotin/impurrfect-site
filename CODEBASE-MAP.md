@@ -74,7 +74,6 @@ src/
 | Want to change… | File |
 |---|---|
 | Landing page copy + hero CTA | `src/pages/index.astro` |
-| About story paragraphs | `src/pages/about.astro` |
 | Contact inquiry note | `src/pages/contact.astro` |
 | 404 page copy | `src/pages/404.astro` |
 | SEO `<title>` / `<description>` | Each page's `<MainLayout>` props |

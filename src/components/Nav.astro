@@ -23,7 +23,6 @@ import BrandNameWord from './BrandNameWord.astro';
 
     <div class="hidden md:flex items-center gap-6">
       <a href="/menu" {...desktopLinkAttrs('/menu')}>Menu</a>
-      <a href="/about" {...desktopLinkAttrs('/about')}>About</a>
       <a href="/contact" {...desktopLinkAttrs('/contact')}>Contact</a>
     </div>
 
@@ -64,15 +63,6 @@ import BrandNameWord from './BrandNameWord.astro';
     aria-current={isActive('/menu') ? 'page' : undefined}
   >
     Menu
-  </a>
-  <a
-    href="/about"
-    @click="$store.mobileNav.open = false"
-    class="font-body text-lg tracking-widest uppercase no-underline transition-colors duration-200"
-    class:list={{ 'text-cream': isActive('/about'), 'text-stone-400 hover:text-cream': !isActive('/about') }}
-    aria-current={isActive('/about') ? 'page' : undefined}
-  >
-    About
   </a>
   <a
     href="/contact"

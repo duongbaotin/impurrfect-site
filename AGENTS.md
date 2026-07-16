@@ -28,9 +28,10 @@ No tests, no linter, no formatter config in this repo. Pre-merge verification: `
 
 - `/` — landing page
 - `/menu` — cocktail menu listing
-- `/about` — brand story
 - `/contact` — contact info and inquiry note
 - `*` — 404 page (branded)
+
+> **Note:** `src/pages/about.astro` exists but is intentionally unlinked (not in nav). Kept for future dev. Re-add the About links in `Nav.astro` to relink.
 
 ## Architecture
 
