@@ -28,6 +28,8 @@ pnpm-debug.log*
 .commandcode/
 .impeccable/
 graphify-out/
+.agents/
+skills-lock.json
 
 # alternate package manager lockfiles
 bun.lock

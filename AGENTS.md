@@ -71,6 +71,7 @@ Key gotchas:
 - **`CODEBASE-MAP.md`** — comprehensive edit-location reference; update alongside the project.
 - **`CONTENT-GUIDE.md`** — end-user guide for editing page content. Keep in sync if the codebase structure changes.
 - **`GIT-WORKFLOW.md`** — Git branching workflow reference. Run `npm run build && npm run preview` before merging any branch.
+- **`../impurrfect-DNA.md`** (repo root) — business DNA / tone-of-voice source of truth. Consult it before writing or editing any customer-facing copy.
 - **`vercel.json`** — deploy config: `cleanUrls: true`, permanent redirect `/bar-menu` → `/menu`.
 - **Generated (do not edit):** `.astro/`, `dist/`, `.vercel/` (all in `.gitignore`)
 
