@@ -7,22 +7,22 @@ export interface CategoryMeta {
 export const categories: CategoryMeta[] = [
   {
     name: "Signature",
-    description: "Unique flavor profiles crafted by our mixologists.",
+    description: "Honest concoctions poured with genuine care.",
     order: 1,
   },
   {
     name: "Cocktails",
-    description: "Crafted cocktails with a modern edge.",
+    description: "Comforting classics and unpretentious pours.",
     order: 2,
   },
   {
     name: "Mixed Beers",
-    description: "A selection of mixed beers from around the world.",
+    description: "Cold beers mixed the way the regulars like them.",
     order: 3,
   },
   {
     name: "Snacks",
-    description: "A selection of small plates to share.",
+    description: "Simple bites to soak up the drinks.",
     order: 4,
   },
   {

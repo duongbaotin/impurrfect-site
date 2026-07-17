@@ -5,7 +5,7 @@ import MenuHeader from '../../components/MenuHeader.astro';
 import MenuCategory from '../../components/MenuCategory.astro';
 import { categories } from '../../data/categories';
 
-const tagline = "Embracing flaws, crafting perfection.";
+const tagline = "Street-rescue cats, honest drinks, zero pretension.";
 
 const items = await getCollection('menu');
 items.sort((a, b) => a.data.order - b.data.order);
@@ -22,7 +22,7 @@ const menuCategories = categories
   }));
 ---
 
-<MainLayout title="menu - impurrfect" description="Explore our handcrafted cocktail menu at The impurrfect Speakeasy. Signature cocktails and classic twists with a modern edge, crafted with meticulous attention to detail.">
+<MainLayout title="menu - impurrfect" description="Explore our menu of honest concoctions and unpretentious drinks at impurrfect (a cat dive bar). Proper pours, fair prices, and a cat or two.">
   <MenuHeader tagline={tagline} />
 
   <div class="space-y-16">
