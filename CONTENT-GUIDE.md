@@ -27,6 +27,15 @@ The venue info block (location, hours, email) is shared:
 
 Menu data lives in YAML files, one per drink, under `src/content/menu/`.
 
+### Photo zoom behavior
+
+Menu items with `.webp` images show a zoom trigger. Tap to open the image viewer:
+- **Drag down** to dismiss (like mobile OS photo viewer)
+- **Pinch** to zoom in/out (1x–3x)
+- **Double-tap** to toggle 2x zoom
+- **X button** (top-right) or **backdrop tap** to close
+- **Escape** key closes (keyboard)
+
 ### Editing a drink
 
 Open any `.yaml` file in `src/content/menu/`. Fields:

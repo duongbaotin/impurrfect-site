@@ -4,6 +4,7 @@ import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import ImageViewer from '../components/lightbox/ImageViewer.astro';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import faviconSvg from '../assets/images/favicon.svg?url';
@@ -57,6 +58,9 @@ const ogImage = new URL('/og-image.svg', Astro.site);
     </main>
 
     <Footer allergyNotice={allergyNotice} />
+
+    <!-- Image Viewer (singleton) -->
+    <ImageViewer />
 
   </body>
 </html>

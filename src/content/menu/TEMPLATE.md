@@ -22,7 +22,7 @@ category: "Cocktails"          # must match a category exactly (see below)
 # subcategory: "Whiskey-based" # groups drinks within a category
 # tags: ["Smoky", "Bitter"]    # flavor tags shown on the menu
 # featured: true               # adds a ★ staff favorite badge
-# image: "/cocktail-placeholder.svg"  # lookup key resolved by MenuItem.astro's imageSrcMap
+# image: "/cocktail-placeholder.svg"  # lookup key resolved by MenuItem.astro's imageSrcMap (SVGs and .webp photos)
 # available: false             # set to false to show "Currently unavailable"
 ```
 
