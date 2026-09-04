@@ -16,13 +16,22 @@
 
 [x-cloak] { display: none !important; }
 
-/* Brand-match the alpine-tailwind-lightbox overlay (injected into <body>) */
-[role="region"][aria-modal="true"][aria-roledescription="carousel"] {
-  background-color: rgba(15, 15, 18, 0.9); /* --color-night @ 90% */
+/* Image viewer transitions */
+.viewer-enter {
+  opacity: 0;
+  transform: scale(0.95);
 }
-[role="region"][aria-modal="true"] a[aria-label] svg {
-  fill: var(--color-cream);
+.viewer-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 300ms ease-out;
 }
-[role="region"][aria-modal="true"] a[aria-label]:hover svg {
-  fill: var(--color-gold);
+.viewer-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.viewer-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 200ms ease-in;
 }

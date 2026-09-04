@@ -11,5 +11,5 @@ order: 33                     # position in the list; lower = first (default: 0 
 subcategory: "Tequila-based" # groups drinks within a category
 tags: ["Citrus", "Savory", "Refreshing"]    # flavor tags shown on the menu
 featured: false               # adds a ★ Bartender's Pick badge
-image: "/highball-glass.svg"  # path to an image in the public/ folder
+image: "/highball-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
 available: true             # set to false to show "Currently unavailable"

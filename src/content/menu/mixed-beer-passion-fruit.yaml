@@ -11,5 +11,5 @@ order: 35                     # position in the list; lower = first (default: 0 
 # subcategory: "" # groups drinks within a category
 tags: ["Tart", "Tropical"]    # flavor tags shown on the menu
 featured: false               # adds a ★ Bartender's Pick badge
-image: "/tulip-glass.svg"  # path to an image in the public/ folder
+image: "/tulip-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
 available: true             # set to false to show "Currently unavailable"

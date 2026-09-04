@@ -21,19 +21,38 @@ const { item } = Astro.props;
 const unavailable = item.available === false;
 const imgSrc = item.image ? imageSrcMap[item.image] : undefined;
 const isPhoto = item.image?.endsWith('.webp') ?? false;
+const openViewerHandler = imgSrc
+  ? `window.dispatchEvent(new CustomEvent('open-viewer', { detail: { url: ${JSON.stringify(imgSrc)}, alt: ${JSON.stringify(item.name)} } }))`
+  : undefined;
 ---
 
   <div class={`group font-body flex gap-4 items-center${unavailable ? ' opacity-50' : ''}`}>
     {imgSrc && (
       <div class="shrink-0">
         {isPhoto ? (
-          <a href="#"
-            x-data={`{ url: ${JSON.stringify(imgSrc)}, alt: ${JSON.stringify(item.name)} }`}
-            x-lightbox="url"
-            class="shrink-0 block w-20 sm:w-32">
-            <img src={imgSrc} alt={item.name}
-              class="w-full h-auto opacity-100 cursor-pointer transition-opacity hover:opacity-80" />
-          </a>
+          <button
+            type="button"
+            class="relative group shrink-0 block w-20 sm:w-32 focus:outline-none focus:ring-2 focus:ring-cream/50 focus:ring-offset-2 focus:ring-offset-night rounded"
+            @click={openViewerHandler}
+            aria-label={`View larger image of ${item.name}`}
+            disabled={unavailable || undefined}
+          >
+            <img src={imgSrc} alt={item.name} loading="lazy" decoding="async"
+              class:list={[
+                "w-full h-auto transition-all duration-200",
+                unavailable ? "opacity-30 cursor-not-allowed" : "opacity-100 group-hover:opacity-80 group-focus-visible:opacity-80 cursor-pointer"
+              ]}
+            />
+            {!unavailable && (
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200">
+                <span class="p-2 bg-black/60 rounded-full">
+                  <svg class="w-4 h-4 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                  </svg>
+                </span>
+              </div>
+            )}
+          </button>
         ) : (
           <img src={imgSrc} alt="" class="w-10 h-auto opacity-50" aria-hidden="true" />
         )}

@@ -8,18 +8,20 @@ Quick-reference guide for navigating the codebase. Updated alongside the project
 
 ```
 public/              → Static assets served at root (robots.txt, favicon.ico, og-image.svg). Files must be at exact URL.
-src/assets/images/   → Images imported by components (SVGs). Imported with `?url` suffix for direct URL.
+src/assets/images/   → Images imported by components (SVGs/WebPs). Imported with `?url` suffix for direct URL.
 src/
 ├── layouts/
-│   └── MainLayout.astro    → HTML shell: <head>, <Nav>, <Footer>, <slot>
+│   └── MainLayout.astro    → HTML shell: <head>, <Nav>, <Footer>, <slot>, <ImageViewer>
 ├── components/
 │   ├── Nav.astro           → Top nav bar + mobile hamburger menu (Alpine.js)
 │   ├── Footer.astro        → Allergy notice, copyright, social links
 │   ├── HoursLocation.astro → Reusable address/hours/email block
 │   ├── MenuHeader.astro    → "impurrfect" title + tagline for /menu
 │   ├── MenuCategory.astro  → Category section + its drinks
-│   ├── MenuItem.astro      → Single drink card (name, price, tags, badges)
-│   └── BrandNameWord.astro → Reusable branded "impurrfect" word
+│   ├── MenuItem.astro      → Single drink card (name, price, tags, badges, zoom trigger)
+│   ├── BrandNameWord.astro → Reusable branded "impurrfect" word
+│   └── lightbox/
+│       └── ImageViewer.astro → Singleton image viewer (drag-down dismiss, pinch-zoom)
 ├── pages/
 │   ├── index.astro         → Landing page (hero + CTA)
 │   ├── about.astro         → Brand story
@@ -31,6 +33,8 @@ src/
 ├── data/
 │   ├── categories.ts       → Category metadata (name, description, order)
 │   └── menu.ts             → TypeScript types
+├── alpine.ts               → Alpine.js plugin registration (focus) + image viewer data (src/viewer.ts)
+├── viewer.ts               → `registerImageViewer`: window `open-viewer` listener, drag-down, pinch/wheel/double-tap zoom
 └── styles/global.css       → Tailwind import + brand theme variables
 ```
 
@@ -56,6 +60,7 @@ src/
 | Menu page title + tagline | `src/components/MenuHeader.astro` |
 | Category section heading / subcategory grouping | `src/components/MenuCategory.astro` |
 | Single drink card layout (name, price, tags, badges) | `src/components/MenuItem.astro` |
+| Image viewer (zoom, drag-dismiss) | `src/components/lightbox/ImageViewer.astro` — singleton, mounted in MainLayout |
 | CTA button styling | Any `a` with `class="bg-gold ..."` |
 | Branded "impurrfect" word | `src/components/BrandNameWord.astro` — accepts `normalCase` prop |
 
