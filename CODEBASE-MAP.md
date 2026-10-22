@@ -8,6 +8,7 @@ Quick-reference guide for navigating the codebase. Updated alongside the project
 
 ```
 public/              → Static assets served at root (robots.txt, favicon.ico, og-image.svg). Files must be at exact URL.
+docs/menu-drafts/    → Scratch dump for menu bones (.md only, never .yaml). Astro-safe; never affects build or live site.
 src/assets/images/   → Images imported by components (SVGs/WebPs). Imported with `?url` suffix for direct URL.
 src/
 ├── layouts/
@@ -36,6 +37,9 @@ src/
 ├── alpine.ts               → Alpine.js plugin registration (focus) + image viewer data (src/viewer.ts)
 ├── viewer.ts               → `registerImageViewer`: window `open-viewer` listener, drag-down, pinch/wheel/double-tap zoom
 └── styles/global.css       → Tailwind import + brand theme variables
+
+scripts/
+└── check-menu-order.mjs    → Cross-entry guard: fails the build if two items in one category share `order`
 ```
 
 ---
@@ -89,13 +93,14 @@ src/
 ### Menu Data
 | Want to change… | Action |
 |---|---|
+| Draft a new drink (bones, not live) | Drop a `.md` in `docs/menu-drafts/` (copy `DRAFT-TEMPLATE.md`); promote to YAML later |
 | Add a new drink | Create `src/content/menu/my-drink.yaml` (copy TEMPLATE.md) |
 | Edit name / price / description / tags | Edit the YAML file for that drink |
 | Reorder drinks within a category | Change `order` in each YAML |
 | Mark a drink unavailable | Add `available: false` to its YAML |
 | Add / rename / remove a category | Edit `src/data/categories.ts` (the `Archived` category is internal-only and hidden from `/menu`) |
 | Reorder categories | Change `order` in `categories.ts` |
-| Add a new image for a drink | Add SVG to `src/assets/images/`, add import + map entry in `MenuItem.astro` |
+| Add a new image for a drink | Drop the `.svg`/`.webp` into `src/assets/images/`, then reference its basename in the YAML `image` field. `MenuItem.astro` picks files up automatically via `import.meta.glob` — no import or map entry needed |
 
 ### Schema / Data Structure Changes
 | File | Role | Must keep in sync with |
@@ -111,15 +116,15 @@ src/
 
 | Field | Required | Type | Notes |
 |---|---|---|---|
-| `name` | ✅ | string | Drink name |
-| `price` | ✅ | string | e.g. `"VND 180k"` |
-| `description` | ✅ | string | Description text |
-| `category` | ✅ | string | Must match a name in `categories.ts` exactly |
-| `order` | ❌ | number | Default `0` (sorts before positive numbers) |
-| `tags` | ❌ | string[] | e.g. `["Smoky", "Bitter"]` |
+| `name` | ✅ | string | Drink name; must be non-empty after trim |
+| `price` | ✅ | string | Must match `/^VND \d+k( \/ \d+k)?$/`, e.g. `"VND 180k"` or `"VND 79k / 109k"`. Build fails otherwise |
+| `description` | ✅ | string | Description text; must be non-empty after trim |
+| `category` | ✅ | string | `z.enum` built from `categories.ts` — unknown names fail the build |
+| `order` | ❌ | integer | Default `0` (sorts before positive numbers); must be whole |
+| `tags` | ❌ | string[] | e.g. `["Smoky", "Bitter"]`; each tag must be non-empty |
 | `featured` | ❌ | boolean | Shows ★ staff favorite badge |
-| `image` | ❌ | string | Path key resolved by `MenuItem.astro`'s `imageSrcMap`, e.g. `"/cocktail-placeholder.svg"` |
-| `subcategory` | ❌ | string | Groups items within a category |
+| `image` | ❌ | string | Path key resolved by `MenuItem.astro`'s `imageSrcMap`, e.g. `"/cocktail-placeholder.svg"`. Must be `.svg`/`.webp` **and** exist in `src/assets/images/` |
+| `subcategory` | ❌ | string | Groups items within a category; must be non-empty after trim |
 | `available` | ❌ | boolean | Default `true`; set `false` to show "Currently unavailable" |
 
 ---
@@ -150,7 +155,8 @@ YAML files ──► content.config.ts ──► getCollection('menu')
                                  │
                                  ▼
                          Items with an unknown category
-                         in categories.ts are silently dropped (no warning)
+                         in categories.ts fail the build in the
+                         Zod schema (before this point)
 ```
 
 ---
@@ -163,6 +169,7 @@ YAML files ──► content.config.ts ──► getCollection('menu')
 | `npm run build` | Build to `./dist/` |
 | `npm run preview` | Preview production build |
 | `npm run check` | Type-check `.astro` files |
+| `npm run check:menu-order` | Verify no two items in a category share `order` (also runs automatically via `prebuild`) |
 | `npm run astro sync` | Regenerate `.astro/types.d.ts` after schema changes |
 
 Pre-merge verification: `npm run check && npm run build && npm run preview` (~10 seconds).

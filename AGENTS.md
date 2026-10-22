@@ -19,6 +19,7 @@
 | `npm run build` | Build to `./dist/` |
 | `npm run preview` | Preview production build |
 | `npm run check` | Type-check all `.astro` files via `@astrojs/check` |
+| `npm run check:menu-order` | Fail if two items in one category share `order` (auto-runs via `prebuild`, so `npm run build` covers it) |
 | `npm run astro` | CLI wrapper (`astro add`, `astro sync`, etc.) |
 | `npm run astro sync` | Regenerate `.astro/types.d.ts` (gitignored; needed after schema/collection changes) |
 
@@ -58,14 +59,16 @@ Menu data lives in Content Collections for type safety.
 |---|---|
 | `src/content.config.ts` | Zod schema, `glob` loader matches `src/content/menu/*.yaml` |
 | `src/content/menu/*.yaml` | One file per menu item |
+| `docs/menu-drafts/` | Scratch dump for menu bones (`.md` only, never `.yaml`; Astro-safe, never affects build) |
 | `src/data/categories.ts` | Category metadata (name, description, sort order) |
 | `src/data/menu.ts` | TypeScript types (`MenuItemData`, `MenuCategoryData`) |
 
 See [`CODEBASE-MAP.md`](./CODEBASE-MAP.md#yaml-fields-per-menu-item) for the YAML fields reference and [`CODEBASE-MAP.md`](./CODEBASE-MAP.md#data-flow-menu-page) for the data flow diagram.
 
 Key gotchas:
-- **Items with a `category` that doesn't match `categories.ts` are silently dropped.** `MenuItemData` (in `src/data/menu.ts`) does not include `category` or `order` — those live on the collection entry wrapper, not on `item.data`.
+- **Schema guards are enforced, not advisory.** `src/content.config.ts` rejects a `category` that isn't in `categories.ts` (previously the item was silently dropped from `/menu`), a `price` not matching `/^VND \d+k( \/ \d+k)?$/`, an `image` whose basename isn't a real `.svg`/`.webp` in `src/assets/images/`, and a non-integer `order`. All four fail the build with a named field error. `MenuItemData` (in `src/data/menu.ts`) does not include `category` or `order` — those live on the collection entry wrapper, not on `item.data`.
 - Default `order` is `0` (sorts before any positive number).
+- **`order` uniqueness is cross-entry, so it lives outside the schema.** `scripts/check-menu-order.mjs` reads the whole folder and fails the build when two items in the same category share an `order` (a missing `order` counts as `0`). Wired as `prebuild`, so `npm run build` — and therefore Vercel — enforces it. Duplicates across different categories are allowed.
 - When changing the menu item schema, update all in sync: `src/content.config.ts`, `src/data/menu.ts`, `CONTENT-GUIDE.md`, and `src/content/menu/TEMPLATE.md`.
 
 ## Notable files
@@ -73,6 +76,7 @@ Key gotchas:
 - **`CODEBASE-MAP.md`** — comprehensive edit-location reference; update alongside the project.
 - **`CONTENT-GUIDE.md`** — end-user guide for editing page content. Keep in sync if the codebase structure changes.
 - **`GIT-WORKFLOW.md`** — Git branching workflow reference. Run `npm run build && npm run preview` before merging any branch.
+- **`docs/menu-drafts/`** — scratch dump for menu bones. Draft `.md` ideas here (copy `DRAFT-TEMPLATE.md`); promote to `src/content/menu/*.yaml` when ready.
 - **`../impurrfect-DNA.md`** (repo root) — business DNA / tone-of-voice source of truth. Consult it before writing or editing any customer-facing copy.
 - **`vercel.json`** — deploy config: `cleanUrls: true`, permanent redirect `/bar-menu` → `/menu`.
 - **Generated (do not edit):** `.astro/`, `dist/`, `.vercel/` (all in `.gitignore`)

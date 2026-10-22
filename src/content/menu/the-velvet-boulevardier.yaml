@@ -2,7 +2,7 @@ name: "The Velvet Boulevardier"
 price: "VND 190k"
 description: "Campari, sweet vermouth, bourbon, infused with whole coffee beans."
 category: "Archived"
-order: 2
+order: 4
 tags: ["Bitter", "Coffee"]
 featured: true
 subcategory: "Whiskey-based"

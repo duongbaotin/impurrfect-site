@@ -2,6 +2,6 @@ name: "Rustic Elegance"
 price: "VND 170k"
 description: "Bourbon, rosemary-infused simple syrup, fresh grapefruit juice, served over a clear ice block."
 category: "Archived"
-order: 3
+order: 5
 tags: ["Herbal", "Citrus"]
 image: "/coupe-glass.svg"

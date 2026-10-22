@@ -27,6 +27,10 @@ The venue info block (location, hours, email) is shared:
 
 Menu data lives in YAML files, one per drink, under `src/content/menu/`.
 
+### Drafting new drinks (bones first)
+
+Dump raw ideas as `.md` files in `docs/menu-drafts/` (copy `DRAFT-TEMPLATE.md`). Free-form — no schema, never affects the build or live site. When an idea is ready, promote it to a `.yaml` in `src/content/menu/` per "Adding a drink" below. Never put `.yaml` in `docs/menu-drafts/`.
+
 ### Photo zoom behavior
 
 Menu items with `.webp` images show a zoom trigger. Tap to open the image viewer:
@@ -41,17 +45,30 @@ Menu items with `.webp` images show a zoom trigger. Tap to open the image viewer
 Open any `.yaml` file in `src/content/menu/`. Fields:
 
 ```yaml
-name: string              # drink name
-price: string             # e.g. "VND 180k"
-description: string       # description text
-category: string          # must match a category name in src/data/categories.ts
+name: string              # drink name (required, non-empty)
+price: string             # "VND 180k", or "VND 79k / 109k" for two sizes (required, format enforced)
+description: string       # description text (required, non-empty)
+category: string          # must match a category name in src/data/categories.ts (enforced)
 subcategory?: string    # optional grouping within a category, e.g. "Whiskey-based"
-order: number             # sort position within category (lower = first)
+order: number             # sort position within category (lower = first); whole numbers only
 tags?: string[]           # optional, e.g. ["Smoky", "Bitter"]
 featured?: boolean        # shows ★ staff favorite badge
-image?: string          # lookup key resolved by MenuItem.astro, e.g. "/cocktail-placeholder.svg"
+image?: string          # "/cocktail-placeholder.svg" — must be .svg/.webp and exist in src/assets/images/
 available?: boolean     # default true; set false to show "Currently unavailable"
 ```
+
+### What the build refuses
+
+`src/content.config.ts` validates every YAML file, so a typo stops the build instead of shipping a broken page:
+
+- `price` not in `VND <number>k` form → error
+- `category` not in `categories.ts` → error (previously the drink vanished from `/menu` with no warning)
+- `image` pointing at a file that isn't in `src/assets/images/`, or not `.svg`/`.webp` → error (previously the drink rendered with no image)
+- `order` that isn't a whole number → error
+
+One rule can't be checked per-file: two drinks in the **same category** with the same `order` (including both missing it, since a missing `order` counts as `0`). `scripts/check-menu-order.mjs` reads the whole folder and stops the build for that too. The same number in *different* categories is fine.
+
+Run `npm run build` to check your edits before pushing, or rely on Vercel to reject the deploy.
 
 ### Adding a drink
 
@@ -73,7 +90,7 @@ Edit `src/data/categories.ts`. Each entry:
 
 ### Re-ordering drinks or categories
 
-- **Drinks within a category** — change the `order` field in each YAML file.
+- **Drinks within a category** — change the `order` field in each YAML file. Give every item in a category a **different** whole number: two items with the same number make the on-page order depend on filename, and the build will reject it.
 - **Categories on the page** — change the `order` field in `src/data/categories.ts`.
 
 ---
