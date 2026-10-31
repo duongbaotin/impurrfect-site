@@ -93,6 +93,16 @@ Edit `src/data/categories.ts`. Each entry:
 - **Drinks within a category** — change the `order` field in each YAML file. Give every item in a category a **different** whole number: two items with the same number make the on-page order depend on filename, and the build will reject it.
 - **Categories on the page** — change the `order` field in `src/data/categories.ts`.
 
+### Preview route from Baserow (`/menu-preview`)
+
+`https://impurrfect-bar.meowracle.space/menu-preview` is a **staging** copy of `/menu` that reads from Baserow table `1258954` (`recipes`) at build time instead of the YAML files. It exists so the Baserow → website pipeline can be tested without touching the live menu.
+
+- **Not linked from the navigation** and marked `noindex, nofollow` — customers won't find it.
+- **Do not edit YAML expecting the preview to change.** `/menu-preview` ignores `src/content/menu/*.yaml` completely; edit the Baserow row instead. `/menu` still reads YAML until the production cutover.
+- The same validation rules apply: a preview item with a bad price, unknown category, or duplicate order inside its category fails the build with the drink's name.
+- Only rows with `status` = `active` or `unavailable` appear (`planning` / `testing` / `retired` stay internal). If `web_image` is blank, the item falls back to its linked glassware's `image_key`.
+- The build needs a Baserow token, so `npm run build` now requires network access and either `BASEROW_TOKEN` in `.env` or a token file at `~/.secrets/baserow-token` (falls back to `~/.secrets/baserow-database-token`).
+
 ---
 
 ## General

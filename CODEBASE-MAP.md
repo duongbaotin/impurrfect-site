@@ -13,6 +13,8 @@ src/assets/images/   → Images imported by components (SVGs/WebPs). Imported wi
 src/
 ├── layouts/
 │   └── MainLayout.astro    → HTML shell: <head>, <Nav>, <Footer>, <slot>, <ImageViewer>
+├── loaders/
+│   └── baserow-menu.ts     → Build-time Baserow loader for the `menuBaserow` collection (/menu-preview)
 ├── components/
 │   ├── Nav.astro           → Top nav bar + mobile hamburger menu (Alpine.js)
 │   ├── Footer.astro        → Allergy notice, copyright, social links
@@ -28,9 +30,10 @@ src/
 │   ├── about.astro         → Brand story
 │   ├── contact.astro       → Uses HoursLocation + inquiry note
 │   ├── 404.astro           → Branded 404
-│   └── menu/index.astro    → Menu listing (fetches YAML, sorts, renders)
+│   ├── menu/index.astro    → Menu listing (fetches YAML, sorts, renders)
+│   └── menu-preview/index.astro → Staging menu listing (fetches Baserow collection, noindex, unlinked)
 ├── content/menu/*.yaml     → One YAML per menu item (drinks/snacks)
-├── content.config.ts       → Zod schema for YAML validation
+├── content.config.ts       → Zod schema for YAML validation + `menuBaserow` collection
 ├── data/
 │   ├── categories.ts       → Category metadata (name, description, order)
 │   └── menu.ts             → TypeScript types
@@ -98,6 +101,8 @@ scripts/
 | Edit name / price / description / tags | Edit the YAML file for that drink |
 | Reorder drinks within a category | Change `order` in each YAML |
 | Mark a drink unavailable | Add `available: false` to its YAML |
+| Change what `/menu-preview` shows | Edit the Baserow `recipes` row (`1258954`) — the preview ignores YAML |
+| Add a web image key / description / tags to the preview | Baserow `web_image`, `web_description`, `flavor_tags` on the recipe row |
 | Add / rename / remove a category | Edit `src/data/categories.ts` (the `Archived` category is internal-only and hidden from `/menu`) |
 | Reorder categories | Change `order` in `categories.ts` |
 | Add a new image for a drink | Drop the `.svg`/`.webp` into `src/assets/images/`, then reference its basename in the YAML `image` field. `MenuItem.astro` picks files up automatically via `import.meta.glob` — no import or map entry needed |
@@ -106,6 +111,7 @@ scripts/
 | File | Role | Must keep in sync with |
 |---|---|---|
 | `src/content.config.ts` | Zod schema (validates every YAML) | `menu.ts`, `CONTENT-GUIDE.md`, `TEMPLATE.md` |
+| `src/loaders/baserow-menu.ts` | Baserow → collection mapping for `menuBaserow` | `content.config.ts` (same `menuSchema`), `../bar-database/AGENTS.md` |
 | `src/data/menu.ts` | TypeScript types consumed by components | `content.config.ts`, `CONTENT-GUIDE.md`, `TEMPLATE.md` |
 | `CONTENT-GUIDE.md` | End-user docs for content editors | All schema files |
 | `src/content/menu/TEMPLATE.md` | Copy-paste template | All schema files |
@@ -159,6 +165,31 @@ YAML files ──► content.config.ts ──► getCollection('menu')
                          Zod schema (before this point)
 ```
 
+### Data flow (`/menu-preview`, staging)
+
+```
+Baserow `recipes` (1258954) ─┐
+Baserow `glassware` (1259147)┴► src/loaders/baserow-menu.ts
+                                    │  token: env → .env → ~/.secrets
+                                    │  filter status = active / unavailable
+                                    │  map → name/price/description/category/
+                                    │        order/subcategory/tags/featured/
+                                    │        image/available
+                                    │  fail on duplicate order per category
+                                    ▼
+                            parseData() ── same `menuSchema` as `menu`
+                                    │
+                                    ▼
+                          getCollection('menuBaserow')
+                                    │
+                                    ▼
+                          menu-preview/index.astro  (noindex, unlinked)
+```
+
+`/menu` and `/menu-preview` share the schema but not the data source: YAML edits
+never reach the preview, Baserow edits never reach `/menu` until the Phase 4
+cutover.
+
 ---
 
 ## Commands
@@ -173,6 +204,13 @@ YAML files ──► content.config.ts ──► getCollection('menu')
 | `npm run astro sync` | Regenerate `.astro/types.d.ts` after schema changes |
 
 Pre-merge verification: `npm run check && npm run build && npm run preview` (~10 seconds).
+
+`npm run build` (and `astro sync` / `check` / `dev`) now fetches Baserow for the
+`menuBaserow` collection, so it needs network access plus a database token:
+`BASEROW_TOKEN` in `.env` or the shell env, else `~/.secrets/baserow-token`
+(falls back to `~/.secrets/baserow-database-token`). Both are read at build time
+only — nothing is exposed to the browser. Vercel has `BASEROW_TOKEN` as a project
+env var.
 
 ---
 
@@ -204,5 +242,7 @@ All three are in `.gitignore`.
 - **Live domain:** `impurrfect-bar.meowracle.space`
 - **Deploy:** Vercel auto-deploys from `main` branch
 - **Vercel config:** `vercel.json` — `cleanUrls: true`, redirects `/bar-menu` → `/menu`
+- **Required env var:** `BASEROW_TOKEN` (Baserow database token, read-only is enough) — builds fail without it
+- **Staging route:** `/menu-preview` — Baserow-sourced mirror of `/menu`, `noindex`, unlinked from the nav, excluded from the sitemap
 - **Cloudflare Page Rule** (do not modify): `meowracle.space/impurrfect-bar*` → `https://impurrfect-bar.meowracle.space/$1` (301)
 - **No CI / no `.github` directory**

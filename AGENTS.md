@@ -23,12 +23,13 @@
 | `npm run astro` | CLI wrapper (`astro add`, `astro sync`, etc.) |
 | `npm run astro sync` | Regenerate `.astro/types.d.ts` (gitignored; needed after schema/collection changes) |
 
-No tests, no linter, no formatter config in this repo. Pre-merge verification: `npm run check && npm run build && npm run preview`.
+No tests, no linter, no formatter config in this repo. Pre-merge verification: `npm run check && npm run build && npm run preview`. `build`/`check`/`sync`/`dev` all fetch Baserow, so they need network access and `BASEROW_TOKEN` (or a token file in `~/.secrets`).
 
 ## Routes
 
 - `/` — landing page
-- `/menu` — cocktail menu listing
+- `/menu` — cocktail menu listing (YAML `menu` collection)
+- `/menu-preview` — **staging** mirror of `/menu` built from the Baserow `menuBaserow` collection; `noindex`, unlinked from nav, excluded from the sitemap
 - `/contact` — contact info and inquiry note
 - `*` — 404 page (branded)
 
@@ -57,8 +58,9 @@ Menu data lives in Content Collections for type safety.
 
 | File | Purpose |
 |---|---|
-| `src/content.config.ts` | Zod schema, `glob` loader matches `src/content/menu/*.yaml` |
-| `src/content/menu/*.yaml` | One file per menu item |
+| `src/content.config.ts` | Shared `menuSchema` (Zod) + two collections: `menu` (`glob` loader) and `menuBaserow` (Baserow loader) |
+| `src/loaders/baserow-menu.ts` | Build-time Baserow fetch for `menuBaserow`: token resolution, paging, field mapping, order guard |
+| `src/content/menu/*.yaml` | One file per menu item (source of truth for `/menu` until Phase 4 cutover) |
 | `docs/menu-drafts/` | Scratch dump for menu bones (`.md` only, never `.yaml`; Astro-safe, never affects build) |
 | `src/data/categories.ts` | Category metadata (name, description, sort order) |
 | `src/data/menu.ts` | TypeScript types (`MenuItemData`, `MenuCategoryData`) |
@@ -68,7 +70,9 @@ See [`CODEBASE-MAP.md`](./CODEBASE-MAP.md#yaml-fields-per-menu-item) for the YAM
 Key gotchas:
 - **Schema guards are enforced, not advisory.** `src/content.config.ts` rejects a `category` that isn't in `categories.ts` (previously the item was silently dropped from `/menu`), a `price` not matching `/^VND \d+k( \/ \d+k)?$/`, an `image` whose basename isn't a real `.svg`/`.webp` in `src/assets/images/`, and a non-integer `order`. All four fail the build with a named field error. `MenuItemData` (in `src/data/menu.ts`) does not include `category` or `order` — those live on the collection entry wrapper, not on `item.data`.
 - Default `order` is `0` (sorts before any positive number).
-- **`order` uniqueness is cross-entry, so it lives outside the schema.** `scripts/check-menu-order.mjs` reads the whole folder and fails the build when two items in the same category share an `order` (a missing `order` counts as `0`). Wired as `prebuild`, so `npm run build` — and therefore Vercel — enforces it. Duplicates across different categories are allowed.
+- **`order` uniqueness is cross-entry, so it lives outside the schema.** `scripts/check-menu-order.mjs` reads the whole folder and fails the build when two items in the same category share an `order` (a missing `order` counts as `0`). Wired as `prebuild`, so `npm run build` — and therefore Vercel — enforces it. Duplicates across different categories are allowed. The Baserow loader enforces the same rule in code, because the schema still sees one row at a time.
+- **`menuBaserow` never touches YAML.** `src/loaders/baserow-menu.ts` fetches tables `1258954` (`recipes`) and `1259147` (`glassware`) at build time, keeps only `status` = `active`/`unavailable`, maps to `menuSchema`, and falls back to linked glassware's `image_key` when `web_image` is blank. `/menu` stays on the `glob` loader until the Phase 4 cutover — do not point it at `menuBaserow` yet.
+- **Builds now need network + `BASEROW_TOKEN`.** Resolution order: `import.meta.env.BASEROW_TOKEN` → `process.env.BASEROW_TOKEN` → `~/.secrets/baserow-token` → `~/.secrets/baserow-database-token`. Missing token fails the build with an actionable message; it is never shipped to the client.
 - When changing the menu item schema, update all in sync: `src/content.config.ts`, `src/data/menu.ts`, `CONTENT-GUIDE.md`, and `src/content/menu/TEMPLATE.md`.
 
 ## Notable files
@@ -86,5 +90,7 @@ Key gotchas:
 
 - **Live domain:** `impurrfect-bar.meowracle.space`
 - **Vercel:** Auto-deploys from `main`. Config in `vercel.json`: `cleanUrls: true`, permanent redirect `/bar-menu` → `/menu`.
+- **Vercel env var:** `BASEROW_TOKEN` must exist in the project's environment variables (Production + Preview) or every build fails at content sync. Read-only database token is sufficient.
+- **Deploy hook:** a `main`-branch Deploy Hook drives the Phase 3 "Publish web menu" Zalo command (spec `../impurrfect-lab/01-baserow-web-zalo-sync.md`).
 - **Cloudflare Page Rule** (independent of this repo; do not remove): `meowracle.space/impurrfect-bar*` → `https://impurrfect-bar.meowracle.space/$1` (301)
 - No CI / no `.github` directory — all testing is local-only via `npm run check`.

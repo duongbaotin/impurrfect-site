@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import MenuHeader from '../../components/MenuHeader.astro';
+import MenuCategory from '../../components/MenuCategory.astro';
+import { categories } from '../../data/categories';
+
+// Staging mirror of /menu: same layout, data from Baserow instead of YAML.
+// Unlinked from the nav and noindexed until the production cutover (Phase 4).
+
+const tagline = "Baserow-sourced menu preview — same layout as /menu.";
+
+const items = await getCollection('menuBaserow');
+items.sort((a, b) => a.data.order - b.data.order);
+
+const menuCategories = categories
+  .filter((cat) => cat.name !== 'Archived')
+  .sort((a, b) => a.order - b.order)
+  .map((cat) => ({
+    category: cat.name,
+    description: cat.description,
+    items: items
+      .filter((i) => i.data.category === cat.name)
+      .map((i) => i.data),
+  }));
+---
+
+<MainLayout
+  title="menu preview - impurrfect"
+  description="Staging preview of the impurrfect menu, generated from Baserow at build time."
+  noindex={true}
+>
+  <MenuHeader tagline={tagline} />
+
+  <div class="space-y-16">
+    {menuCategories.map((cat) => (
+      <MenuCategory category={cat} />
+    ))}
+  </div>
+</MainLayout>

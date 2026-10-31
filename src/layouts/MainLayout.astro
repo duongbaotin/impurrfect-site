@@ -13,9 +13,11 @@ interface Props {
   title?: string;
   description?: string;
   allergyNotice?: boolean;
+  /** Staging/preview routes: ask crawlers to stay away. */
+  noindex?: boolean;
 }
 
-const { title = "impurrfect", description, allergyNotice } = Astro.props;
+const { title = "impurrfect", description, allergyNotice, noindex } = Astro.props;
 const ogImage = new URL('/og-image.svg', Astro.site);
 ---
 
@@ -26,6 +28,7 @@ const ogImage = new URL('/og-image.svg', Astro.site);
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="canonical" href={Astro.url} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <ClientRouter />
     <title>{title}</title>
     {description && (
