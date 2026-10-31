@@ -78,6 +78,7 @@ Key gotchas:
 - **`GIT-WORKFLOW.md`** — Git branching workflow reference. Run `npm run build && npm run preview` before merging any branch.
 - **`docs/menu-drafts/`** — scratch dump for menu bones. Draft `.md` ideas here (copy `DRAFT-TEMPLATE.md`); promote to `src/content/menu/*.yaml` when ready.
 - **`../impurrfect-DNA.md`** (repo root) — business DNA / tone-of-voice source of truth. Consult it before writing or editing any customer-facing copy.
+- **`../impurrfect-lab/`** (repo root) — **Head Architecture & Evolution Hub**. Cross-system upgrade specs and staged rollout plans live here (see `../impurrfect-lab/README.md` and `../impurrfect-lab/01-baserow-web-zalo-sync.md`).
 - **`vercel.json`** — deploy config: `cleanUrls: true`, permanent redirect `/bar-menu` → `/menu`.
 - **Generated (do not edit):** `.astro/`, `dist/`, `.vercel/` (all in `.gitignore`)
 
