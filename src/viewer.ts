@@ -1,7 +1,18 @@
 // @ts-nocheck
 // Custom single-image viewer registered on the Alpine instance from src/alpine.ts.
-// Listens on window (thumbnails live outside the viewer subtree, so a local
-// $el listener never receives their events).
+// Thumbnails live outside the viewer subtree (and the view is replaced on every
+// ClientRouter navigation), so the listener is attached once at module scope and
+// relays to whichever viewer instance is currently mounted.
+
+let activeViewer = null;
+
+const handleOpenViewer = (event) => {
+  activeViewer?.openViewer(event.detail);
+};
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('open-viewer', handleOpenViewer);
+}
 
 export function registerImageViewer(Alpine) {
   Alpine.data('imageViewer', () => ({
@@ -25,11 +36,27 @@ export function registerImageViewer(Alpine) {
     initialScale: 1,
 
     lastTapTime: 0,
+    hintTimer: null,
+    _onBeforeSwap: null,
 
     init() {
-      window.addEventListener('open-viewer', (e) => {
-        this.openViewer(e.detail);
-      });
+      activeViewer = this;
+      // ClientRouter replaces the body; drop the stale instance reference so
+      // events between swaps can never hit a destroyed component.
+      this._onBeforeSwap = () => {
+        if (activeViewer === this) activeViewer = null;
+      };
+      document.addEventListener('astro:before-swap', this._onBeforeSwap);
+    },
+
+    destroy() {
+      if (activeViewer === this) activeViewer = null;
+      if (this._onBeforeSwap) {
+        document.removeEventListener('astro:before-swap', this._onBeforeSwap);
+      }
+      if (this.hintTimer) clearTimeout(this.hintTimer);
+      this.resetBackdrop();
+      if (this.isOpen) document.body.style.overflow = '';
     },
 
     openViewer(image) {
@@ -39,7 +66,8 @@ export function registerImageViewer(Alpine) {
       this.resetState();
       this.showHint = true;
 
-      setTimeout(() => {
+      if (this.hintTimer) clearTimeout(this.hintTimer);
+      this.hintTimer = setTimeout(() => {
         this.showHint = false;
       }, 3000);
 
@@ -52,7 +80,12 @@ export function registerImageViewer(Alpine) {
     close() {
       this.isOpen = false;
       this.currentImage = null;
+      if (this.hintTimer) {
+        clearTimeout(this.hintTimer);
+        this.hintTimer = null;
+      }
       this.resetState();
+      this.resetBackdrop();
     },
 
     resetState() {
@@ -61,10 +94,22 @@ export function registerImageViewer(Alpine) {
       this.translateY = 0;
       this.dragOffsetY = 0;
       this.isDragging = false;
+      this.resetBackdrop();
+    },
+
+    resetBackdrop() {
+      const backdrop = this.$el?.querySelector?.('[data-viewer-backdrop]');
+      if (backdrop) backdrop.style.opacity = '';
     },
 
     get imageStyle() {
-      return `transform: translate(${this.translateX}px, ${this.translateY}px) scale(${this.scale});`;
+      // Only apply the drag offset while at rest scale; when zoomed, the same
+      // finger movement pans the image instead.
+      const offsetY = this.scale <= 1 ? this.dragOffsetY : 0;
+      const transform = `translate(${this.translateX}px, ${this.translateY + offsetY}px) scale(${this.scale})`;
+      // Let the image track the finger 1:1, then ease back on release.
+      const transition = this.isDragging ? ' transition: none;' : '';
+      return `transform: ${transform};${transition}`;
     },
 
     onTouchStart(e) {
@@ -96,6 +141,7 @@ export function registerImageViewer(Alpine) {
         if (this.scale <= 1) {
           this.translateX = 0;
           this.translateY = 0;
+          this.dragOffsetY = 0;
         }
       } else if (e.touches.length === 1 && this.isDragging) {
         const deltaY = e.touches[0].clientY - this.dragStartY;
@@ -108,9 +154,10 @@ export function registerImageViewer(Alpine) {
           this.dragStartX = e.touches[0].clientX;
           this.dragStartY = e.touches[0].clientY;
         } else {
-          this.dragOffsetY = deltaY;
+          // Drag-down-to-close only; dragging up should not peel the image away.
+          this.dragOffsetY = Math.max(0, deltaY);
 
-          const opacity = Math.max(0, 1 - Math.abs(deltaY) / 300);
+          const opacity = Math.max(0, 1 - this.dragOffsetY / 300);
           const backdrop = this.$el.querySelector('[data-viewer-backdrop]');
           if (backdrop) {
             backdrop.style.opacity = String(opacity);
@@ -121,14 +168,11 @@ export function registerImageViewer(Alpine) {
 
     onTouchEnd() {
       if (this.isDragging) {
-        if (this.scale <= 1 && Math.abs(this.dragOffsetY) > 100) {
+        if (this.scale <= 1 && this.dragOffsetY > 100) {
           this.close();
         } else {
           this.dragOffsetY = 0;
-          const backdrop = this.$el.querySelector('[data-viewer-backdrop]');
-          if (backdrop) {
-            backdrop.style.opacity = '';
-          }
+          this.resetBackdrop();
         }
       }
 
@@ -142,6 +186,7 @@ export function registerImageViewer(Alpine) {
       if (this.scale <= 1) {
         this.translateX = 0;
         this.translateY = 0;
+        this.dragOffsetY = 0;
       }
     },
 
@@ -150,8 +195,8 @@ export function registerImageViewer(Alpine) {
         this.scale = 2;
 
         const rect = this.$refs.image.getBoundingClientRect();
-        const cx = (e.clientX ?? rect.left + rect.width / 2);
-        const cy = (e.clientY ?? rect.top + rect.height / 2);
+        const cx = e.clientX ?? rect.left + rect.width / 2;
+        const cy = e.clientY ?? rect.top + rect.height / 2;
         const x = cx - rect.left - rect.width / 2;
         const y = cy - rect.top - rect.height / 2;
         this.translateX = -x;
@@ -161,6 +206,9 @@ export function registerImageViewer(Alpine) {
         this.translateX = 0;
         this.translateY = 0;
       }
+
+      this.dragOffsetY = 0;
+      this.resetBackdrop();
     },
 
     getPinchDistance(touches) {

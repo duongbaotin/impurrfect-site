@@ -64,8 +64,10 @@
       @touchstart="onTouchStart($event)"
       @touchmove="onTouchMove($event)"
       @touchend="onTouchEnd($event)"
+      @touchcancel="onTouchEnd($event)"
       @dblclick="toggleZoom($event)"
       @wheel.prevent="onWheel($event)"
+      @click.stop="null"
       x-ref="imageWrapper"
     >
       <img

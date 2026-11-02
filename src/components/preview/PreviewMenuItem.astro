@@ -1,0 +1,148 @@
+---
+import type { PreviewMenuItemData } from '../../data/menu';
+import { resolveMenuImage } from '../../lib/menu-images';
+
+interface Props {
+  item: PreviewMenuItemData;
+}
+
+const { item } = Astro.props;
+const unavailable = item.available === false;
+const imgSrc = resolveMenuImage(item.image);
+const isPhoto = item.image?.endsWith('.webp') ?? false;
+const keyExpr = JSON.stringify(item.key);
+const contentId = `drink-${item.key.replace(/[^a-zA-Z0-9_-]+/g, '-')}`;
+const viewerHandler = imgSrc
+  ? `window.dispatchEvent(new CustomEvent('open-viewer', { detail: { url: ${JSON.stringify(imgSrc)}, alt: ${JSON.stringify(item.name)} } }))`
+  : undefined;
+---
+
+<div
+  class:list={[
+    'pv-item group font-body flex items-start gap-4',
+    unavailable && 'opacity-50',
+  ]}
+  x-show={`isItemVisible(${keyExpr})`}
+>
+  <div class="flex w-16 shrink-0 justify-center pt-0.5 sm:w-20">
+    {imgSrc && (
+      isPhoto ? (
+        <button
+          type="button"
+          class="pv-photo-btn group/photo relative block w-full"
+          @click.stop={viewerHandler}
+          aria-label={`View larger image of ${item.name}`}
+          disabled={unavailable || undefined}
+        >
+          <img
+            src={imgSrc}
+            alt={item.name}
+            loading="lazy"
+            decoding="async"
+            class:list={[
+              'pv-photo h-auto w-full transition-opacity duration-200',
+              unavailable
+                ? 'cursor-not-allowed opacity-30'
+                : 'cursor-pointer opacity-100 hover:opacity-80',
+            ]}
+          />
+
+          {!unavailable && (
+            <>
+              <span
+                class="pv-zoom-badge pointer-events-none absolute right-1 bottom-1 rounded-full p-1 sm:hidden"
+                aria-hidden="true"
+              >
+                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                </svg>
+              </span>
+
+              <span class="pointer-events-none absolute inset-0 hidden items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:flex">
+                <span class="rounded-full bg-black/60 p-2 text-cream">
+                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                  </svg>
+                </span>
+              </span>
+            </>
+          )}
+        </button>
+      ) : (
+        <img src={imgSrc} alt="" class="pv-glass-icon h-auto w-10" aria-hidden="true" />
+      )
+    )}
+  </div>
+
+  <div class="min-w-0 flex-1">
+    <div
+      class="pv-item-toggle select-none"
+      role="button"
+      tabindex="0"
+      aria-controls={contentId}
+      :aria-expanded={`isExpanded(${keyExpr})`}
+      @click={`toggleItem(${keyExpr})`}
+      @keydown.enter.prevent={`toggleItem(${keyExpr})`}
+      @keydown.space.prevent={`toggleItem(${keyExpr})`}
+    >
+      <div class="mb-1 flex items-baseline gap-2">
+        <h3
+          class:list={[
+            'pv-name text-sm font-normal tracking-wide md:text-base',
+            unavailable && 'line-through',
+          ]}
+        >
+          {item.name}
+          {item.featured && !unavailable && <span class="pv-stamp">staff favorite</span>}
+        </h3>
+        <span class="hidden flex-1 border-b border-dashed border-[var(--pv-border)] sm:block"></span>
+        <span class="pv-price shrink-0 font-display text-sm font-medium">{item.price}</span>
+        <svg
+          class="pv-chevron h-3.5 w-3.5 shrink-0"
+          :data-expanded={`isExpanded(${keyExpr})`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+
+      <p
+        x-show={`!isExpanded(${keyExpr})`}
+        class="pv-desc line-clamp-1 max-w-xl text-xs leading-relaxed font-light"
+      >
+        {item.description}
+      </p>
+
+      <div
+        id={contentId}
+        class="pv-expand"
+        :data-expanded={`isExpanded(${keyExpr})`}
+        :aria-hidden={`!isExpanded(${keyExpr})`}
+      >
+        <div>
+          <p class="pv-desc max-w-xl pt-0.5 text-xs leading-relaxed font-light">
+            {item.description}
+          </p>
+
+          {item.tags && item.tags.length > 0 && (
+            <div class="mt-2 flex flex-wrap gap-2">
+              {item.tags.map((tag) => (
+                <span class="pv-tag rounded-sm">{tag}</span>
+              ))}
+            </div>
+          )}
+
+          {unavailable && (
+            <span class="mt-2 inline-block border border-dashed border-[var(--pv-border)] px-2 py-[1px] text-[9px] tracking-widest text-[var(--pv-muted)] uppercase">
+              Currently unavailable
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

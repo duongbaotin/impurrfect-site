@@ -14,3 +14,8 @@ export interface MenuCategoryData {
   description: string;
   items: MenuItemData[];
 }
+
+/** Preview route only: adds a stable key for Alpine filter/expand state. */
+export interface PreviewMenuItemData extends MenuItemData {
+  key: string;
+}

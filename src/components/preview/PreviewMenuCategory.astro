@@ -1,0 +1,60 @@
+---
+import PreviewMenuItem from './PreviewMenuItem.astro';
+import type { PreviewMenuItemData } from '../../data/menu';
+
+interface Props {
+  category: {
+    category: string;
+    description: string;
+    items: PreviewMenuItemData[];
+  };
+}
+
+const { category: cat } = Astro.props;
+const categoryExpr = JSON.stringify(cat.category);
+
+const grouped = new Map<string, PreviewMenuItemData[]>();
+const ungrouped: PreviewMenuItemData[] = [];
+
+for (const item of cat.items) {
+  if (item.subcategory) {
+    const group = grouped.get(item.subcategory) ?? [];
+    group.push(item);
+    grouped.set(item.subcategory, group);
+  } else {
+    ungrouped.push(item);
+  }
+}
+const sortedGroups = [...grouped.entries()];
+---
+
+<section class="space-y-6" x-show={`categoryVisible(${categoryExpr})`}>
+  <div class="border-b border-[var(--pv-border)] pb-2">
+    <h2 class="pv-price font-display text-xl tracking-wider uppercase md:text-2xl">
+      {cat.category}
+    </h2>
+    {cat.description && (
+      <p class="pv-desc font-accent mt-1 text-xs md:text-sm">
+        {cat.description}
+      </p>
+    )}
+  </div>
+
+  <div class="space-y-4">
+    {ungrouped.map((item) => <PreviewMenuItem item={item} />)}
+
+    {sortedGroups.map(([sub, items]) => (
+      <div
+        class="space-y-2"
+        x-show={`subcategoryVisible(${categoryExpr}, ${JSON.stringify(sub)})`}
+      >
+        <h3 class="pv-desc border-b border-[var(--pv-border)] pb-1 font-display text-xs tracking-widest uppercase">
+          {sub}
+        </h3>
+        <div class="space-y-1">
+          {items.map((item) => <PreviewMenuItem item={item} />)}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

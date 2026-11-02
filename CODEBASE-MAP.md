@@ -23,6 +23,11 @@ src/
 │   ├── MenuCategory.astro  → Category section + its drinks
 │   ├── MenuItem.astro      → Single drink card (name, price, tags, badges, zoom trigger)
 │   ├── BrandNameWord.astro → Reusable branded "impurrfect" word
+│   ├── preview/            → /menu-preview-only UX (theme toggle, sticky filters, collapsible cards)
+│   │   ├── PreviewThemeToggle.astro
+│   │   ├── PreviewFilterBar.astro
+│   │   ├── PreviewMenuCategory.astro
+│   │   └── PreviewMenuItem.astro
 │   └── lightbox/
 │       └── ImageViewer.astro → Singleton image viewer (drag-down dismiss, pinch-zoom)
 ├── pages/
@@ -31,15 +36,21 @@ src/
 │   ├── contact.astro       → Uses HoursLocation + inquiry note
 │   ├── 404.astro           → Branded 404
 │   ├── menu/index.astro    → Menu listing (fetches YAML, sorts, renders)
-│   └── menu-preview/index.astro → Staging menu listing (fetches Baserow collection, noindex, unlinked)
+│   └── menu-preview/index.astro → Staging menu listing (Baserow + preview UX, noindex, unlinked)
 ├── content/menu/*.yaml     → One YAML per menu item (drinks/snacks)
 ├── content.config.ts       → Zod schema for YAML validation + `menuBaserow` collection
 ├── data/
 │   ├── categories.ts       → Category metadata (name, description, order)
+│   ├── menu-moods.ts       → Preview mood-pill definitions + `moodKeysFor()` mapping
 │   └── menu.ts             → TypeScript types
-├── alpine.ts               → Alpine.js plugin registration (focus) + image viewer data (src/viewer.ts)
-├── viewer.ts               → `registerImageViewer`: window `open-viewer` listener, drag-down, pinch/wheel/double-tap zoom
-└── styles/global.css       → Tailwind import + brand theme variables
+├── lib/
+│   └── menu-images.ts      → Shared `image` basename → hashed asset URL lookup
+├── preview-menu.ts         → `menuPreview` Alpine data: filters, expand state, theme persistence
+├── alpine.ts               → Alpine plugins, `mobileNav` store, viewer + preview registrations
+├── viewer.ts               → `registerImageViewer`: singleton `open-viewer` relay, drag-down, pinch/wheel/double-tap zoom
+└── styles/
+    ├── global.css          → Tailwind import + brand theme variables
+    └── menu-preview.css    → Preview-only warm-dark / paper tokens + component styles
 
 scripts/
 └── check-menu-order.mjs    → Cross-entry guard: fails the build if two items in one category share `order`
@@ -55,9 +66,9 @@ scripts/
 | Page shell (fonts, meta tags, OG image, analytics) | `src/layouts/MainLayout.astro` |
 | Navigation links, hamburger menu, mobile panel | `src/components/Nav.astro` — uses Alpine.js |
 | Footer (allergy notice, copyright, social links) | `src/components/Footer.astro` |
-| Content max-width (all pages) | `MainLayout.astro` line 53 (`max-w-2xl`) |
-| Skip-link styling | `MainLayout.astro` lines 62-78 |
-| Print styles | `MainLayout.astro` lines 85-92 |
+| Content max-width (all pages) | `MainLayout.astro` line 73 (`max-w-2xl`) |
+| Skip-link styling | `MainLayout.astro` lines 84-101 |
+| Print styles | `MainLayout.astro` lines 108-116 |
 | Page-level fade-in animation | `src/styles/global.css` (`animate-fade-in`) |
 
 ### UI Components
@@ -67,6 +78,10 @@ scripts/
 | Menu page title + tagline | `src/components/MenuHeader.astro` |
 | Category section heading / subcategory grouping | `src/components/MenuCategory.astro` |
 | Single drink card layout (name, price, tags, badges) | `src/components/MenuItem.astro` |
+| Preview filter bar (category tabs, mood pills, expand-all) | `src/components/preview/PreviewFilterBar.astro` |
+| Preview category / subcategory hide-when-filtered | `src/components/preview/PreviewMenuCategory.astro` |
+| Preview collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` |
+| Preview theme toggle pill | `src/components/preview/PreviewThemeToggle.astro` |
 | Image viewer (zoom, drag-dismiss) | `src/components/lightbox/ImageViewer.astro` — singleton, mounted in MainLayout |
 | CTA button styling | Any `a` with `class="bg-gold ..."` |
 | Branded "impurrfect" word | `src/components/BrandNameWord.astro` — accepts `normalCase` prop |
@@ -75,9 +90,11 @@ scripts/
 | Want to change… | File |
 |---|---|
 | Brand colors (`night`, `cream`, `gold`, etc.) | `src/styles/global.css` lines 3-7 |
+| Preview warm-dark / paper palette + toggle styling | `src/styles/menu-preview.css` |
+| Preview default theme / persistence key | `src/preview-menu.ts` (`THEME_KEY`), inline script in `MainLayout.astro` |
 | Font stacks (`.font-display`, `.font-body`) | `src/styles/global.css` lines 8-9 |
-| Google Fonts loaded | `MainLayout.astro` lines 40-42 |
-| Decorative italic font (`.font-accent`) | `MainLayout.astro` lines 80-83 |
+| Google Fonts loaded | `MainLayout.astro` lines 60-62 |
+| Decorative italic font (`.font-accent`) | `MainLayout.astro` lines 103-106 |
 | Favicon | `src/assets/images/favicon.svg` (imported), `public/favicon.ico` (root URL) |
 | OG social image | `public/og-image.svg` (must be a real URL for social crawlers) |
 | Glass/placeholder SVGs | `src/assets/images/*.svg` (imported in MenuItem.astro) |
@@ -103,9 +120,10 @@ scripts/
 | Mark a drink unavailable | Add `available: false` to its YAML |
 | Change what `/menu-preview` shows | Edit the Baserow `recipes` row (`1258954`) — the preview ignores YAML |
 | Add a web image key / description / tags to the preview | Baserow `web_image`, `web_description`, `flavor_tags` on the recipe row |
+| Change preview mood-pill membership | `src/data/menu-moods.ts` — `featured` → Staff Favorites, `subcategory: Zero Alcohol` → Zero Alcohol, tags → the other pills |
 | Add / rename / remove a category | Edit `src/data/categories.ts` (the `Archived` category is internal-only and hidden from `/menu`) |
 | Reorder categories | Change `order` in `categories.ts` |
-| Add a new image for a drink | Drop the `.svg`/`.webp` into `src/assets/images/`, then reference its basename in the YAML `image` field. `MenuItem.astro` picks files up automatically via `import.meta.glob` — no import or map entry needed |
+| Add a new image for a drink | Drop the `.svg`/`.webp` into `src/assets/images/`, then reference its basename in the YAML `image` field. `src/lib/menu-images.ts` picks files up automatically via `import.meta.glob` — no import or map entry needed |
 
 ### Schema / Data Structure Changes
 | File | Role | Must keep in sync with |
@@ -183,12 +201,22 @@ Baserow `glassware` (1259147)┴► src/loaders/baserow-menu.ts
                           getCollection('menuBaserow')
                                     │
                                     ▼
-                          menu-preview/index.astro  (noindex, unlinked)
+                    menu-preview/index.astro  (noindex, unlinked)
+                                    │  build item keys + mood metadata
+                                    ▼
+                    x-data="menuPreview"  (src/preview-menu.ts)
+                                    │
+                    ┌───────────────┼────────────────┐
+                    ▼               ▼                ▼
+          PreviewFilterBar   PreviewMenuCategory   PreviewMenuItem
+          (tabs/pills)        (hide empty)          (expand/collapse,
+                                                        photo lightbox)
 ```
 
 `/menu` and `/menu-preview` share the schema but not the data source: YAML edits
 never reach the preview, Baserow edits never reach `/menu` until the Phase 4
-cutover.
+cutover. `/menu` keeps its original layout; it only gains the shared `x-data`
+lightbox scope fix.
 
 ---
 
@@ -220,7 +248,8 @@ env var.
 - **No raw hex values** — use `bg-night`, `text-cream`, `text-gold`, `border-charcoal`, etc. from `@theme` in `global.css`
 - **Font classes only:** `.font-display`, `.font-body`, `.font-accent` — do NOT use Tailwind's `fontFamily` theme config
 - **Pricing format:** `"VND 180k"` (Vietnamese Dong with "k" shorthand)
-- **Images live in `src/assets/images/`** — imported in components via `?url` suffix. YAML `image` values are lookup keys, resolved by `MenuItem.astro`'s `imageSrcMap`. Only `robots.txt`, `favicon.ico`, and `og-image.svg` remain in `public/` (must be at root URL; OG image needs absolute URL for social crawlers).
+- **Images live in `src/assets/images/`** — imported in components via `?url` suffix. YAML `image` values are lookup keys resolved by `src/lib/menu-images.ts` (`resolveMenuImage`). Only `robots.txt`, `favicon.ico`, and `og-image.svg` remain in `public/` (must be at root URL; OG image needs absolute URL for social crawlers).
+- **Preview-only theme tokens** live in `src/styles/menu-preview.css`; do not add them to `global.css` or apply them to `/menu`. `MainLayout` takes `preview={true}` only on `/menu-preview`.
 - **No React** — pure Astro + Tailwind; client interactivity via Alpine.js
 - **No tests, no linter, no formatter** in the repo
 - **Satoshi and Freight Big Pro** are declared in CSS but not loaded — they resolve to system fallbacks. Only Playfair Display is loaded via Google Fonts.

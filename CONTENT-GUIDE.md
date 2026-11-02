@@ -1,6 +1,6 @@
 # Content Management Guide
 
-How to edit site content for **The Impurrfect Speakeasy**.
+How to edit site content for **impurrfect (a cat dive bar)** / **impurrfect bar**.
 
 ---
 
@@ -33,12 +33,14 @@ Dump raw ideas as `.md` files in `docs/menu-drafts/` (copy `DRAFT-TEMPLATE.md`).
 
 ### Photo zoom behavior
 
-Menu items with `.webp` images show a zoom trigger. Tap to open the image viewer:
+Menu items with `.webp` images show a zoom trigger. On `/menu-preview` the trigger is also visible as a small 🔍 badge on the photo in mobile. Tap to open the image viewer:
 - **Drag down** to dismiss (like mobile OS photo viewer)
 - **Pinch** to zoom in/out (1x–3x)
 - **Double-tap** to toggle 2x zoom
 - **X button** (top-right) or **backdrop tap** to close
 - **Escape** key closes (keyboard)
+
+On `/menu-preview`, tapping the drink text expands the card; tapping the photo opens the viewer instead (it does not toggle the card).
 
 ### Editing a drink
 
@@ -51,8 +53,8 @@ description: string       # description text (required, non-empty)
 category: string          # must match a category name in src/data/categories.ts (enforced)
 subcategory?: string    # optional grouping within a category, e.g. "Whiskey-based"
 order: number             # sort position within category (lower = first); whole numbers only
-tags?: string[]           # optional, e.g. ["Smoky", "Bitter"]
-featured?: boolean        # shows ★ staff favorite badge
+tags?: string[]           # optional, e.g. ["Smoky", "Bitter"] — also drives preview mood pills
+featured?: boolean        # shows ★ staff favorite badge (and the preview Staff Favorites filter)
 image?: string          # "/cocktail-placeholder.svg" — must be .svg/.webp and exist in src/assets/images/
 available?: boolean     # default true; set false to show "Currently unavailable"
 ```
@@ -96,6 +98,17 @@ Edit `src/data/categories.ts`. Each entry:
 ### Preview route from Baserow (`/menu-preview`)
 
 `https://impurrfect-bar.meowracle.space/menu-preview` is a **staging** copy of `/menu` that reads from Baserow table `1258954` (`recipes`) at build time instead of the YAML files. It exists so the Baserow → website pipeline can be tested without touching the live menu.
+
+The preview also carries the UX upgrades being evaluated before the Phase 4 cutover:
+
+- **Theme toggle** (`🌙 Dark` / `📖 Paper`) in the top-right. The choice is saved in `localStorage` (`impurrfect-menu-preview-theme`) and only affects `/menu-preview`.
+- **Sticky filter bar** below the header: category tabs (`All`, `Signature`, `Cocktails`, `Mixed Beers`, `Snacks` with live counts) and mood pills. Tapping a mood filters immediately, hides empty categories/subcategories, and shows a count + `Clear filter`.
+- **Tap-to-expand cards**: collapsed shows one line of description; tap the text row for the full description and tags. `Expand all` / `Collapse all` sits in the filter bar.
+- **Mood mapping**:
+  - `★ Staff Favorites` → Baserow `featured = true`
+  - `Zero Alcohol` → `menu_subcategory` = `Zero Alcohol`
+  - `Refreshing`, `Spirit-Forward`, `Sour & Tart`, `Sweet & Fruity`, `Savory & Spiced` → matching `flavor_tags` (`Sour & Tart`, etc. match either tag)
+- **Uniform thumbnails**: photos and SVG glass icons share the same left column, so drink names align. Tapping a `.webp` photo opens the lightbox; it never toggles the card.
 
 - **Not linked from the navigation** and marked `noindex, nofollow` — customers won't find it.
 - **Do not edit YAML expecting the preview to change.** `/menu-preview` ignores `src/content/menu/*.yaml` completely; edit the Baserow row instead. `/menu` still reads YAML until the production cutover.

@@ -29,7 +29,7 @@ No tests, no linter, no formatter config in this repo. Pre-merge verification: `
 
 - `/` — landing page
 - `/menu` — cocktail menu listing (YAML `menu` collection)
-- `/menu-preview` — **staging** mirror of `/menu` built from the Baserow `menuBaserow` collection; `noindex`, unlinked from nav, excluded from the sitemap
+- `/menu-preview` — **staging** mirror of `/menu` built from the Baserow `menuBaserow` collection; adds the preview-only theme toggle, sticky category/mood filters, collapsible cards, and aligned thumbnails. `noindex`, unlinked from nav, excluded from the sitemap
 - `/contact` — contact info and inquiry note
 - `*` — 404 page (branded)
 
@@ -49,7 +49,10 @@ Key conventions an agent is likely to miss:
 - `src/styles/global.css` imported only by `MainLayout`.
 - `HoursLocation.astro` — pre-built venue block; import instead of duplicating markup.
 - `BrandNameWord.astro` — pre-built brand word; use `<BrandNameWord />` instead of hand-coding the `<span>` wrapper.
-- `ImageViewer.astro` — singleton image viewer mounted in MainLayout. Photo thumbnails dispatch `open-viewer` event with `{ url, alt }`. Drag-down to dismiss, pinch-zoom, double-tap zoom, X close button.
+- `ImageViewer.astro` — singleton image viewer mounted in MainLayout. Photo thumbnails dispatch `open-viewer` event with `{ url, alt }`. Drag-down to dismiss, pinch-zoom, double-tap zoom, X close button. `src/viewer.ts` keeps one module-level `open-viewer` listener and relays to the current Alpine instance across `<ClientRouter />` swaps. Photo buttons require an ancestor `x-data`; `/menu` and `/menu-preview` provide it.
+- **Preview UX stays on `/menu-preview`.** Theme (`warm dark` ↔ `paper`), sticky filter bar, collapsible cards, and uniform thumbnail column live in `src/components/preview/*`, `src/preview-menu.ts`, and `src/styles/menu-preview.css`. `MainLayout` takes `preview={true}` only for that route; do not apply it to `/menu` before the Phase 4 cutover.
+- **Preview theme state** lives on `<html data-preview-theme="dark|paper">`, persisted in `localStorage` under `impurrfect-menu-preview-theme`. Paper mode filters SVG glass icons with `invert(0.82) sepia(0.35)`; WebP photos are never filtered.
+- **Preview mood filters** come from `src/data/menu-moods.ts`: `featured` → ★ Staff Favorites, `subcategory: "Zero Alcohol"` → Zero Alcohol, and flavor tags → the remaining pills. Keep this mapping in sync with `CONTENT-GUIDE.md`.
 - **Avoid `fixed` positioning unless unavoidable** — it breaks document flow and creates stacking-context surprises. Prefer `relative` + dynamic sizing (e.g. Alpine `x-init` + `offsetHeight`) when an element must sit adjacent to another. If you use `fixed`, verify it doesn't cover sibling elements.
 
 ## Content Collections
@@ -63,7 +66,8 @@ Menu data lives in Content Collections for type safety.
 | `src/content/menu/*.yaml` | One file per menu item (source of truth for `/menu` until Phase 4 cutover) |
 | `docs/menu-drafts/` | Scratch dump for menu bones (`.md` only, never `.yaml`; Astro-safe, never affects build) |
 | `src/data/categories.ts` | Category metadata (name, description, sort order) |
-| `src/data/menu.ts` | TypeScript types (`MenuItemData`, `MenuCategoryData`) |
+| `src/data/menu-moods.ts` | Preview mood-pill definitions + `moodKeysFor()` (featured / Zero Alcohol / flavor tags) |
+| `src/data/menu.ts` | TypeScript types (`MenuItemData`, `MenuCategoryData`, `PreviewMenuItemData`) |
 
 See [`CODEBASE-MAP.md`](./CODEBASE-MAP.md#yaml-fields-per-menu-item) for the YAML fields reference and [`CODEBASE-MAP.md`](./CODEBASE-MAP.md#data-flow-menu-page) for the data flow diagram.
 
@@ -81,6 +85,10 @@ Key gotchas:
 - **`CONTENT-GUIDE.md`** — end-user guide for editing page content. Keep in sync if the codebase structure changes.
 - **`GIT-WORKFLOW.md`** — Git branching workflow reference. Run `npm run build && npm run preview` before merging any branch.
 - **`docs/menu-drafts/`** — scratch dump for menu bones. Draft `.md` ideas here (copy `DRAFT-TEMPLATE.md`); promote to `src/content/menu/*.yaml` when ready.
+- **`src/components/preview/`** — `/menu-preview`-only UI (theme toggle, filter bar, category wrapper, collapsible item card). Live `/menu` still uses `MenuCategory.astro` + `MenuItem.astro`.
+- **`src/preview-menu.ts`** — `menuPreview` Alpine data: active category/mood, visible counts, expand state, theme persistence, `astro:before-swap` cleanup.
+- **`src/styles/menu-preview.css`** — preview-only warm-dark/paper tokens and component styles; imported only by `src/pages/menu-preview/index.astro`.
+- **`src/lib/menu-images.ts`** — shared `image` basename → hashed asset URL map used by live and preview cards.
 - **`../impurrfect-DNA.md`** (repo root) — business DNA / tone-of-voice source of truth. Consult it before writing or editing any customer-facing copy.
 - **`../impurrfect-lab/`** (repo root) — **Head Architecture & Evolution Hub**. Cross-system upgrade specs and staged rollout plans live here (see `../impurrfect-lab/README.md` and `../impurrfect-lab/01-baserow-web-zalo-sync.md`).
 - **`vercel.json`** — deploy config: `cleanUrls: true`, permanent redirect `/bar-menu` → `/menu`.

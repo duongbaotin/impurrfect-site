@@ -25,7 +25,7 @@ const menuCategories = categories
 <MainLayout title="menu - impurrfect" description="Explore our menu of honest concoctions and unpretentious drinks at impurrfect (a cat dive bar). Proper pours, fair prices, and a cat or two.">
   <MenuHeader tagline={tagline} />
 
-  <div class="space-y-16">
+  <div class="space-y-16" x-data>
     {menuCategories.map((cat) => (
       <MenuCategory category={cat} />
     ))}

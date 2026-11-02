@@ -15,13 +15,19 @@ interface Props {
   allergyNotice?: boolean;
   /** Staging/preview routes: ask crawlers to stay away. */
   noindex?: boolean;
+  /** Enables the preview-only theme shell (warm dark / paper) on this page. */
+  preview?: boolean;
 }
 
-const { title = "impurrfect", description, allergyNotice, noindex } = Astro.props;
+const { title = "impurrfect", description, allergyNotice, noindex, preview } = Astro.props;
 const ogImage = new URL('/og-image.svg', Astro.site);
 ---
 
-<html lang="en">
+<html
+  lang="en"
+  data-preview={preview ? 'true' : undefined}
+  data-preview-theme={preview ? 'dark' : undefined}
+>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href={faviconSvg} />
@@ -30,6 +36,14 @@ const ogImage = new URL('/og-image.svg', Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <ClientRouter />
+    {preview && (
+      <script is:inline>
+        try {
+          const saved = localStorage.getItem('impurrfect-menu-preview-theme');
+          document.documentElement.dataset.previewTheme = saved === 'paper' ? 'paper' : 'dark';
+        } catch {}
+      </script>
+    )}
     <title>{title}</title>
     {description && (
       <>

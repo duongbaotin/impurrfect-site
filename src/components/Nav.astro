@@ -45,7 +45,7 @@ import BrandNameWord from './BrandNameWord.astro';
 <div
   x-init="$el.style.top = $el.previousElementSibling.offsetHeight + 'px'"
   x-effect="document.body.style.overflow = $store.mobileNav.open ? 'hidden' : ''"
-  class="fixed inset-x-0 bottom-0 z-40 bg-night flex flex-col items-center justify-center gap-8"
+  class="nav-drawer fixed inset-x-0 bottom-0 z-40 bg-night flex flex-col items-center justify-center gap-8"
   x-show="$store.mobileNav.open"
   x-transition:enter="transition transform ease-out duration-300"
   x-transition:enter-start="translate-x-full"
@@ -74,7 +74,3 @@ import BrandNameWord from './BrandNameWord.astro';
     Contact
   </a>
 </div>
-
-<script>
-  ;(window as any).Alpine.store('mobileNav', { open: false });
-</script>

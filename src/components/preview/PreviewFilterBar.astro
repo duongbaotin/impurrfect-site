@@ -1,0 +1,77 @@
+---
+interface Props {
+  categories: { name: string; count: number }[];
+  moods: { key: string; label: string }[];
+}
+
+const { categories, moods } = Astro.props;
+const total = categories.reduce((sum, category) => sum + category.count, 0);
+const tabs = [
+  { key: 'all', label: 'All', count: total },
+  ...categories.map((category) => ({
+    key: category.name,
+    label: category.name,
+    count: category.count,
+  })),
+];
+---
+
+<div class="pv-filterbar sticky top-0 z-30 -mx-6 px-6 py-3">
+  <div class="flex flex-col gap-2.5">
+    <div
+      class="pv-scroll flex gap-2 overflow-x-auto pb-0.5"
+      role="group"
+      aria-label="Filter by category"
+    >
+      {tabs.map((tab) => (
+        <button
+          type="button"
+          class="pv-tab shrink-0 rounded-full px-3 py-1 font-body text-[10px] uppercase tracking-widest"
+          :data-active={`activeCategory === ${JSON.stringify(tab.key)}`}
+          :aria-pressed={`activeCategory === ${JSON.stringify(tab.key)}`}
+          @click={`setCategory(${JSON.stringify(tab.key)})`}
+        >
+          {tab.label} ({tab.count})
+        </button>
+      ))}
+    </div>
+
+    <div
+      class="pv-scroll flex gap-2 overflow-x-auto pb-0.5 sm:flex-wrap sm:overflow-visible"
+      role="group"
+      aria-label="Filter by mood"
+    >
+      {moods.map((mood) => (
+        <button
+          type="button"
+          class="pv-pill shrink-0 rounded-full px-3 py-1 font-body text-[10px] uppercase tracking-widest"
+          :data-active={`activeMood === ${JSON.stringify(mood.key)}`}
+          :aria-pressed={`activeMood === ${JSON.stringify(mood.key)}`}
+          @click={`toggleMood(${JSON.stringify(mood.key)})`}
+        >
+          {mood.label}
+        </button>
+      ))}
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 font-body text-[10px] uppercase tracking-widest">
+      <button
+        type="button"
+        class="pv-clear"
+        @click="toggleAllExpanded()"
+        :aria-pressed="expandAll"
+      >
+        <span x-text="expandAll ? 'Collapse all' : 'Expand all'">Expand all</span>
+      </button>
+
+      <div class="flex items-center gap-3" x-show="isFiltered" x-cloak>
+        <span class="pv-desc normal-case tracking-normal">
+          Showing <span x-text="visibleCount">0</span> drinks
+        </span>
+        <button type="button" class="pv-clear" @click="clearFilters()">
+          Clear filter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
