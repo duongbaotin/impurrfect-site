@@ -121,7 +121,7 @@ scripts/
 | Mark a drink unavailable | Add `available: false` to its YAML |
 | Change what `/menu-preview` shows | Edit the Baserow `recipes` row (`1258954`) — the preview ignores YAML |
 | Add a web image key / description / tags / ingredients to the preview | Baserow `web_image`, `web_description`, `flavor_tags`, `web_ingredients` on the recipe row |
-| Change preview mood-pill membership | `src/data/menu-moods.ts` — `featured` → Staff Favorites, `subcategory: Zero Alcohol` → Zero Alcohol, tags → the other pills |
+| Change preview mood-pill membership | `src/data/menu-moods.ts` — `featured` → Staff Favorites, tags → the other 5 taste pills (`Zero Alcohol` is a main category) |
 | Add / rename / remove a category | Edit `src/data/categories.ts` (the `Archived` category is internal-only and hidden from `/menu`) |
 | Reorder categories | Change `order` in `categories.ts` |
 | Add a new image for a drink | Drop the `.svg`/`.webp` into `src/assets/images/`, then reference its basename in the YAML `image` field. `src/lib/menu-images.ts` picks files up automatically via `import.meta.glob` — no import or map entry needed |

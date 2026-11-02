@@ -15,9 +15,7 @@ export function registerMenuPreview(Alpine) {
     activeCategory: 'all',
     activeMood: null,
     filterOpen: false,
-    expandAll: false,
     openKeys: [],
-    closedKeys: [],
     theme: 'dark',
     _onBeforeSwap: null,
 
@@ -156,32 +154,13 @@ export function registerMenuPreview(Alpine) {
     },
 
     isExpanded(key) {
-      return this.expandAll
-        ? !this.closedKeys.includes(key)
-        : this.openKeys.includes(key);
+      return this.openKeys.includes(key);
     },
 
     toggleItem(key) {
-      if (this.expandAll) {
-        this.closedKeys = this.closedKeys.includes(key)
-          ? this.closedKeys.filter((entry) => entry !== key)
-          : [...this.closedKeys, key];
-      } else {
-        this.openKeys = this.openKeys.includes(key)
-          ? this.openKeys.filter((entry) => entry !== key)
-          : [...this.openKeys, key];
-      }
-    },
-
-    toggleAllExpanded() {
-      if (this.expandAll) {
-        this.expandAll = false;
-        this.openKeys = [];
-        this.closedKeys = [];
-      } else {
-        this.expandAll = true;
-        this.closedKeys = [];
-      }
+      this.openKeys = this.openKeys.includes(key)
+        ? this.openKeys.filter((entry) => entry !== key)
+        : [...this.openKeys, key];
     },
 
     setTheme(mode, persist = true) {

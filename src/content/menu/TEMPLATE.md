@@ -34,6 +34,7 @@ Current categories (from `src/data/categories.ts`). `category` must match one of
 | Category | Description |
 |---|---|
 | **Signature** | Honest concoctions poured with genuine care. |
+| **Zero Alcohol** | All the craft, zero proof — for slow nights and clear heads. |
 | **Cocktails** | Comforting classics and unpretentious pours. |
 | **Mixed Beers** | Cold beers mixed the way the regulars like them. |
 | **Snacks** | Simple bites to soak up the drinks. |

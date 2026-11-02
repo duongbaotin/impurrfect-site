@@ -131,27 +131,7 @@ html[data-preview] .menu-preview header .bg-charcoal {
   color: var(--pv-accent);
 }
 
-.pv-control-btn {
-  border: 1px solid var(--pv-border);
-  background-color: var(--pv-surface);
-  color: var(--pv-muted);
-  border-radius: 9999px;
-  padding: 0.35rem 0.85rem;
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
-}
-
-.pv-control-btn:hover {
-  border-color: var(--pv-accent);
-  color: var(--pv-accent);
-}
-
-.pv-control-btn[aria-pressed='true'] {
-  border-color: var(--pv-accent);
-  color: var(--pv-accent);
-}
-
 .pv-theme-seg:focus-visible,
-.pv-control-btn:focus-visible,
 .pv-tab:focus-visible,
 .pv-pill:focus-visible,
 .pv-taste-trigger:focus-visible,
@@ -387,7 +367,6 @@ html[data-preview][data-preview-theme='paper'] .pv-photo {
 
 @media (prefers-reduced-motion: reduce) {
   .pv-theme-seg,
-  .pv-control-btn,
   .pv-tab,
   .pv-pill,
   .pv-taste-trigger,

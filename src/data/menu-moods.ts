@@ -6,10 +6,9 @@ export interface MenuMood {
 }
 
 // Preview-only mood pills. Most are tag matches; Staff Favorites comes from
-// `featured` and Zero Alcohol from the Signature subcategory (not a tag).
+// `featured`. Zero Alcohol is a first-class category.
 export const menuMoods: MenuMood[] = [
   { key: 'featured', label: '★ Staff Favorites' },
-  { key: 'zero', label: 'Zero Alcohol' },
   { key: 'refreshing', label: 'Refreshing' },
   { key: 'spirit', label: 'Spirit-Forward' },
   { key: 'sour-tart', label: 'Sour & Tart' },
@@ -24,7 +23,6 @@ export function moodKeysFor(item: MoodSource): string[] {
   const moods: string[] = [];
 
   if (item.featured) moods.push('featured');
-  if (item.subcategory === 'Zero Alcohol') moods.push('zero');
   if (tags.has('Refreshing')) moods.push('refreshing');
   if (tags.has('Spirit-Forward')) moods.push('spirit');
   if (tags.has('Sour') || tags.has('Tart')) moods.push('sour-tart');

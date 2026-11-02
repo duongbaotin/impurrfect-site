@@ -30,7 +30,8 @@ const menuCategories = categories
         // order is unique within a category (schema + build guard), so this is stable.
         key: `${cat.name}/${i.data.order}/${i.data.name}`,
       })),
-  }));
+  }))
+  .filter((cat) => cat.items.length > 0);
 
 const previewItems = menuCategories.flatMap((cat) =>
   cat.items.map((item) => ({
@@ -61,17 +62,8 @@ const categoryTabs = menuCategories.map((cat) => ({
   >
     <MenuHeader tagline={tagline} compact={true} />
 
-    <div class="pv-control-bar mb-6 flex items-center justify-between gap-3">
+    <div class="pv-control-bar mb-6 flex justify-end">
       <PreviewThemeToggle />
-
-      <button
-        type="button"
-        class="pv-control-btn font-body text-[11px] uppercase tracking-widest"
-        @click="toggleAllExpanded()"
-        :aria-pressed="expandAll"
-      >
-        <span x-text="expandAll ? 'Collapse all' : 'Expand all'">Expand all</span>
-      </button>
     </div>
 
     <PreviewFilterBar categories={categoryTabs} moods={menuMoods} />

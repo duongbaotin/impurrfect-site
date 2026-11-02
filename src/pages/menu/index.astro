@@ -19,7 +19,8 @@ const menuCategories = categories
     items: items
       .filter((i) => i.data.category === cat.name)
       .map((i) => i.data),
-  }));
+  }))
+  .filter((cat) => cat.items.length > 0);
 ---
 
 <MainLayout title="menu - impurrfect" description="Explore our menu of honest concoctions and unpretentious drinks at impurrfect (a cat dive bar). Proper pours, fair prices, and a cat or two.">

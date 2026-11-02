@@ -102,14 +102,14 @@ Edit `src/data/categories.ts`. Each entry:
 
 The preview also carries the UX upgrades being evaluated before the Phase 4 cutover:
 
-- **Theme switch & control bar**: `[ 🌙 Dark | ☀️ Light ]` switch and `Expand all / Collapse all` sit below the header and above the filter bar. The active theme is highlighted, persists in `localStorage` (`impurrfect-menu-preview-theme`), and only affects `/menu-preview`.
-- **Sticky filter bar** below the control bar: 5 compact category tabs (`All`, `Signature`, `Cocktails`, `Beers`, `Snacks`) with zero horizontal drag on mobile screens (360–390px), plus a `Filter by taste ▾` trigger that opens a 2-column drawer of all 7 moods. Selecting a mood auto-closes the drawer and shows `Taste: <Label> ▾`, `Clear ✕`, and `Showing N drinks`. Tapping a mood or category hides empty categories/subcategories and scrolls the list back under the bar if you were far down the page.
-- **Tap-to-expand cards**: collapsed shows the drink name, price, concise ingredient list, and flavor tags. Tap the text row to reveal the storytelling description with distinctive italic styling and accent left border (`.pv-story`). `Expand all` / `Collapse all` in the control bar toggles all cards at once.
+- **Theme switch & control bar**: right-aligned `[ 🌙 Dark | ☀️ Light ]` switch sits below the header and above the filter bar. The active theme is highlighted, persists in `localStorage` (`impurrfect-menu-preview-theme`), and only affects `/menu-preview`.
+- **Sticky filter bar** below the control bar: 6 compact category tabs (`All`, `Signature`, `Zero Alcohol`, `Cocktails`, `Beers`, `Snacks`) in a clean 3×2 grid on mobile screens (6-across on desktop) with zero horizontal drag, plus a `Filter by taste ▾` trigger that opens a 2-column drawer of 6 taste moods (`★ Staff Favorites`, `Refreshing`, `Spirit-Forward`, `Sour & Tart`, `Sweet & Fruity`, `Savory & Spiced`). Selecting a mood auto-closes the drawer and shows `Taste: <Label> ▾`, `Clear ✕`, and `Showing N drinks`. Tapping a mood or category hides empty categories/subcategories and scrolls the list back under the bar if you were far down the page.
+- **Tap-to-expand cards**: collapsed shows the drink name, price, concise ingredient list, and flavor tags. Tap the text row to reveal the storytelling description with distinctive italic styling and accent left border (`.pv-story`).
 - **Ingredients** come from the Baserow `web_ingredients` field. If a non-Snack drink leaves it blank, the site derives a cleaned list from its linked `recipe_ingredients` (brand/pack sizes removed, straws/ice filtered out).
 - **Mood mapping**:
   - `★ Staff Favorites` → Baserow `featured = true`
-  - `Zero Alcohol` → `menu_subcategory` = `Zero Alcohol`
   - `Refreshing`, `Spirit-Forward`, `Sour & Tart`, `Sweet & Fruity`, `Savory & Spiced` → matching `flavor_tags` (`Sour & Tart`, etc. match either tag)
+  - `Zero Alcohol` is a first-class main category (not a mood pill)
 - **Uniform thumbnails**: photos and SVG glass icons share the same left column, so drink names align. Tapping a `.webp` photo opens the lightbox; it never toggles the card.
 
 - **Not linked from the navigation** and marked `noindex, nofollow` — customers won't find it.

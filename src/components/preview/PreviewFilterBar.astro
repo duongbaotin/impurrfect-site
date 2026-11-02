@@ -9,6 +9,7 @@ const { categories, moods } = Astro.props;
 const categoryShortLabels: Record<string, string> = {
   all: 'All',
   Signature: 'Signature',
+  'Zero Alcohol': 'Zero Alcohol',
   Cocktails: 'Cocktails',
   'Mixed Beers': 'Beers',
   Snacks: 'Snacks',
@@ -28,16 +29,16 @@ const tabs = [
   @keydown.escape.window="filterOpen = false"
 >
   <div class="flex flex-col gap-2">
-    <!-- Zero-scroll 5-category tabs -->
+    <!-- Zero-scroll category tabs (3x2 mobile, 6 desktop) -->
     <div
-      class="grid grid-cols-5 gap-1 sm:gap-1.5"
+      class="grid grid-cols-3 sm:grid-cols-6 gap-1.5"
       role="group"
       aria-label="Filter by category"
     >
       {tabs.map((tab) => (
         <button
           type="button"
-          class="pv-tab text-center rounded-full px-0.5 py-1 font-body text-[9px] tracking-normal sm:text-[10px] sm:tracking-wider uppercase"
+          class="pv-tab text-center rounded-full px-1 py-1 font-body text-[10px] sm:text-[11px] uppercase tracking-wider truncate"
           :data-active={`activeCategory === ${JSON.stringify(tab.key)}`}
           :aria-pressed={`activeCategory === ${JSON.stringify(tab.key)}`}
           @click={`setCategory(${JSON.stringify(tab.key)})`}
