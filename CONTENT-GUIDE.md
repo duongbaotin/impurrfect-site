@@ -102,9 +102,9 @@ Edit `src/data/categories.ts`. Each entry:
 
 The preview also carries the UX upgrades being evaluated before the Phase 4 cutover:
 
-- **Theme switch** (`[ 🌙 Dark | 📖 Paper ]`) in the top-right. Both options are always visible and the active one is highlighted. The choice is saved in `localStorage` (`impurrfect-menu-preview-theme`) and only affects `/menu-preview`.
-- **Sticky filter bar** below the header: category tabs (`All`, `Signature`, `Cocktails`, `Mixed Beers`, `Snacks` with live counts) and mood pills on one horizontal-scroll line. Tapping a mood or category hides empty categories/subcategories, shows a count + `Clear filter`, and scrolls the list back under the bar if you were far down the page.
-- **Tap-to-expand cards**: collapsed shows the drink name, price, concise ingredient list, and flavor tags. Tap the text row to reveal the full storytelling description. `Expand all` / `Collapse all` sits in the filter bar.
+- **Theme switch & control bar**: `[ 🌙 Dark | ☀️ Light ]` switch and `Expand all / Collapse all` sit below the header and above the filter bar. The active theme is highlighted, persists in `localStorage` (`impurrfect-menu-preview-theme`), and only affects `/menu-preview`.
+- **Sticky filter bar** below the control bar: 5 compact category tabs (`All`, `Signature`, `Cocktails`, `Beers`, `Snacks`) with zero horizontal drag on mobile screens (360–390px), plus a `Filter by taste ▾` trigger that opens a 2-column drawer of all 7 moods. Selecting a mood auto-closes the drawer and shows `Taste: <Label> ▾`, `Clear ✕`, and `Showing N drinks`. Tapping a mood or category hides empty categories/subcategories and scrolls the list back under the bar if you were far down the page.
+- **Tap-to-expand cards**: collapsed shows the drink name, price, concise ingredient list, and flavor tags. Tap the text row to reveal the storytelling description with distinctive italic styling and accent left border (`.pv-story`). `Expand all` / `Collapse all` in the control bar toggles all cards at once.
 - **Ingredients** come from the Baserow `web_ingredients` field. If a non-Snack drink leaves it blank, the site derives a cleaned list from its linked `recipe_ingredients` (brand/pack sizes removed, straws/ice filtered out).
 - **Mood mapping**:
   - `★ Staff Favorites` → Baserow `featured = true`

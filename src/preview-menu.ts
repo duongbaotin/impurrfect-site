@@ -11,8 +11,10 @@ let scrollTimer = null;
 export function registerMenuPreview(Alpine) {
   Alpine.data('menuPreview', () => ({
     items: [],
+    moods: [],
     activeCategory: 'all',
     activeMood: null,
+    filterOpen: false,
     expandAll: false,
     openKeys: [],
     closedKeys: [],
@@ -24,6 +26,12 @@ export function registerMenuPreview(Alpine) {
         this.items = JSON.parse(this.$el.dataset.items || '[]');
       } catch {
         this.items = [];
+      }
+
+      try {
+        this.moods = JSON.parse(this.$el.dataset.moods || '[]');
+      } catch {
+        this.moods = [];
       }
 
       let stored = 'dark';
@@ -75,6 +83,12 @@ export function registerMenuPreview(Alpine) {
       return this.activeCategory !== 'all' || this.activeMood !== null;
     },
 
+    get activeMoodLabel() {
+      if (!this.activeMood) return '';
+      const found = this.moods.find((m) => m.key === this.activeMood);
+      return found ? found.label : this.activeMood;
+    },
+
     categoryCount(category) {
       return this.items.filter((item) => item.category === category).length;
     },
@@ -96,12 +110,20 @@ export function registerMenuPreview(Alpine) {
 
     toggleMood(mood) {
       this.activeMood = this.activeMood === mood ? null : mood;
+      this.filterOpen = false;
+      this.scrollToListTop();
+    },
+
+    clearMood() {
+      this.activeMood = null;
+      this.filterOpen = false;
       this.scrollToListTop();
     },
 
     clearFilters() {
       this.activeCategory = 'all';
       this.activeMood = null;
+      this.filterOpen = false;
       this.scrollToListTop();
     },
 

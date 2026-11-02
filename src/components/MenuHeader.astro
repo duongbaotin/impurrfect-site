@@ -1,13 +1,15 @@
 ---
 interface Props {
   tagline: string;
+  /** Preview route: tighten the gap before the control bar below the header. */
+  compact?: boolean;
 }
 
 import BrandNameWord from './BrandNameWord.astro';
-const { tagline } = Astro.props;
+const { tagline, compact } = Astro.props;
 ---
 
-<header class="text-center mb-16 space-y-2">
+<header class:list={['text-center space-y-2', compact ? 'mb-6' : 'mb-16']}>
   <h1 class="font-display text-4xl md:text-5xl tracking-widest text-cream">
     <a href="/" class="no-underline text-inherit">
       <BrandNameWord normalCase />

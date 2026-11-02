@@ -8,6 +8,7 @@
     class="pv-theme-seg font-body text-[11px] uppercase tracking-widest"
     :data-active="theme === 'dark'"
     :aria-pressed="theme === 'dark'"
+    aria-label="Dark mode"
     @click="setTheme('dark')"
   >
     🌙 Dark
@@ -17,8 +18,9 @@
     class="pv-theme-seg font-body text-[11px] uppercase tracking-widest"
     :data-active="theme === 'paper'"
     :aria-pressed="theme === 'paper'"
+    aria-label="Light mode"
     @click="setTheme('paper')"
   >
-    📖 Paper
+    ☀️ Light
   </button>
 </div>

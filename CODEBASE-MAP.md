@@ -76,13 +76,13 @@ scripts/
 | Want to change… | File |
 |---|---|
 | Venue info block (address, hours, email) | `src/components/HoursLocation.astro` |
-| Menu page title + tagline | `src/components/MenuHeader.astro` |
+| Menu page title + tagline | `src/components/MenuHeader.astro` — supports optional `compact` prop for preview |
 | Category section heading / subcategory grouping | `src/components/MenuCategory.astro` |
 | Single drink card layout (name, price, tags, badges) | `src/components/MenuItem.astro` |
-| Preview filter bar (category tabs, mood pills, expand-all) | `src/components/preview/PreviewFilterBar.astro` |
+| Preview filter bar (zero-scroll category tabs, taste drawer) | `src/components/preview/PreviewFilterBar.astro` |
 | Preview category / subcategory hide-when-filtered | `src/components/preview/PreviewMenuCategory.astro` |
-| Preview collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` — ingredients/tags/unavailable collapsed, description in the drawer |
-| Preview 2-segment theme switch | `src/components/preview/PreviewThemeToggle.astro` |
+| Preview collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` — ingredients/tags/unavailable collapsed, story description in drawer with `.pv-story` styling |
+| Preview 2-segment theme switch (`🌙 Dark \| ☀️ Light`) | `src/components/preview/PreviewThemeToggle.astro` |
 | Image viewer (zoom, drag-dismiss) | `src/components/lightbox/ImageViewer.astro` — singleton, mounted in MainLayout |
 | CTA button styling | Any `a` with `class="bg-gold ..."` |
 | Branded "impurrfect" word | `src/components/BrandNameWord.astro` — accepts `normalCase` prop |

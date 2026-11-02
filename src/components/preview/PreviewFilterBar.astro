@@ -5,72 +5,131 @@ interface Props {
 }
 
 const { categories, moods } = Astro.props;
-const total = categories.reduce((sum, category) => sum + category.count, 0);
+
+const categoryShortLabels: Record<string, string> = {
+  all: 'All',
+  Signature: 'Signature',
+  Cocktails: 'Cocktails',
+  'Mixed Beers': 'Beers',
+  Snacks: 'Snacks',
+};
+
 const tabs = [
-  { key: 'all', label: 'All', count: total },
+  { key: 'all', label: 'All' },
   ...categories.map((category) => ({
     key: category.name,
-    label: category.name,
-    count: category.count,
+    label: categoryShortLabels[category.name] ?? category.name,
   })),
 ];
 ---
 
-<div class="pv-filterbar sticky top-0 z-30 -mx-6 px-6 py-3">
-  <div class="flex flex-col gap-2.5">
+<div
+  class="pv-filterbar sticky top-0 z-30 -mx-6 px-6 py-2.5"
+  @keydown.escape.window="filterOpen = false"
+>
+  <div class="flex flex-col gap-2">
+    <!-- Zero-scroll 5-category tabs -->
     <div
-      class="pv-scroll flex gap-2 overflow-x-auto pb-0.5"
+      class="grid grid-cols-5 gap-1 sm:gap-1.5"
       role="group"
       aria-label="Filter by category"
     >
       {tabs.map((tab) => (
         <button
           type="button"
-          class="pv-tab shrink-0 rounded-full px-3 py-1 font-body text-[10px] uppercase tracking-widest"
+          class="pv-tab text-center rounded-full px-0.5 py-1 font-body text-[9px] tracking-normal sm:text-[10px] sm:tracking-wider uppercase"
           :data-active={`activeCategory === ${JSON.stringify(tab.key)}`}
           :aria-pressed={`activeCategory === ${JSON.stringify(tab.key)}`}
           @click={`setCategory(${JSON.stringify(tab.key)})`}
         >
-          {tab.label} ({tab.count})
+          {tab.label}
         </button>
       ))}
     </div>
 
-    <div
-      class="pv-scroll flex gap-2 overflow-x-auto pb-0.5"
-      role="group"
-      aria-label="Filter by mood"
-    >
-      {moods.map((mood) => (
-        <button
-          type="button"
-          class="pv-pill shrink-0 rounded-full px-3 py-1 font-body text-[10px] uppercase tracking-widest"
-          :data-active={`activeMood === ${JSON.stringify(mood.key)}`}
-          :aria-pressed={`activeMood === ${JSON.stringify(mood.key)}`}
-          @click={`toggleMood(${JSON.stringify(mood.key)})`}
+    <!-- Taste filter trigger bar & collapsible 2-col drawer -->
+    <div class="relative" @click.outside="filterOpen = false">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="pv-taste-trigger inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-body text-[10px] sm:text-[11px] uppercase tracking-widest"
+            :data-active="activeMood !== null"
+            :aria-expanded="filterOpen"
+            @click="filterOpen = !filterOpen"
+          >
+            <span x-show="!activeMood">Filter by taste</span>
+            <span x-show="activeMood" x-cloak>
+              Taste: <span x-text="activeMoodLabel"></span>
+            </span>
+            <svg
+              class="h-3 w-3 shrink-0 transition-transform duration-200"
+              :class="filterOpen && 'rotate-180'"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="font-body text-[10px] uppercase tracking-widest text-[var(--pv-accent)] hover:underline"
+            x-show="activeMood !== null"
+            x-cloak
+            @click="clearMood()"
+            aria-label="Clear taste filter"
+          >
+            Clear ✕
+          </button>
+        </div>
+
+        <div
+          class="font-body text-[10px] tracking-wide text-[var(--pv-muted)]"
+          x-show="isFiltered"
+          x-cloak
         >
-          {mood.label}
-        </button>
-      ))}
-    </div>
+          Showing <span class="font-medium text-[var(--pv-text)]" x-text="visibleCount">0</span> drinks
+        </div>
+      </div>
 
-    <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 font-body text-[10px] uppercase tracking-widest">
-      <button
-        type="button"
-        class="pv-clear"
-        @click="toggleAllExpanded()"
-        :aria-pressed="expandAll"
+      <!-- 2-column drawer -->
+      <div
+        class="pv-taste-drawer pt-2"
+        x-show="filterOpen"
+        x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 -translate-y-1"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-100"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-1"
+        x-cloak
+        role="region"
+        aria-label="Filter by taste options"
       >
-        <span x-text="expandAll ? 'Collapse all' : 'Expand all'">Expand all</span>
-      </button>
-
-      <div class="flex items-center gap-3" x-show="isFiltered" x-cloak>
-        <span class="pv-desc normal-case tracking-normal">
-          Showing <span x-text="visibleCount">0</span> drinks
-        </span>
-        <button type="button" class="pv-clear" @click="clearFilters()">
-          Clear filter
-        </button>
+        <div class="grid grid-cols-2 gap-2 pt-1 pb-1">
+          {moods.map((mood) => (
+            <button
+              type="button"
+              class="pv-pill flex items-center justify-between rounded-lg px-2.5 py-1.5 text-left font-body text-[10px] uppercase tracking-wider sm:px-3 sm:py-2 sm:text-[11px]"
+              :data-active={`activeMood === ${JSON.stringify(mood.key)}`}
+              :aria-pressed={`activeMood === ${JSON.stringify(mood.key)}`}
+              @click={`toggleMood(${JSON.stringify(mood.key)})`}
+            >
+              <span class="truncate">{mood.label}</span>
+              <span
+                class="ml-1 text-[var(--pv-accent)] font-semibold"
+                x-show={`activeMood === ${JSON.stringify(mood.key)}`}
+                x-cloak
+              >
+                ✓
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   </div>

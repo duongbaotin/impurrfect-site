@@ -57,12 +57,22 @@ const categoryTabs = menuCategories.map((cat) => ({
     class="menu-preview"
     x-data="menuPreview"
     data-items={JSON.stringify(previewItems)}
+    data-moods={JSON.stringify(menuMoods)}
   >
-    <div class="mb-4 flex justify-end">
-      <PreviewThemeToggle />
-    </div>
+    <MenuHeader tagline={tagline} compact={true} />
 
-    <MenuHeader tagline={tagline} />
+    <div class="pv-control-bar mb-6 flex items-center justify-between gap-3">
+      <PreviewThemeToggle />
+
+      <button
+        type="button"
+        class="pv-control-btn font-body text-[11px] uppercase tracking-widest"
+        @click="toggleAllExpanded()"
+        :aria-pressed="expandAll"
+      >
+        <span x-text="expandAll ? 'Collapse all' : 'Expand all'">Expand all</span>
+      </button>
+    </div>
 
     <PreviewFilterBar categories={categoryTabs} moods={menuMoods} />
 
