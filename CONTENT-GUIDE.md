@@ -103,13 +103,18 @@ Edit `src/data/categories.ts`. Each entry:
 The preview also carries the UX upgrades being evaluated before the Phase 4 cutover:
 
 - **Theme switch & control bar**: right-aligned `[ 🌙 Dark | ☀️ Light ]` switch sits below the header and above the filter bar. The active theme is highlighted, persists in `localStorage` (`impurrfect-menu-preview-theme`), and only affects `/menu-preview`.
-- **Sticky filter bar** below the control bar: 6 compact category tabs (`All`, `Signature`, `Zero Alcohol`, `Cocktails`, `Beers`, `Snacks`) in a clean 3×2 grid on mobile screens (6-across on desktop) with zero horizontal drag, plus a `Filter by taste ▾` trigger that opens a 2-column drawer of 6 taste moods (`★ Staff Favorites`, `Refreshing`, `Spirit-Forward`, `Sour & Tart`, `Sweet & Fruity`, `Savory & Spiced`). Selecting a mood auto-closes the drawer and shows `Taste: <Label> ▾`, `Clear ✕`, and `Showing N drinks`. Tapping a mood or category hides empty categories/subcategories and scrolls the list back under the bar if you were far down the page.
+- **Sticky filter bar** below the control bar: 6 compact category tabs (`All`, `Signature`, `Zero Alcohol`, `Cocktails`, `Beers`, `Snacks`) in a clean 3×2 grid on mobile screens (6-across on desktop) with zero horizontal drag. Drink filters feature dual triggers:
+  - **`Taste ▾`**: opens a 2-column drawer of 6 taste moods (`★ Staff Favorites`, `Refreshing`, `Spirit-Forward`, `Sour & Tart`, `Sweet & Fruity`, `Savory & Spiced`).
+  - **`Spirit ▾`**: opens a 2-column drawer of 6 base spirits (`Whiskey`, `Gin`, `Rum`, `Vodka`, `Tequila`, `Mixed Spirits`). Visible when viewing `All` or `Cocktails`; auto-clears when switching to `Zero Alcohol`, `Signature`, `Mixed Beers`, or `Snacks`.
+  - **Drinks-only scope**: selecting any taste or spirit filter strictly excludes food (`Snacks`), and viewing the `Snacks` category tab completely hides the filter trigger bar.
+  - Active filters show `Taste: <Label> ▾`, `Spirit: <Label> ▾`, `Clear ✕`, and `Showing N drinks`. Tapping a mood or category hides empty categories/subcategories and scrolls the list back under the bar if you were far down the page.
 - **Tap-to-expand cards**: collapsed shows the drink name, price, concise ingredient list, and flavor tags. Tap the text row to reveal the storytelling description with distinctive italic styling and accent left border (`.pv-story`).
 - **Ingredients** come from the Baserow `web_ingredients` field. If a non-Snack drink leaves it blank, the site derives a cleaned list from its linked `recipe_ingredients` (brand/pack sizes removed, straws/ice filtered out).
-- **Mood mapping**:
+- **Mood & Spirit mapping**:
   - `★ Staff Favorites` → Baserow `featured = true`
   - `Refreshing`, `Spirit-Forward`, `Sour & Tart`, `Sweet & Fruity`, `Savory & Spiced` → matching `flavor_tags` (`Sour & Tart`, etc. match either tag)
-  - `Zero Alcohol` is a first-class main category (not a mood pill)
+  - `Whiskey`, `Gin`, `Rum`, `Vodka`, `Tequila`, `Mixed Spirits` → matching `Cocktails` `subcategory` (`Whiskey-based`, etc.)
+  - `Zero Alcohol` is a first-class main category (not a filter pill)
 - **Uniform thumbnails**: photos and SVG glass icons share the same left column, so drink names align. Tapping a `.webp` photo opens the lightbox; it never toggles the card.
 
 - **Not linked from the navigation** and marked `noindex, nofollow` — customers won't find it.

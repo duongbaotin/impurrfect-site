@@ -5,6 +5,11 @@ export interface MenuMood {
   label: string;
 }
 
+export interface MenuSpirit {
+  key: string;
+  label: string;
+}
+
 // Preview-only mood pills. Most are tag matches; Staff Favorites comes from
 // `featured`. Zero Alcohol is a first-class category.
 export const menuMoods: MenuMood[] = [
@@ -14,6 +19,16 @@ export const menuMoods: MenuMood[] = [
   { key: 'sour-tart', label: 'Sour & Tart' },
   { key: 'sweet-fruity', label: 'Sweet & Fruity' },
   { key: 'savory-spiced', label: 'Savory & Spiced' },
+];
+
+// Base spirits matching Cocktails `subcategory` values.
+export const menuSpirits: MenuSpirit[] = [
+  { key: 'Whiskey-based', label: 'Whiskey' },
+  { key: 'Gin-based', label: 'Gin' },
+  { key: 'Rum-based', label: 'Rum' },
+  { key: 'Vodka-based', label: 'Vodka' },
+  { key: 'Tequila-based', label: 'Tequila' },
+  { key: 'Mixed Spirits', label: 'Mixed Spirits' },
 ];
 
 type MoodSource = Pick<MenuItemData, 'featured' | 'tags' | 'subcategory'>;

@@ -79,7 +79,7 @@ scripts/
 | Menu page title + tagline | `src/components/MenuHeader.astro` — supports optional `compact` prop for preview |
 | Category section heading / subcategory grouping | `src/components/MenuCategory.astro` |
 | Single drink card layout (name, price, tags, badges) | `src/components/MenuItem.astro` |
-| Preview filter bar (zero-scroll category tabs, taste drawer) | `src/components/preview/PreviewFilterBar.astro` |
+| Preview filter bar (zero-scroll category tabs, taste & spirit drawers) | `src/components/preview/PreviewFilterBar.astro` |
 | Preview category / subcategory hide-when-filtered | `src/components/preview/PreviewMenuCategory.astro` |
 | Preview collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` — ingredients/tags/unavailable collapsed, story description in drawer with `.pv-story` styling |
 | Preview 2-segment theme switch (`🌙 Dark \| ☀️ Light`) | `src/components/preview/PreviewThemeToggle.astro` |
@@ -121,7 +121,7 @@ scripts/
 | Mark a drink unavailable | Add `available: false` to its YAML |
 | Change what `/menu-preview` shows | Edit the Baserow `recipes` row (`1258954`) — the preview ignores YAML |
 | Add a web image key / description / tags / ingredients to the preview | Baserow `web_image`, `web_description`, `flavor_tags`, `web_ingredients` on the recipe row |
-| Change preview mood-pill membership | `src/data/menu-moods.ts` — `featured` → Staff Favorites, tags → the other 5 taste pills (`Zero Alcohol` is a main category) |
+| Change preview mood/spirit filter definitions | `src/data/menu-moods.ts` — `menuMoods` (taste) and `menuSpirits` (base spirits) |
 | Add / rename / remove a category | Edit `src/data/categories.ts` (the `Archived` category is internal-only and hidden from `/menu`) |
 | Reorder categories | Change `order` in `categories.ts` |
 | Add a new image for a drink | Drop the `.svg`/`.webp` into `src/assets/images/`, then reference its basename in the YAML `image` field. `src/lib/menu-images.ts` picks files up automatically via `import.meta.glob` — no import or map entry needed |

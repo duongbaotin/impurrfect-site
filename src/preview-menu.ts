@@ -12,9 +12,11 @@ export function registerMenuPreview(Alpine) {
   Alpine.data('menuPreview', () => ({
     items: [],
     moods: [],
+    spirits: [],
     activeCategory: 'all',
     activeMood: null,
-    filterOpen: false,
+    activeSpirit: null,
+    openDrawer: null,
     openKeys: [],
     theme: 'dark',
     _onBeforeSwap: null,
@@ -30,6 +32,12 @@ export function registerMenuPreview(Alpine) {
         this.moods = JSON.parse(this.$el.dataset.moods || '[]');
       } catch {
         this.moods = [];
+      }
+
+      try {
+        this.spirits = JSON.parse(this.$el.dataset.spirits || '[]');
+      } catch {
+        this.spirits = [];
       }
 
       let stored = 'dark';
@@ -55,10 +63,20 @@ export function registerMenuPreview(Alpine) {
     },
 
     itemMatches(item) {
+      // Snacks are strictly excluded whenever any drink filter (taste or spirit) is active
+      if (
+        (this.activeMood !== null || this.activeSpirit !== null) &&
+        item.category === 'Snacks'
+      ) {
+        return false;
+      }
       if (this.activeCategory !== 'all' && item.category !== this.activeCategory) {
         return false;
       }
       if (this.activeMood && !item.moods.includes(this.activeMood)) {
+        return false;
+      }
+      if (this.activeSpirit && item.subcategory !== this.activeSpirit) {
         return false;
       }
       return true;
@@ -78,13 +96,23 @@ export function registerMenuPreview(Alpine) {
     },
 
     get isFiltered() {
-      return this.activeCategory !== 'all' || this.activeMood !== null;
+      return (
+        this.activeCategory !== 'all' ||
+        this.activeMood !== null ||
+        this.activeSpirit !== null
+      );
     },
 
     get activeMoodLabel() {
       if (!this.activeMood) return '';
       const found = this.moods.find((m) => m.key === this.activeMood);
       return found ? found.label : this.activeMood;
+    },
+
+    get activeSpiritLabel() {
+      if (!this.activeSpirit) return '';
+      const found = this.spirits.find((s) => s.key === this.activeSpirit);
+      return found ? found.label : this.activeSpirit;
     },
 
     categoryCount(category) {
@@ -103,25 +131,56 @@ export function registerMenuPreview(Alpine) {
 
     setCategory(category) {
       this.activeCategory = category;
+      this.openDrawer = null;
+      if (category === 'Snacks') {
+        this.activeMood = null;
+        this.activeSpirit = null;
+      } else if (category !== 'all' && category !== 'Cocktails') {
+        this.activeSpirit = null;
+      }
       this.scrollToListTop();
     },
 
     toggleMood(mood) {
       this.activeMood = this.activeMood === mood ? null : mood;
-      this.filterOpen = false;
+      this.openDrawer = null;
+      this.scrollToListTop();
+    },
+
+    toggleSpirit(spirit) {
+      this.activeSpirit = this.activeSpirit === spirit ? null : spirit;
+      this.openDrawer = null;
+      this.scrollToListTop();
+    },
+
+    toggleDrawer(drawer) {
+      this.openDrawer = this.openDrawer === drawer ? null : drawer;
+    },
+
+    clearDrinkFilters() {
+      this.activeMood = null;
+      this.activeSpirit = null;
+      this.openDrawer = null;
       this.scrollToListTop();
     },
 
     clearMood() {
       this.activeMood = null;
-      this.filterOpen = false;
+      this.openDrawer = null;
+      this.scrollToListTop();
+    },
+
+    clearSpirit() {
+      this.activeSpirit = null;
+      this.openDrawer = null;
       this.scrollToListTop();
     },
 
     clearFilters() {
       this.activeCategory = 'all';
       this.activeMood = null;
-      this.filterOpen = false;
+      this.activeSpirit = null;
+      this.openDrawer = null;
       this.scrollToListTop();
     },
 

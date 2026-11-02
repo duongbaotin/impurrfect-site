@@ -6,7 +6,7 @@ import PreviewThemeToggle from '../../components/preview/PreviewThemeToggle.astr
 import PreviewFilterBar from '../../components/preview/PreviewFilterBar.astro';
 import PreviewMenuCategory from '../../components/preview/PreviewMenuCategory.astro';
 import { categories } from '../../data/categories';
-import { menuMoods, moodKeysFor } from '../../data/menu-moods';
+import { menuMoods, menuSpirits, moodKeysFor } from '../../data/menu-moods';
 import '../../styles/menu-preview.css';
 
 // Staging mirror of /menu: Baserow data + the preview-only UX upgrades.
@@ -59,6 +59,7 @@ const categoryTabs = menuCategories.map((cat) => ({
     x-data="menuPreview"
     data-items={JSON.stringify(previewItems)}
     data-moods={JSON.stringify(menuMoods)}
+    data-spirits={JSON.stringify(menuSpirits)}
   >
     <MenuHeader tagline={tagline} compact={true} />
 
@@ -66,7 +67,11 @@ const categoryTabs = menuCategories.map((cat) => ({
       <PreviewThemeToggle />
     </div>
 
-    <PreviewFilterBar categories={categoryTabs} moods={menuMoods} />
+    <PreviewFilterBar
+      categories={categoryTabs}
+      moods={menuMoods}
+      spirits={menuSpirits}
+    />
 
     <div id="preview-menu-list" class="mt-8 space-y-14">
       {menuCategories.map((cat) => (
