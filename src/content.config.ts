@@ -33,6 +33,8 @@ const menuSchema = z.object({
       'price must look like "VND 180k" (or "VND 79k / 109k" for two sizes)'
     ),
   description: z.string().trim().min(1, 'description must not be empty'),
+  // Guest-facing concise ingredient list ("Bourbon · Simple syrup · Orange twist").
+  ingredients: z.string().trim().min(1).optional(),
   // Derived from src/data/categories.ts: an unknown category silently drops the
   // item from /menu, so reject it at build time instead.
   category: z.enum(categoryNames as [string, ...string[]]),

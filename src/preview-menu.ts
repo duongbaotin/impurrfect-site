@@ -4,6 +4,10 @@
 
 const THEME_KEY = 'impurrfect-menu-preview-theme';
 
+// Preview is a single route instance; a module-level timer survives Alpine's
+// method `this` binding (the event target) and is cleared on swap.
+let scrollTimer = null;
+
 export function registerMenuPreview(Alpine) {
   Alpine.data('menuPreview', () => ({
     items: [],
@@ -41,6 +45,7 @@ export function registerMenuPreview(Alpine) {
       if (this._onBeforeSwap) {
         document.removeEventListener('astro:before-swap', this._onBeforeSwap);
       }
+      if (scrollTimer) clearTimeout(scrollTimer);
     },
 
     itemMatches(item) {
@@ -86,15 +91,46 @@ export function registerMenuPreview(Alpine) {
 
     setCategory(category) {
       this.activeCategory = category;
+      this.scrollToListTop();
     },
 
     toggleMood(mood) {
       this.activeMood = this.activeMood === mood ? null : mood;
+      this.scrollToListTop();
     },
 
     clearFilters() {
       this.activeCategory = 'all';
       this.activeMood = null;
+      this.scrollToListTop();
+    },
+
+    // Tapping a filter halfway down a 47-drink list should not strand the guest
+    // at the footer. Only act once the sticky bar has reached the top.
+    scrollToListTop() {
+      // Wait for x-show to remove the hidden sections and settle layout;
+      // scrolling before that lets the shrinking page clamp the animation.
+      if (scrollTimer) clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        scrollTimer = null;
+        const bar = document.querySelector('.pv-filterbar');
+        const list = document.querySelector('#preview-menu-list');
+        if (!bar || !list) return;
+
+        const barTop = bar.getBoundingClientRect().top;
+        const listTop =
+          list.getBoundingClientRect().top + window.scrollY - bar.offsetHeight - 12;
+
+        if (barTop <= 1 && window.scrollY > listTop) {
+          const reduceMotion = window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+          ).matches;
+          window.scrollTo({
+            top: Math.max(0, listTop),
+            behavior: reduceMotion ? 'auto' : 'smooth',
+          });
+        }
+      }, 80);
     },
 
     isExpanded(key) {

@@ -2,12 +2,23 @@
 // Preview-only control. Theme state lives in the `menuPreview` Alpine component.
 ---
 
-<button
-  type="button"
-  class="pv-theme-toggle inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-body text-[11px] uppercase tracking-widest"
-  @click="toggleTheme()"
-  :aria-pressed="theme === 'paper'"
-  :aria-label="theme === 'dark' ? 'Switch to paper mode' : 'Switch to dark mode'"
->
-  <span x-text="theme === 'dark' ? '🌙 Dark' : '📖 Paper'">🌙 Dark</span>
-</button>
+<div class="pv-theme-switch" role="group" aria-label="Preview theme">
+  <button
+    type="button"
+    class="pv-theme-seg font-body text-[11px] uppercase tracking-widest"
+    :data-active="theme === 'dark'"
+    :aria-pressed="theme === 'dark'"
+    @click="setTheme('dark')"
+  >
+    🌙 Dark
+  </button>
+  <button
+    type="button"
+    class="pv-theme-seg font-body text-[11px] uppercase tracking-widest"
+    :data-active="theme === 'paper'"
+    :aria-pressed="theme === 'paper'"
+    @click="setTheme('paper')"
+  >
+    📖 Paper
+  </button>
+</div>

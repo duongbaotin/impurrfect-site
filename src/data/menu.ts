@@ -2,6 +2,7 @@ export interface MenuItemData {
   name: string;
   price: string;
   description: string;
+  ingredients?: string;
   tags?: string[];
   featured?: boolean;
   image?: string;

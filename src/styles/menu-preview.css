@@ -104,22 +104,34 @@ html[data-preview] .menu-preview header .bg-charcoal {
   background-color: var(--pv-border);
 }
 
-/* --- Theme toggle --- */
+/* --- Theme switch --- */
 
-.pv-theme-toggle {
+.pv-theme-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
   border: 1px solid var(--pv-border);
+  border-radius: 9999px;
   background-color: var(--pv-surface);
-  color: var(--pv-text);
-  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
-.pv-theme-toggle:hover,
-.pv-theme-toggle[aria-pressed='true'] {
-  border-color: var(--pv-accent);
+.pv-theme-seg {
+  border-radius: 9999px;
+  padding: 0.3rem 0.7rem;
+  color: var(--pv-muted);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pv-theme-seg:hover {
+  color: var(--pv-text);
+}
+
+.pv-theme-seg[data-active='true'] {
+  background-color: color-mix(in srgb, var(--pv-accent) 16%, transparent);
   color: var(--pv-accent);
 }
 
-.pv-theme-toggle:focus-visible,
+.pv-theme-seg:focus-visible,
 .pv-tab:focus-visible,
 .pv-pill:focus-visible,
 .pv-clear:focus-visible,
@@ -211,6 +223,21 @@ html[data-preview] .menu-preview header .bg-charcoal {
 
 .pv-desc {
   color: var(--pv-muted);
+}
+
+.pv-ingredients {
+  color: var(--pv-muted);
+}
+
+.pv-unavailable {
+  display: inline-block;
+  border: 1px dashed var(--pv-border);
+  padding: 1px 8px;
+  color: var(--pv-muted);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .pv-chevron {
@@ -306,7 +333,7 @@ html[data-preview][data-preview-theme='paper'] .pv-photo {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pv-theme-toggle,
+  .pv-theme-seg,
   .pv-tab,
   .pv-pill,
   .pv-name,

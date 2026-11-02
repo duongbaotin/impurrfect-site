@@ -12,7 +12,7 @@ import '../../styles/menu-preview.css';
 // Staging mirror of /menu: Baserow data + the preview-only UX upgrades.
 // Unlinked from the nav and noindexed until the production cutover (Phase 4).
 
-const tagline = 'Preview: warmer dark, paper mode, filters, and tap-to-expand cards.';
+const tagline = 'Street-rescue cats, honest drinks, zero pretension.';
 
 const items = await getCollection('menuBaserow');
 items.sort((a, b) => a.data.order - b.data.order);
@@ -66,7 +66,7 @@ const categoryTabs = menuCategories.map((cat) => ({
 
     <PreviewFilterBar categories={categoryTabs} moods={menuMoods} />
 
-    <div class="mt-8 space-y-14">
+    <div id="preview-menu-list" class="mt-8 space-y-14">
       {menuCategories.map((cat) => (
         <PreviewMenuCategory category={cat} />
       ))}

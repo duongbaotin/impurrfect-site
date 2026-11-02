@@ -19,6 +19,7 @@ category: "Cocktails"          # must match a category exactly (see below)
 # ---- Optional fields ----
 
 # order: 1                     # position in the list; lower = first (default: 0 / sorts first)
+# ingredients: "Bourbon · Simple syrup · Orange twist"  # concise guest-facing list (preview cards)
 # subcategory: "Whiskey-based" # groups drinks within a category
 # tags: ["Smoky", "Bitter"]    # flavor tags shown on the menu
 # featured: true               # adds a ★ staff favorite badge

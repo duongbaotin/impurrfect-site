@@ -50,6 +50,7 @@ Open any `.yaml` file in `src/content/menu/`. Fields:
 name: string              # drink name (required, non-empty)
 price: string             # "VND 180k", or "VND 79k / 109k" for two sizes (required, format enforced)
 description: string       # description text (required, non-empty)
+ingredients?: string      # optional concise guest-facing list, e.g. "Bourbon · Simple syrup · Orange twist"
 category: string          # must match a category name in src/data/categories.ts (enforced)
 subcategory?: string    # optional grouping within a category, e.g. "Whiskey-based"
 order: number             # sort position within category (lower = first); whole numbers only
@@ -101,9 +102,10 @@ Edit `src/data/categories.ts`. Each entry:
 
 The preview also carries the UX upgrades being evaluated before the Phase 4 cutover:
 
-- **Theme toggle** (`🌙 Dark` / `📖 Paper`) in the top-right. The choice is saved in `localStorage` (`impurrfect-menu-preview-theme`) and only affects `/menu-preview`.
-- **Sticky filter bar** below the header: category tabs (`All`, `Signature`, `Cocktails`, `Mixed Beers`, `Snacks` with live counts) and mood pills. Tapping a mood filters immediately, hides empty categories/subcategories, and shows a count + `Clear filter`.
-- **Tap-to-expand cards**: collapsed shows one line of description; tap the text row for the full description and tags. `Expand all` / `Collapse all` sits in the filter bar.
+- **Theme switch** (`[ 🌙 Dark | 📖 Paper ]`) in the top-right. Both options are always visible and the active one is highlighted. The choice is saved in `localStorage` (`impurrfect-menu-preview-theme`) and only affects `/menu-preview`.
+- **Sticky filter bar** below the header: category tabs (`All`, `Signature`, `Cocktails`, `Mixed Beers`, `Snacks` with live counts) and mood pills on one horizontal-scroll line. Tapping a mood or category hides empty categories/subcategories, shows a count + `Clear filter`, and scrolls the list back under the bar if you were far down the page.
+- **Tap-to-expand cards**: collapsed shows the drink name, price, concise ingredient list, and flavor tags. Tap the text row to reveal the full storytelling description. `Expand all` / `Collapse all` sits in the filter bar.
+- **Ingredients** come from the Baserow `web_ingredients` field. If a non-Snack drink leaves it blank, the site derives a cleaned list from its linked `recipe_ingredients` (brand/pack sizes removed, straws/ice filtered out).
 - **Mood mapping**:
   - `★ Staff Favorites` → Baserow `featured = true`
   - `Zero Alcohol` → `menu_subcategory` = `Zero Alcohol`

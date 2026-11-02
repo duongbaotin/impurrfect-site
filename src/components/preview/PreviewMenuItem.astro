@@ -110,12 +110,23 @@ const viewerHandler = imgSrc
         </svg>
       </div>
 
-      <p
-        x-show={`!isExpanded(${keyExpr})`}
-        class="pv-desc line-clamp-1 max-w-xl text-xs leading-relaxed font-light"
-      >
-        {item.description}
-      </p>
+      {item.ingredients && (
+        <p class="pv-ingredients max-w-xl text-[11px] leading-relaxed font-light">
+          {item.ingredients}
+        </p>
+      )}
+
+      {((item.tags && item.tags.length > 0) || unavailable) && (
+        <div class="mt-1.5 flex flex-wrap items-center gap-2">
+          {item.tags?.map((tag) => (
+            <span class="pv-tag rounded-sm">{tag}</span>
+          ))}
+
+          {unavailable && (
+            <span class="pv-unavailable rounded-sm">Currently unavailable</span>
+          )}
+        </div>
+      )}
 
       <div
         id={contentId}
@@ -124,23 +135,9 @@ const viewerHandler = imgSrc
         :aria-hidden={`!isExpanded(${keyExpr})`}
       >
         <div>
-          <p class="pv-desc max-w-xl pt-0.5 text-xs leading-relaxed font-light">
+          <p class="pv-desc max-w-xl pt-1.5 text-xs leading-relaxed font-light">
             {item.description}
           </p>
-
-          {item.tags && item.tags.length > 0 && (
-            <div class="mt-2 flex flex-wrap gap-2">
-              {item.tags.map((tag) => (
-                <span class="pv-tag rounded-sm">{tag}</span>
-              ))}
-            </div>
-          )}
-
-          {unavailable && (
-            <span class="mt-2 inline-block border border-dashed border-[var(--pv-border)] px-2 py-[1px] text-[9px] tracking-widest text-[var(--pv-muted)] uppercase">
-              Currently unavailable
-            </span>
-          )}
         </div>
       </div>
     </div>

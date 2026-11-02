@@ -14,7 +14,8 @@ src/
 ├── layouts/
 │   └── MainLayout.astro    → HTML shell: <head>, <Nav>, <Footer>, <slot>, <ImageViewer>
 ├── loaders/
-│   └── baserow-menu.ts     → Build-time Baserow loader for the `menuBaserow` collection (/menu-preview)
+│   ├── baserow-menu.ts     → Build-time Baserow loader for the `menuBaserow` collection (/menu-preview)
+│   └── guest-ingredients.ts → Cleans inventory names / drops packaging for the derived ingredient list
 ├── components/
 │   ├── Nav.astro           → Top nav bar + mobile hamburger menu (Alpine.js)
 │   ├── Footer.astro        → Allergy notice, copyright, social links
@@ -80,8 +81,8 @@ scripts/
 | Single drink card layout (name, price, tags, badges) | `src/components/MenuItem.astro` |
 | Preview filter bar (category tabs, mood pills, expand-all) | `src/components/preview/PreviewFilterBar.astro` |
 | Preview category / subcategory hide-when-filtered | `src/components/preview/PreviewMenuCategory.astro` |
-| Preview collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` |
-| Preview theme toggle pill | `src/components/preview/PreviewThemeToggle.astro` |
+| Preview collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` — ingredients/tags/unavailable collapsed, description in the drawer |
+| Preview 2-segment theme switch | `src/components/preview/PreviewThemeToggle.astro` |
 | Image viewer (zoom, drag-dismiss) | `src/components/lightbox/ImageViewer.astro` — singleton, mounted in MainLayout |
 | CTA button styling | Any `a` with `class="bg-gold ..."` |
 | Branded "impurrfect" word | `src/components/BrandNameWord.astro` — accepts `normalCase` prop |
@@ -119,7 +120,7 @@ scripts/
 | Reorder drinks within a category | Change `order` in each YAML |
 | Mark a drink unavailable | Add `available: false` to its YAML |
 | Change what `/menu-preview` shows | Edit the Baserow `recipes` row (`1258954`) — the preview ignores YAML |
-| Add a web image key / description / tags to the preview | Baserow `web_image`, `web_description`, `flavor_tags` on the recipe row |
+| Add a web image key / description / tags / ingredients to the preview | Baserow `web_image`, `web_description`, `flavor_tags`, `web_ingredients` on the recipe row |
 | Change preview mood-pill membership | `src/data/menu-moods.ts` — `featured` → Staff Favorites, `subcategory: Zero Alcohol` → Zero Alcohol, tags → the other pills |
 | Add / rename / remove a category | Edit `src/data/categories.ts` (the `Archived` category is internal-only and hidden from `/menu`) |
 | Reorder categories | Change `order` in `categories.ts` |
@@ -130,6 +131,7 @@ scripts/
 |---|---|---|
 | `src/content.config.ts` | Zod schema (validates every YAML) | `menu.ts`, `CONTENT-GUIDE.md`, `TEMPLATE.md` |
 | `src/loaders/baserow-menu.ts` | Baserow → collection mapping for `menuBaserow` | `content.config.ts` (same `menuSchema`), `../bar-database/AGENTS.md` |
+| `src/loaders/guest-ingredients.ts` | Inventory-name cleanup for the `web_ingredients` fallback | `baserow-menu.ts`, `CONTENT-GUIDE.md` |
 | `src/data/menu.ts` | TypeScript types consumed by components | `content.config.ts`, `CONTENT-GUIDE.md`, `TEMPLATE.md` |
 | `CONTENT-GUIDE.md` | End-user docs for content editors | All schema files |
 | `src/content/menu/TEMPLATE.md` | Copy-paste template | All schema files |
@@ -143,6 +145,7 @@ scripts/
 | `name` | ✅ | string | Drink name; must be non-empty after trim |
 | `price` | ✅ | string | Must match `/^VND \d+k( \/ \d+k)?$/`, e.g. `"VND 180k"` or `"VND 79k / 109k"`. Build fails otherwise |
 | `description` | ✅ | string | Description text; must be non-empty after trim |
+| `ingredients` | ❌ | string | Guest-facing concise list, e.g. `"Bourbon · Simple syrup · Orange twist"`; shown on preview cards while collapsed |
 | `category` | ✅ | string | `z.enum` built from `categories.ts` — unknown names fail the build |
 | `order` | ❌ | integer | Default `0` (sorts before positive numbers); must be whole |
 | `tags` | ❌ | string[] | e.g. `["Smoky", "Bitter"]`; each tag must be non-empty |
@@ -186,13 +189,16 @@ YAML files ──► content.config.ts ──► getCollection('menu')
 ### Data flow (`/menu-preview`, staging)
 
 ```
-Baserow `recipes` (1258954) ─┐
-Baserow `glassware` (1259147)┴► src/loaders/baserow-menu.ts
+Baserow `recipes` (1258954) ──────────────┐
+Baserow `glassware` (1259147) ────────────┤
+Baserow `recipe_ingredients` (1258955,    │
+  only when `web_ingredients` is blank) ──┴► src/loaders/baserow-menu.ts
                                     │  token: env → .env → ~/.secrets
                                     │  filter status = active / unavailable
-                                    │  map → name/price/description/category/
-                                    │        order/subcategory/tags/featured/
-                                    │        image/available
+                                    │  map → name/price/description/ingredients/
+                                    │        category/order/subcategory/tags/
+                                    │        featured/image/available
+                                    │  ingredients: web_ingredients, else derived
                                     │  fail on duplicate order per category
                                     ▼
                             parseData() ── same `menuSchema` as `menu`

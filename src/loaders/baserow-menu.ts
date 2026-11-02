@@ -11,9 +11,11 @@ import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import type { Loader } from 'astro/loaders';
+import { guestIngredients, type RecipeIngredientLine } from './guest-ingredients';
 
 const API_ROOT = 'https://api.baserow.io/api/database/rows/table';
 const RECIPES_TABLE = '1258954';
+const RECIPE_INGREDIENTS_TABLE = '1258955';
 const GLASSWARE_TABLE = '1259147';
 const PAGE_SIZE = 200;
 
@@ -43,6 +45,7 @@ interface BaserowRecipeRow {
   menu_order?: string | number | null;
   web_image?: string | null;
   web_description?: string | null;
+  web_ingredients?: string | null;
   price?: string | number | null;
   price_display?: string | null;
   glassware?: BaserowSelect[] | null;
@@ -51,6 +54,10 @@ interface BaserowRecipeRow {
 interface BaserowGlasswareRow {
   id: number;
   image_key?: string | null;
+}
+
+interface BaserowRecipeIngredientRow extends RecipeIngredientLine {
+  recipe?: BaserowSelect[] | null;
 }
 
 function readSecretFile(path: string): string | undefined {
@@ -144,6 +151,37 @@ export const baserowMenuLoader: Loader = {
       VISIBLE_STATUSES.has(row.status?.value ?? '')
     );
 
+    // `web_ingredients` is the guest-facing source of truth. Only pay for the
+    // second table when a visible non-Snack row is missing it.
+    const needsIngredientFallback = visible.some(
+      (row) =>
+        !row.web_ingredients?.trim() && row.menu_category?.value !== 'Snacks'
+    );
+
+    const inferredIngredients = new Map<number, string>();
+
+    if (needsIngredientFallback) {
+      const lines = (await fetchAllRows(
+        RECIPE_INGREDIENTS_TABLE,
+        token
+      )) as BaserowRecipeIngredientRow[];
+
+      const linesByRecipe = new Map<number, RecipeIngredientLine[]>();
+      for (const line of lines) {
+        const recipeId = line.recipe?.[0]?.id;
+        if (recipeId === undefined) continue;
+
+        const group = linesByRecipe.get(recipeId) ?? [];
+        group.push(line);
+        linesByRecipe.set(recipeId, group);
+      }
+
+      for (const [recipeId, group] of linesByRecipe) {
+        const derived = guestIngredients(group);
+        if (derived) inferredIngredients.set(recipeId, derived);
+      }
+    }
+
     // Same invariant as scripts/check-menu-order.mjs: Astro's schema sees one
     // entry at a time, so duplicates within a category are caught here instead.
     const seenOrders = new Map<string, { name: string; rowId: number }>();
@@ -179,11 +217,15 @@ export const baserowMenuLoader: Loader = {
       const tags = (row.flavor_tags ?? [])
         .map((tag) => tag.value.trim())
         .filter(Boolean);
+      const isSnack = row.menu_category?.value === 'Snacks';
 
       const data = {
         name: row.recipe_name?.trim(),
         price: priceDisplay(row),
         description: row.web_description?.trim(),
+        ingredients:
+          row.web_ingredients?.trim() ||
+          (isSnack ? undefined : inferredIngredients.get(row.id)),
         category: row.menu_category?.value,
         order: Number(row.menu_order),
         subcategory: row.menu_subcategory?.value || undefined,
