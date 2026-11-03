@@ -64,6 +64,7 @@ const tabs = [
           <button
             type="button"
             class="pv-taste-trigger inline-flex items-center gap-1 rounded-full px-2.5 py-1 font-body text-[10px] sm:text-[11px] uppercase tracking-wider transition-colors"
+            x-show="hasAvailableMoods"
             :data-active="activeMood !== null"
             :aria-expanded="openDrawer === 'taste'"
             @click="toggleDrawer('taste')"
@@ -85,11 +86,11 @@ const tabs = [
             </svg>
           </button>
 
-          <!-- Base Spirit trigger: visible when activeCategory === 'all' || activeCategory === 'Cocktails' -->
+          <!-- Base Spirit trigger: visible when spirits are available for active category/taste -->
           <button
             type="button"
             class="pv-taste-trigger inline-flex items-center gap-1 rounded-full px-2.5 py-1 font-body text-[10px] sm:text-[11px] uppercase tracking-wider transition-colors"
-            x-show="activeCategory === 'all' || activeCategory === 'Cocktails'"
+            x-show="hasAvailableSpirits"
             :data-active="activeSpirit !== null"
             :aria-expanded="openDrawer === 'spirit'"
             @click="toggleDrawer('spirit')"
@@ -152,6 +153,7 @@ const tabs = [
             <button
               type="button"
               class="pv-pill flex items-center justify-between rounded-lg px-2.5 py-1.5 text-left font-body text-[10px] uppercase tracking-wider sm:px-3 sm:py-2 sm:text-[11px]"
+              x-show={`isMoodAvailable(${JSON.stringify(mood.key)})`}
               :data-active={`activeMood === ${JSON.stringify(mood.key)}`}
               :aria-pressed={`activeMood === ${JSON.stringify(mood.key)}`}
               @click={`toggleMood(${JSON.stringify(mood.key)})`}
@@ -188,6 +190,7 @@ const tabs = [
             <button
               type="button"
               class="pv-pill flex items-center justify-between rounded-lg px-2.5 py-1.5 text-left font-body text-[10px] uppercase tracking-wider sm:px-3 sm:py-2 sm:text-[11px]"
+              x-show={`isSpiritAvailable(${JSON.stringify(spirit.key)})`}
               :data-active={`activeSpirit === ${JSON.stringify(spirit.key)}`}
               :aria-pressed={`activeSpirit === ${JSON.stringify(spirit.key)}`}
               @click={`toggleSpirit(${JSON.stringify(spirit.key)})`}

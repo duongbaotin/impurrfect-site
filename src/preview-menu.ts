@@ -115,6 +115,52 @@ export function registerMenuPreview(Alpine) {
       return found ? found.label : this.activeSpirit;
     },
 
+    isMoodAvailable(moodKey) {
+      return this.items.some((item) => {
+        if (item.category === 'Snacks') return false;
+        if (
+          this.activeCategory !== 'all' &&
+          item.category !== this.activeCategory
+        ) {
+          return false;
+        }
+        if (this.activeSpirit && item.subcategory !== this.activeSpirit) {
+          return false;
+        }
+        return item.moods.includes(moodKey);
+      });
+    },
+
+    get hasAvailableMoods() {
+      return this.moods.some((m) => this.isMoodAvailable(m.key));
+    },
+
+    isSpiritAvailable(spiritKey) {
+      if (this.activeCategory !== 'all' && this.activeCategory !== 'Cocktails') {
+        return false;
+      }
+      return this.items.some((item) => {
+        if (item.category === 'Snacks') return false;
+        if (
+          this.activeCategory !== 'all' &&
+          item.category !== this.activeCategory
+        ) {
+          return false;
+        }
+        if (this.activeMood && !item.moods.includes(this.activeMood)) {
+          return false;
+        }
+        return item.subcategory === spiritKey;
+      });
+    },
+
+    get hasAvailableSpirits() {
+      return (
+        (this.activeCategory === 'all' || this.activeCategory === 'Cocktails') &&
+        this.spirits.some((s) => this.isSpiritAvailable(s.key))
+      );
+    },
+
     categoryCount(category) {
       return this.items.filter((item) => item.category === category).length;
     },
@@ -135,8 +181,13 @@ export function registerMenuPreview(Alpine) {
       if (category === 'Snacks') {
         this.activeMood = null;
         this.activeSpirit = null;
-      } else if (category !== 'all' && category !== 'Cocktails') {
-        this.activeSpirit = null;
+      } else {
+        if (category !== 'all' && category !== 'Cocktails') {
+          this.activeSpirit = null;
+        }
+        if (this.activeMood && !this.isMoodAvailable(this.activeMood)) {
+          this.activeMood = null;
+        }
       }
       this.scrollToListTop();
     },
@@ -144,12 +195,18 @@ export function registerMenuPreview(Alpine) {
     toggleMood(mood) {
       this.activeMood = this.activeMood === mood ? null : mood;
       this.openDrawer = null;
+      if (this.activeSpirit && !this.isSpiritAvailable(this.activeSpirit)) {
+        this.activeSpirit = null;
+      }
       this.scrollToListTop();
     },
 
     toggleSpirit(spirit) {
       this.activeSpirit = this.activeSpirit === spirit ? null : spirit;
       this.openDrawer = null;
+      if (this.activeMood && !this.isMoodAvailable(this.activeMood)) {
+        this.activeMood = null;
+      }
       this.scrollToListTop();
     },
 
