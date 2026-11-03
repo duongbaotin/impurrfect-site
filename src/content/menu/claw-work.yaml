@@ -1,15 +1,12 @@
-# ---- Required fields ----
-
-name: "Claw Work"
-price: "VND 79k"              # always use "VND ...k" format
-description: "Savory Vietnamese salted lime and fiery ginger syrup to sharpen your claws."
-category: "Signature" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 4                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Zero Alcohol" # groups drinks within a category
-tags: ["Tart", "Savory"]    # flavor tags shown on the menu
-featured: true               # adds a ★ Bartender's Pick badge
-image: "/tulip-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Claw Work
+price: VND 79k
+description: Savory Vietnamese salted lime and fiery ginger syrup to sharpen your claws.
+category: Zero Alcohol
+order: 4
+tags:
+  - Tart
+  - Savory
+featured: true
+image: /tulip-glass.svg
+available: true
+ingredients: Salted lime · Fresh lime · Ginger syrup · Simple syrup · Ginger ale

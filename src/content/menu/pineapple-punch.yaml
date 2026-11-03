@@ -1,15 +1,15 @@
-# ---- Required fields ----
-
-name: "Pineapple Punch"
-price: "VND 149k"              # always use "VND ...k" format
-description: "Lush pineapple, lime, and white rum shaken with mint and topped with ginger ale."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 18                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Rum-based" # groups drinks within a category
-tags: ["Tropical", "Fruity", "Refreshing"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/highball-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: false             # set to false to show "Currently unavailable"
+name: Pineapple Punch
+price: VND 149k
+description: Lush pineapple, lime, and white rum shaken with mint and topped
+  with ginger ale.
+category: Cocktails
+order: 18
+subcategory: Rum-based
+tags:
+  - Tropical
+  - Fruity
+  - Refreshing
+featured: false
+image: /highball-glass.svg
+available: false
+ingredients: White rum · Fresh pineapple · Fresh lime · Mint · Ginger ale

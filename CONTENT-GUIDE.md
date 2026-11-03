@@ -96,29 +96,32 @@ Edit `src/data/categories.ts`. Each entry:
 - **Drinks within a category** — change the `order` field in each YAML file. Give every item in a category a **different** whole number: two items with the same number make the on-page order depend on filename, and the build will reject it.
 - **Categories on the page** — change the `order` field in `src/data/categories.ts`.
 
-### Preview route from Baserow (`/menu-preview`)
+### Menu routes & interactive UX (`/menu` and `/menu-preview`)
 
-`https://impurrfect-bar.meowracle.space/menu-preview` is a **staging** copy of `/menu` that reads from Baserow table `1258954` (`recipes`) at build time instead of the YAML files. It exists so the Baserow → website pipeline can be tested without touching the live menu.
+The production **`/menu`** route and the staging **`/menu-preview`** route share the exact same modern dive-bar menu UX:
 
-The preview also carries the UX upgrades being evaluated before the Phase 4 cutover:
-
-- **Theme switch & control bar**: right-aligned `[ 🌙 Dark | ☀️ Light ]` switch sits below the header and above the filter bar. The active theme is highlighted, persists in `localStorage` (`impurrfect-menu-preview-theme`), and only affects `/menu-preview`.
+- **Theme switch & control bar**: right-aligned `[ 🌙 Dark | ☀️ Light ]` switch sits below the header and above the filter bar. The active theme is highlighted, persists in `localStorage` (`impurrfect-menu-preview-theme`), and applies across menu sessions.
 - **Sticky filter bar** below the control bar: 6 compact category tabs (`All`, `Signature`, `Zero Alcohol`, `Cocktails`, `Beers`, `Snacks`) in a clean 3×2 grid on mobile screens (6-across on desktop) with zero horizontal drag. Drink filters feature dual triggers:
   - **`Taste ▾`**: opens a 2-column drawer of 6 taste moods (`★ Staff Favorites`, `Refreshing`, `Spirit-Forward`, `Sour & Tart`, `Sweet & Fruity`, `Savory & Spiced`).
   - **`Spirit ▾`**: opens a 2-column drawer of 6 base spirits (`Whiskey`, `Gin`, `Rum`, `Vodka`, `Tequila`, `Mixed Spirits`). Visible when viewing `All` or `Cocktails`; auto-clears when switching to `Zero Alcohol`, `Signature`, `Mixed Beers`, or `Snacks`.
   - **Drinks-only scope & dynamic faceted filtering**: selecting any taste or spirit filter strictly excludes food (`Snacks`), and viewing the `Snacks` category tab completely hides the filter trigger bar. Options with 0 matching drinks in the current category/spirit are hidden in real time, and switching categories auto-clears incompatible filters so guests never see a 0-result dead end.
   - Active filters show `Taste: <Label> ▾`, `Spirit: <Label> ▾`, `Clear ✕`, and `Showing N drinks`. Tapping a mood or category hides empty categories/subcategories and scrolls the list back under the bar if you were far down the page.
 - **Tap-to-expand cards**: collapsed shows the drink name, price, concise ingredient list, and flavor tags. Tap the text row to reveal the storytelling description with distinctive italic styling and accent left border (`.pv-story`).
-- **Ingredients** come from the Baserow `web_ingredients` field. If a non-Snack drink leaves it blank, the site derives a cleaned list from its linked `recipe_ingredients` (brand/pack sizes removed, straws/ice filtered out).
+- **Ingredients**: concise guest-facing list (`ingredients:` in YAML; `web_ingredients` in Baserow). If a non-Snack drink leaves it blank on Baserow, the site derives a cleaned list from linked `recipe_ingredients`.
 - **Mood & Spirit mapping**:
-  - `★ Staff Favorites` → Baserow `featured = true`
-  - `Refreshing`, `Spirit-Forward`, `Sour & Tart`, `Sweet & Fruity`, `Savory & Spiced` → matching `flavor_tags` (`Sour & Tart`, etc. match either tag)
+  - `★ Staff Favorites` → `featured: true` (or Baserow `featured = true`)
+  - `Refreshing`, `Spirit-Forward`, `Sour & Tart`, `Sweet & Fruity`, `Savory & Spiced` → matching `tags` (`Sour & Tart`, etc. match either tag)
   - `Whiskey`, `Gin`, `Rum`, `Vodka`, `Tequila`, `Mixed Spirits` → matching `Cocktails` `subcategory` (`Whiskey-based`, etc.)
   - `Zero Alcohol` is a first-class main category (not a filter pill)
 - **Uniform thumbnails**: photos and SVG glass icons share the same left column, so drink names align. Tapping a `.webp` photo opens the lightbox; it never toggles the card.
 
-- **Not linked from the navigation** and marked `noindex, nofollow` — customers won't find it.
-- **Do not edit YAML expecting the preview to change.** `/menu-preview` ignores `src/content/menu/*.yaml` completely; edit the Baserow row instead. `/menu` still reads YAML until the production cutover.
+### Differences between `/menu` and `/menu-preview`
+
+| Aspect | `/menu` (Production) | `/menu-preview` (Staging) |
+|---|---|---|
+| **Data Source** | Static Git YAML (`src/content/menu/*.yaml`) | Live Baserow `recipes` (`1258954`) |
+| **SEO / Indexing** | Indexed, in `sitemap-0.xml`, linked in Nav | `noindex, nofollow`, excluded from sitemap, unlinked |
+| **Purpose** | What real bar guests see right now | Safe soak-testing of Baserow + Zalo Bot updates |
 - The same validation rules apply: a preview item with a bad price, unknown category, or duplicate order inside its category fails the build with the drink's name.
 - Only rows with `status` = `active` or `unavailable` appear (`planning` / `testing` / `retired` stay internal). If `web_image` is blank, the item falls back to its linked glassware's `image_key`.
 - The build needs a Baserow token, so `npm run build` now requires network access and either `BASEROW_TOKEN` in `.env` or a token file at `~/.secrets/baserow-token` (falls back to `~/.secrets/baserow-database-token`).

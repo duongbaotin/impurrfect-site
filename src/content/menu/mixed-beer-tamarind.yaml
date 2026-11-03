@@ -1,15 +1,13 @@
-# ---- Required fields ----
-
-name: "Tamarind Mixed Beer"
-price: "VND 79k"              # always use "VND ...k" format
-description: "Sticky sweet-sour tamarind and light lager with a fiery chili-shrimp salt rim."
-category: "Mixed Beers" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 33                     # position in the list; lower = first (default: 0 / sorts first)
-# subcategory: "" # groups drinks within a category
-tags: ["Citrus", "Savory", "Refreshing"]    # flavor tags shown on the menu
-featured: true               # adds a ★ Bartender's Pick badge
-image: "/tulip-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Tamarind Mixed Beer
+price: VND 79k
+description: Sticky sweet-sour tamarind and light lager with a fiery chili-shrimp salt rim.
+category: Mixed Beers
+order: 33
+tags:
+  - Citrus
+  - Savory
+  - Refreshing
+featured: true
+image: /tulip-glass.svg
+available: true
+ingredients: Tamarind · Fresh lime · Simple syrup · Crisp lager · Chili-shrimp salt rim

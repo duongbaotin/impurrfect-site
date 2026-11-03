@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Fine & Dandy"
-price: "VND 149k"              # always use "VND ...k" format
-description: "A bone-dry, punchy sibling to the White Lady, seasoned with aromatic bitters."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 16                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Gin-based" # groups drinks within a category
-tags: ["Sour", "Citrus", "Aromatic"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/coupe-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Fine & Dandy
+price: VND 149k
+description: A bone-dry, punchy sibling to the White Lady, seasoned with aromatic bitters.
+category: Cocktails
+order: 16
+subcategory: Gin-based
+tags:
+  - Sour
+  - Citrus
+  - Aromatic
+featured: false
+image: /coupe-glass.svg
+available: true
+ingredients: London dry gin · Triple sec · Fresh lemon · Aromatic bitters · Lemon twist

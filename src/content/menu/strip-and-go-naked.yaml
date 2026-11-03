@@ -1,15 +1,13 @@
-# ---- Required fields ----
-
-name: "Strip and Go Naked"
-price: "VND 129k"              # always use "VND ...k" format
-description: "Potent gin, vodka, and lager stretched out with sweet-and-sour citrus."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 2                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Mixed Spirits" # groups drinks within a category
-tags: ["Spirit-Forward", "Refreshing"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/collins-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Strip and Go Naked
+price: VND 129k
+description: Potent gin, vodka, and lager stretched out with sweet-and-sour citrus.
+category: Cocktails
+order: 2
+subcategory: Mixed Spirits
+tags:
+  - Spirit-Forward
+  - Refreshing
+featured: false
+image: /collins-glass.svg
+available: true
+ingredients: London dry gin · Vodka · Fresh orange · Fresh lime · Grenadine · Crisp lager

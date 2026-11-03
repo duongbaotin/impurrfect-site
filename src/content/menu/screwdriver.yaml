@@ -1,15 +1,15 @@
-# ---- Required fields ----
-
-name: "Screwdriver"
-price: "VND 109k"              # always use "VND ...k" format
-description: "Freshly squeezed orange juice completely enveloping a heavy pour of crisp vodka."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 28                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Vodka-based" # groups drinks within a category
-tags: ["Citrus", "Fruity", "Simple"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/highball-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Screwdriver
+price: VND 109k
+description: Freshly squeezed orange juice completely enveloping a heavy pour of
+  crisp vodka.
+category: Cocktails
+order: 28
+subcategory: Vodka-based
+tags:
+  - Citrus
+  - Fruity
+  - Simple
+featured: false
+image: /highball-glass.svg
+available: true
+ingredients: Vodka · Fresh orange

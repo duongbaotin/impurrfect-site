@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Floradora"
-price: "VND 149k"              # always use "VND ...k" format
-description: "Sweet muddled strawberries and crisp gin lifted by lime and a ginger-beer fizz."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 12                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Gin-based" # groups drinks within a category
-tags: ["Refreshing", "Fruity", "Spiced"]    # flavor tags shown on the menu
-featured: true               # adds a ★ Bartender's Pick badge
-image: "/highball-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Floradora
+price: VND 149k
+description: Sweet muddled strawberries and crisp gin lifted by lime and a ginger-beer fizz.
+category: Cocktails
+order: 12
+subcategory: Gin-based
+tags:
+  - Refreshing
+  - Fruity
+  - Spiced
+featured: true
+image: /highball-glass.svg
+available: true
+ingredients: London dry gin · Preserved strawberry · Fresh lime · Ginger syrup · Soda

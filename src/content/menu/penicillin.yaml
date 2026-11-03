@@ -1,15 +1,16 @@
-# ---- Required fields ----
-
-name: "Penicillin"
-price: "VND 149k"              # always use "VND ...k" format
-description: "A soothing, fiery kick of whiskey, ginger, and honey, served with candied ginger."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 7                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Whiskey-based" # groups drinks within a category
-tags: ["Spirit-Forward", "Spiced", "Sour"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/rock-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: false            # set to false to show "Currently unavailable"
+name: Penicillin
+price: VND 149k
+description: A soothing, fiery kick of whiskey, ginger, and honey, served with
+  candied ginger.
+category: Cocktails
+order: 7
+subcategory: Whiskey-based
+tags:
+  - Spirit-Forward
+  - Spiced
+  - Sour
+featured: false
+image: /rock-glass.svg
+available: false
+ingredients: Blended Scotch · Islay whisky · Fresh lemon · Honey syrup · Ginger
+  syrup · Candied ginger

@@ -1,15 +1,16 @@
-# ---- Required fields ----
-
-name: "Long Island Iced Tea"
-price: "VND 149k"              # always use "VND ...k" format
-description: "Five spirits and fresh lime splashed with cola—strictly for cats on the night shift."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 1                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Mixed Spirits" # groups drinks within a category
-tags: ["Spirit-Forward", "Citrus", "Refreshing"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/collins-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Long Island Iced Tea
+price: VND 149k
+description: Five spirits and fresh lime splashed with cola—strictly for cats on
+  the night shift.
+category: Cocktails
+order: 1
+subcategory: Mixed Spirits
+tags:
+  - Spirit-Forward
+  - Citrus
+  - Refreshing
+featured: false
+image: /collins-glass.svg
+available: true
+ingredients: Vodka · London dry gin · White rum · Tequila blanco · Triple sec ·
+  Fresh lime · Simple syrup · Coca-Cola

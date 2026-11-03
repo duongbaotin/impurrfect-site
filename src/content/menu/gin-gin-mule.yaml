@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Gin-Gin Mule"
-price: "VND 149k"              # always use "VND ...k" format
-description: "Crisp gin and fresh mint muddled with sharp lime and spicy ginger syrup."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 11                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Gin-based" # groups drinks within a category
-tags: ["Refreshing", "Herbal", "Spiced"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/collins-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Gin-Gin Mule
+price: VND 149k
+description: Crisp gin and fresh mint muddled with sharp lime and spicy ginger syrup.
+category: Cocktails
+order: 11
+subcategory: Gin-based
+tags:
+  - Refreshing
+  - Herbal
+  - Spiced
+featured: false
+image: /collins-glass.svg
+available: true
+ingredients: London dry gin · Fresh lime · Ginger syrup · Simple syrup · Mint · Soda

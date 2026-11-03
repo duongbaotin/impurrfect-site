@@ -1,15 +1,15 @@
-# ---- Required fields ----
-
-name: "Ranch Water"
-price: "VND 149k"              # always use "VND ...k" format
-description: "A deeply hydrating highball of crisp tequila, sharp lime, and a savory pinch of salt."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 34                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Tequila-based" # groups drinks within a category
-tags: ["Citrus", "Savory", "Refreshing"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/highball-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Ranch Water
+price: VND 149k
+description: A deeply hydrating highball of crisp tequila, sharp lime, and a
+  savory pinch of salt.
+category: Cocktails
+order: 34
+subcategory: Tequila-based
+tags:
+  - Citrus
+  - Savory
+  - Refreshing
+featured: false
+image: /highball-glass.svg
+available: true
+ingredients: Tequila blanco · Fresh lime · Soda · Sea salt

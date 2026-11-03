@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Gin & Tonic"
-price: "VND 109k"              # always use "VND ...k" format
-description: "Crisp, botanical London dry gin stirred with premium tonic and fresh lime."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 9                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Gin-based" # groups drinks within a category
-tags: ["Refreshing", "Bitter", "Botanical"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/highball-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Gin & Tonic
+price: VND 109k
+description: Crisp, botanical London dry gin stirred with premium tonic and fresh lime.
+category: Cocktails
+order: 9
+subcategory: Gin-based
+tags:
+  - Refreshing
+  - Bitter
+  - Botanical
+featured: false
+image: /highball-glass.svg
+available: true
+ingredients: London dry gin · Fresh lime · Simple syrup · Tonic

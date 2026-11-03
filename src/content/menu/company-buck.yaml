@@ -1,15 +1,15 @@
-# ---- Required fields ----
-
-name: "Company Buck"
-price: "VND 109k"              # always use "VND ...k" format
-description: "Rich dark rum, sweet pineapple, and tart lime sparked with ginger and bitters."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 21                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Rum-based" # groups drinks within a category
-tags: ["Tropical", "Spiced", "Rich"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/collins-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: false             # set to false to show "Currently unavailable"
+name: Company Buck
+price: VND 109k
+description: Rich dark rum, sweet pineapple, and tart lime sparked with ginger and bitters.
+category: Cocktails
+order: 21
+subcategory: Rum-based
+tags:
+  - Tropical
+  - Spiced
+  - Rich
+featured: false
+image: /collins-glass.svg
+available: false
+ingredients: Dark rum · Fresh pineapple · Fresh lime · Ginger syrup · Aromatic
+  bitters · Soda

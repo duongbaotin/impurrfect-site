@@ -1,15 +1,15 @@
-# ---- Required fields ----
-
-name: "Highlander Highball"
-price: "VND 149k"              # always use "VND ...k" format
-description: "Tropical pineapple and tart lime shaken with robust whiskey and topped with bubbly soda."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 8                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Whiskey-based" # groups drinks within a category
-tags: ["Spirit-Forward", "Tropical", "Refreshing"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/highball-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: false             # set to false to show "Currently unavailable"
+name: Highlander Highball
+price: VND 149k
+description: Tropical pineapple and tart lime shaken with robust whiskey and
+  topped with bubbly soda.
+category: Cocktails
+order: 8
+subcategory: Whiskey-based
+tags:
+  - Spirit-Forward
+  - Tropical
+  - Refreshing
+featured: false
+image: /highball-glass.svg
+available: false
+ingredients: Bourbon · Fresh lime · Fresh pineapple · Simple syrup · Soda · Lemon twist

@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Salted-Lime & Ginger Mixed Beer"
-price: "VND 79k"              # always use "VND ...k" format
-description: "Savory Vietnamese salted-lime and fiery ginger syrup mixed with a crisp, cold lager."
-category: "Mixed Beers" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 36                     # position in the list; lower = first (default: 0 / sorts first)
-# subcategory: "" # groups drinks within a category
-tags: ["Savory", "Spiced", "Tart"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/tulip-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Salted-Lime & Ginger Mixed Beer
+price: VND 79k
+description: Savory Vietnamese salted-lime and fiery ginger syrup mixed with a
+  crisp, cold lager.
+category: Mixed Beers
+order: 36
+tags:
+  - Savory
+  - Spiced
+  - Tart
+featured: false
+image: /tulip-glass.svg
+available: true
+ingredients: Salted lime · Fresh lime · Ginger syrup · Simple syrup · Crisp lager

@@ -1,15 +1,16 @@
-# ---- Required fields ----
-
-name: "White Lady"
-price: "VND 149k"              # always use "VND ...k" format
-description: "A velvety, cloud-like shake of crisp gin, orange liqueur, fresh lime, and egg white."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 15                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Gin-based" # groups drinks within a category
-tags: ["Sour", "Velvety", "Citrus"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/coupe-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: White Lady
+price: VND 149k
+description: A velvety, cloud-like shake of crisp gin, orange liqueur, fresh
+  lime, and egg white.
+category: Cocktails
+order: 15
+subcategory: Gin-based
+tags:
+  - Sour
+  - Velvety
+  - Citrus
+featured: false
+image: /coupe-glass.svg
+available: true
+ingredients: London dry gin · Triple sec · Fresh lemon · Simple syrup · Egg
+  white · Lemon twist

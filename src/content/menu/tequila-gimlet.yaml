@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Tequila Gimlet"
-price: "VND 149k"              # always use "VND ...k" format
-description: "Agave-forward tequila blanco balanced with sharp lime and simple syrup."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 32                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Tequila-based" # groups drinks within a category
-tags: ["Citrus", "Tart", "Clean"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/coupe-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Tequila Gimlet
+price: VND 149k
+description: Agave-forward tequila blanco balanced with sharp lime and simple syrup.
+category: Cocktails
+order: 32
+subcategory: Tequila-based
+tags:
+  - Citrus
+  - Tart
+  - Clean
+featured: false
+image: /coupe-glass.svg
+available: true
+ingredients: Tequila blanco · Fresh lime · Simple syrup

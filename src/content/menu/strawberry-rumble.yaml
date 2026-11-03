@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Strawberry Rumble"
-price: "VND 109k"              # always use "VND ...k" format
-description: "Muddled sweet strawberries and fresh lime on a light, lively white rum base."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 20                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Rum-based" # groups drinks within a category
-tags: ["Fruity", "Sweet", "Tart"]    # flavor tags shown on the menu
-featured: true               # adds a ★ Bartender's Pick badge
-image: "/highball-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: false            # set to false to show "Currently unavailable"
+name: Strawberry Rumble
+price: VND 109k
+description: Muddled sweet strawberries and fresh lime on a light, lively white rum base.
+category: Cocktails
+order: 20
+subcategory: Rum-based
+tags:
+  - Fruity
+  - Sweet
+  - Tart
+featured: true
+image: /highball-glass.svg
+available: false
+ingredients: White rum · Fresh strawberry · Fresh lime

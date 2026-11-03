@@ -1,15 +1,13 @@
-# ---- Required fields ----
-
-name: "Dark Alley"
-price: "VND 79k"              # always use "VND ...k" format
-description: "Bold tamarind and ginger ale with a dried shrimp chili salt rim—drinks with claws."
-category: "Signature" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 3                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Zero Alcohol" # groups drinks within a category
-tags: ["Tart", "Savory"]    # flavor tags shown on the menu
-featured: true               # adds a ★ Bartender's Pick badge
-image: "/dark-alley.webp"
-available: true             # set to false to show "Currently unavailable"
+name: Dark Alley
+price: VND 79k
+description: Bold tamarind and ginger ale with a dried shrimp chili salt
+  rim—drinks with claws.
+category: Zero Alcohol
+order: 3
+tags:
+  - Tart
+  - Savory
+featured: true
+image: /dark-alley.webp
+available: true
+ingredients: Tamarind · Fresh lime · Simple syrup · Ginger ale · Chili-shrimp salt rim

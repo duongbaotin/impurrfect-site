@@ -1,15 +1,15 @@
-# ---- Required fields ----
-
-name: "Old Fashioned"
-price: "VND 129k"              # always use "VND ...k" format
-description: "Bold bourbon lightly sweetened, stirred with fresh orange oils and aromatic bitters."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 4                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Whiskey-based" # groups drinks within a category
-tags: ["Spirit-Forward", "Rich", "Aromatic"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/rock-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Old Fashioned
+price: VND 129k
+description: Bold bourbon lightly sweetened, stirred with fresh orange oils and
+  aromatic bitters.
+category: Cocktails
+order: 4
+subcategory: Whiskey-based
+tags:
+  - Spirit-Forward
+  - Rich
+  - Aromatic
+featured: false
+image: /rock-glass.svg
+available: true
+ingredients: Bourbon · Simple syrup · Aromatic bitters · Orange twist

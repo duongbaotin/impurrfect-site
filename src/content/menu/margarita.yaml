@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Margarita"
-price: "VND 149k"              # always use "VND ...k" format
-description: "Earthy tequila blanco and sharp lime with a savory, classic salted rim."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 30                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Tequila-based" # groups drinks within a category
-tags: ["Citrus", "Tart", "Savory"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/margarita.webp"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Margarita
+price: VND 149k
+description: Earthy tequila blanco and sharp lime with a savory, classic salted rim.
+category: Cocktails
+order: 30
+subcategory: Tequila-based
+tags:
+  - Citrus
+  - Tart
+  - Savory
+featured: false
+image: /margarita.webp
+available: true
+ingredients: Tequila blanco · Triple sec · Fresh lime · Salt rim

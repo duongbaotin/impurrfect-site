@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Golden Time"
-price: "VND 89k"              # always use "VND ...k" format
-description: "Cherry blossom-scented Umeshu and tropical passion fruit with a bright, bubbly fizz."
-category: "Signature" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 6                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Signature Cocktails" # groups drinks within a category
-tags: ["Fruity", "Tart", "Floral"]    # flavor tags shown on the menu
-featured: true               # adds a ★ Bartender's Pick badge
-image: "/golden-time.webp"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Golden Time
+price: VND 89k
+description: Cherry blossom-scented Umeshu and tropical passion fruit with a
+  bright, bubbly fizz.
+category: Signature
+order: 6
+tags:
+  - Fruity
+  - Tart
+  - Floral
+featured: true
+image: /golden-time.webp
+available: true
+ingredients: Umeshu · Triple sec · Passion fruit · Ginger syrup · Soda

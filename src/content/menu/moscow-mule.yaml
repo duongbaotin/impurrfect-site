@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Moscow Mule"
-price: "VND 109k"              # always use "VND ...k" format
-description: "Crisp vodka kicked up with sharp lime, sweet-spicy ginger, and bubbly soda."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 27                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Vodka-based" # groups drinks within a category
-tags: ["Spiced", "Citrus", "Effervescent"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/collins-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Moscow Mule
+price: VND 109k
+description: Crisp vodka kicked up with sharp lime, sweet-spicy ginger, and bubbly soda.
+category: Cocktails
+order: 27
+subcategory: Vodka-based
+tags:
+  - Spiced
+  - Citrus
+  - Effervescent
+featured: false
+image: /collins-glass.svg
+available: true
+ingredients: Vodka · Fresh lime · Ginger syrup · Soda

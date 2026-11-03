@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Tom Collins"
-price: "VND 129k"              # always use "VND ...k" format
-description: "A tall, breezy glass of crisp gin, sweet-tart lime, and bubbly club soda."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 10                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Gin-based" # groups drinks within a category
-tags: ["Refreshing", "Citrus", "Botanical"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/collins-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Tom Collins
+price: VND 129k
+description: A tall, breezy glass of crisp gin, sweet-tart lime, and bubbly club soda.
+category: Cocktails
+order: 10
+subcategory: Gin-based
+tags:
+  - Refreshing
+  - Citrus
+  - Botanical
+featured: false
+image: /collins-glass.svg
+available: true
+ingredients: London dry gin · Fresh lemon · Simple syrup · Soda

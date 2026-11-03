@@ -1,15 +1,13 @@
-# ---- Required fields ----
-
-name: "Peach, Orange & Lemongrass Mixed Beer"
-price: "VND 79k"              # always use "VND ...k" format
-description: "Sweet peach, bright orange, and lemongrass softening a crisp, bitter lager."
-category: "Mixed Beers" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 37                     # position in the list; lower = first (default: 0 / sorts first)
-# subcategory: "" # groups drinks within a category
-tags: ["Fruity", "Citrus", "Herbal"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/tulip-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Peach, Orange & Lemongrass Mixed Beer
+price: VND 79k
+description: Sweet peach, bright orange, and lemongrass softening a crisp, bitter lager.
+category: Mixed Beers
+order: 37
+tags:
+  - Fruity
+  - Citrus
+  - Herbal
+featured: false
+image: /tulip-glass.svg
+available: true
+ingredients: Fresh orange · Fresh lime · Simple syrup · Peach-lemongrass tea · Crisp lager

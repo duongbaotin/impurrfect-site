@@ -1,15 +1,14 @@
-# ---- Required fields ----
-
-name: "Caipiroska"
-price: "VND 109k"              # always use "VND ...k" format
-description: "A rustic, sweet, and aggressively sharp crusher of vodka and muddled lime."
-category: "Cocktails" # must match a category exactly (see below)
-
-# ---- Optional fields ----
-
-order: 29                     # position in the list; lower = first (default: 0 / sorts first)
-subcategory: "Vodka-based" # groups drinks within a category
-tags: ["Citrus", "Tart", "Bold"]    # flavor tags shown on the menu
-featured: false               # adds a ★ Bartender's Pick badge
-image: "/rock-glass.svg"  # lookup key resolved by MenuItem.astro imageSrcMap
-available: true             # set to false to show "Currently unavailable"
+name: Caipiroska
+price: VND 109k
+description: A rustic, sweet, and aggressively sharp crusher of vodka and muddled lime.
+category: Cocktails
+order: 29
+subcategory: Vodka-based
+tags:
+  - Citrus
+  - Tart
+  - Bold
+featured: false
+image: /rock-glass.svg
+available: true
+ingredients: Vodka · Fresh lime · Simple syrup

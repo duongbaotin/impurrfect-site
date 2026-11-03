@@ -76,13 +76,13 @@ scripts/
 | Want to change… | File |
 |---|---|
 | Venue info block (address, hours, email) | `src/components/HoursLocation.astro` |
-| Menu page title + tagline | `src/components/MenuHeader.astro` — supports optional `compact` prop for preview |
-| Category section heading / subcategory grouping | `src/components/MenuCategory.astro` |
-| Single drink card layout (name, price, tags, badges) | `src/components/MenuItem.astro` |
-| Preview filter bar (zero-scroll category tabs, taste & spirit drawers) | `src/components/preview/PreviewFilterBar.astro` |
-| Preview category / subcategory hide-when-filtered | `src/components/preview/PreviewMenuCategory.astro` |
-| Preview collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` — ingredients/tags/unavailable collapsed, story description in drawer with `.pv-story` styling |
-| Preview 2-segment theme switch (`🌙 Dark \| ☀️ Light`) | `src/components/preview/PreviewThemeToggle.astro` |
+| Menu page title + tagline | `src/components/MenuHeader.astro` — supports optional `compact` prop for menu pages |
+| Category section heading / subcategory grouping | `src/components/MenuCategory.astro` (legacy static) / `src/components/preview/PreviewMenuCategory.astro` (interactive) |
+| Single drink card layout (name, price, tags, badges) | `src/components/MenuItem.astro` (legacy static) / `src/components/preview/PreviewMenuItem.astro` (interactive) |
+| Menu filter bar (zero-scroll category tabs, taste & spirit drawers) | `src/components/preview/PreviewFilterBar.astro` |
+| Menu category / subcategory hide-when-filtered | `src/components/preview/PreviewMenuCategory.astro` |
+| Menu collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` — ingredients/tags/unavailable collapsed, story description in drawer with `.pv-story` styling |
+| Menu 2-segment theme switch (`🌙 Dark \| ☀️ Light`) | `src/components/preview/PreviewThemeToggle.astro` |
 | Image viewer (zoom, drag-dismiss) | `src/components/lightbox/ImageViewer.astro` — singleton, mounted in MainLayout |
 | CTA button styling | Any `a` with `class="bg-gold ..."` |
 | Branded "impurrfect" word | `src/components/BrandNameWord.astro` — accepts `normalCase` prop |
@@ -219,10 +219,11 @@ Baserow `recipe_ingredients` (1258955,    │
                                                         photo lightbox)
 ```
 
-`/menu` and `/menu-preview` share the schema but not the data source: YAML edits
-never reach the preview, Baserow edits never reach `/menu` until the Phase 4
-cutover. `/menu` keeps its original layout; it only gains the shared `x-data`
-lightbox scope fix.
+`/menu` and `/menu-preview` render the exact same interactive menu UI, but read
+from different data sources: `/menu` reads from static Git YAML (`getCollection('menu')`),
+while `/menu-preview` reads from Baserow (`getCollection('menuBaserow')`) with `noindex`.
+This allows the bar team to continue soak-testing Baserow + Zalo Bot sync safely
+on `/menu-preview` without affecting production guests.
 
 ---
 
