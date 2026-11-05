@@ -938,10 +938,10 @@
           </p>
 
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
-            <button class="nav-pill active" id="mode-btn-a" onclick="setSurplusMode('A')" data-lang="vi">PA A: Trích 20% Lãi T10 (3.10M) + Trả nợ 2.40M (Khuyên dùng)</button>
-            <button class="nav-pill active" id="mode-btn-a-en" onclick="setSurplusMode('A')" data-lang="en">Option A: 20% of Oct Profit (3.10M) + 2.40M Debt Paydown</button>
-            <button class="nav-pill" id="mode-btn-b" onclick="setSurplusMode('B')" data-lang="vi">PA B: Trích 20% Phần Dư (1.10M) + Trả nợ 4.40M</button>
-            <button class="nav-pill" id="mode-btn-b-en" onclick="setSurplusMode('B')" data-lang="en">Option B: 20% of Surplus (1.10M) + 4.40M Debt Paydown</button>
+            <button class="nav-pill active" id="mode-btn-b" onclick="setSurplusMode('B')" data-lang="vi">✅ PA B (Đã chốt): Trích 20% Phần Dư (1.10M) + Trả nợ 4.40M</button>
+            <button class="nav-pill active" id="mode-btn-b-en" onclick="setSurplusMode('B')" data-lang="en">✅ Option B (Agreed): 20% of Surplus (1.10M) + 4.40M Debt Paydown</button>
+            <button class="nav-pill" id="mode-btn-a" onclick="setSurplusMode('A')" data-lang="vi">PA A: Trích 20% Lãi T10 (3.10M) + Trả nợ 2.40M</button>
+            <button class="nav-pill" id="mode-btn-a-en" onclick="setSurplusMode('A')" data-lang="en">Option A: 20% of Oct Profit (3.10M) + 2.40M Debt Paydown</button>
             <button class="nav-pill" id="mode-btn-c" onclick="setSurplusMode('C')" data-lang="vi">PA C: Giữ 100% (5.50M) vào Quỹ Dự Phòng</button>
             <button class="nav-pill" id="mode-btn-c-en" onclick="setSurplusMode('C')" data-lang="en">Option C: Keep 100% (5.50M) in Reserve</button>
           </div>
@@ -950,27 +950,27 @@
             <div class="row-item" style="border-left:3px solid var(--amber);">
               <span data-lang="vi">1. <b>Nạp vào Hũ "Quỹ Tái Đầu Tư 20%"</b> (Giữ tại TK Quán):</span>
               <span data-lang="en">1. <b>Move into "20% Reinvestment Reserve" Sub-Pot:</b></span>
-              <span class="mono" style="color:#F2B95E;font-weight:700;" id="act-res-amt">3,099,702 ₫</span>
+              <span class="mono" style="color:#F2B95E;font-weight:700;" id="act-res-amt">1,099,702 ₫</span>
             </div>
             <div class="row-item" style="border-left:3px solid var(--emerald);">
               <span data-lang="vi">2. <b>CK Trả Nợ Gốc cho Chị Liên</b> (Hưng + Liên · 50% Chia 2):</span>
               <span data-lang="en">2. <b>Transfer Debt Paydown to Chị Liên</b> (Hưng + Liên · 50%):</span>
-              <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-lien-amt">1,199,404 ₫</span>
+              <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-lien-amt">2,199,404 ₫</span>
             </div>
             <div class="row-item" style="border-left:3px solid var(--emerald);">
               <span data-lang="vi">3. <b>CK Trả Nợ Gốc cho Hạ</b> (25% Chia 4):</span>
               <span data-lang="en">3. <b>Transfer Debt Paydown to Hạ</b> (25%):</span>
-              <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-ha-amt">599,702 ₫</span>
+              <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-ha-amt">1,099,702 ₫</span>
             </div>
             <div class="row-item" style="border-left:3px solid var(--emerald);">
               <span data-lang="vi">4. <b>CK Trả Nợ Gốc cho Tín</b> (25% Chia 4):</span>
               <span data-lang="en">4. <b>Transfer Debt Paydown to Tín</b> (25%):</span>
-              <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-tin-amt">599,702 ₫</span>
+              <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-tin-amt">1,099,702 ₫</span>
             </div>
             <div class="row-item">
               <span data-lang="vi"><b>⇒ Nợ Gốc Luỹ Kế (Balance!H4) giảm từ -28,288,304 ₫ xuống còn:</b></span>
               <span data-lang="en"><b>⇒ Legacy Debt (Balance!H4) drops from -28,288,304 VND to:</b></span>
-              <span class="mono" style="color:#F07B75;font-weight:700;" id="act-new-debt">-25,889,496 ₫</span>
+              <span class="mono" style="color:#F07B75;font-weight:700;" id="act-new-debt">-23,889,496 ₫</span>
             </div>
           </div>
         </div>
@@ -1002,7 +1002,7 @@
             <div class="row-item">
               <span data-lang="vi">🛡️ <b>Ngăn 2 — Hũ "Quỹ Tái Đầu Tư 20%":</b> Tách riêng trên app NH Quán, chỉ chi khi mua sắm/sửa chữa lớn có sự đồng thuận</span>
               <span data-lang="en">🛡️ <b>Bucket 2 — "20% Reinvestment Reserve" Sub-Pot:</b> Separated in bank app for approved repairs/upgrades</span>
-              <span class="mono" style="color:#F2B95E;font-weight:700;" id="act-verify-res">3,099,702 ₫</span>
+              <span class="mono" style="color:#F2B95E;font-weight:700;" id="act-verify-res">1,099,702 ₫</span>
             </div>
             <div class="row-item">
               <span data-lang="vi">🔄 <b>Ngăn 3 — Vốn Lưu Động 9M (3 Co-founders):</b> Liên 3M · Hạ 3M · Tín 3M (Không ai phải bỏ tiền túi nữa!)</span>
@@ -1015,6 +1015,136 @@
               <span class="mono" style="color:var(--copper-light);font-weight:700;">1,000,000 ₫</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Action Step 5: FINAL MASTER SUMMARY TABLE OF EXACT TRANSFERS PER CO-FOUNDER -->
+      <div class="card card-highlight" style="border-left:4px solid var(--emerald);margin-top:4px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:1.05rem;">
+            <input type="checkbox" style="width:18px;height:18px;accent-color:var(--emerald);">
+            <span data-lang="vi">🏁 Bước 5 (Tổng Kết Cuối Cùng): Bảng Chốt Tổng Số Tiền Chuyển Khoản Cho Từng Co-Founder</span>
+            <span data-lang="en">🏁 Step 5 (Final Summary): Master Table of Exact Transfers per Co-Founder</span>
+          </label>
+          <span class="pill-status pill-green" id="sum-mode-badge" data-lang="vi">Đang áp dụng: PA B (Đã chốt)</span>
+        </div>
+        <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:14px;" data-lang="vi">
+          Bảng dưới đây cộng gộp toàn bộ <b>28,738,511 ₫</b> tiền thực có cuối T10 (<code>7,450,000 ₫</code> Tiền mặt K3 + <code>21,288,511 ₫</code> Ngân hàng K4). Trong đó <b>Chị Liên</b> phụ trách nhận luôn khoản <b>Thuê mặt bằng + Điện nước (6,000,000 ₫)</b>, <b>Quỹ Chăm Sóc Mèo 5% (1,649,001 ₫)</b>, và phần trả nợ gốc 50% (<code>Chia 2</code> của Anh Hưng &amp; Chị Liên):
+        </p>
+        <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:14px;" data-lang="en">
+          Reconciles the entire <b>28,738,511 VND</b> liquid pool (<code>7,450,000 VND</code> Cash K3 + <code>21,288,511 VND</code> Bank K4). <b>Chị Liên</b> receives and manages the <b>Rent + Utilities (6,000,000 VND)</b>, <b>5% Cat Care Fund (1,649,001 VND)</b>, and the 50% combined debt paydown (<code>Chia 2</code> for Hưng &amp; Liên):
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-lang="vi">Người Nhận / Quỹ</th>
+                <th data-lang="en">Recipient / Bucket</th>
+                <th data-lang="vi">Chi Tiết Các Khoản Thành Phần</th>
+                <th data-lang="en">Component Breakdown</th>
+                <th class="num" data-lang="vi">Bước 1: Quyết Toán T10</th>
+                <th class="num" data-lang="en">Step 1: Oct Settlement</th>
+                <th class="num" data-lang="vi">Bước 2: Cấp Vốn Lưu Động</th>
+                <th class="num" data-lang="en">Step 2: Working Cap</th>
+                <th class="num" data-lang="vi">Bước 3: Trả Nợ Gốc (PA B)</th>
+                <th class="num" data-lang="en">Step 3: Debt Paydown</th>
+                <th class="num" data-lang="vi">TỔNG CK GỘP 1 LẦN (Bước 1+2+3)</th>
+                <th class="num" data-lang="en">ALL-IN-ONE TRANSFER (Steps 1+2+3)</th>
+                <th class="num" data-lang="vi">CK CÒN LẠI (Nếu Đã Trả Bước 1)</th>
+                <th class="num" data-lang="en">REMAINING (If Step 1 Already Paid)</th>
+              </tr>
+            </thead>
+            <tbody class="mono">
+              <tr>
+                <td>
+                  <b>1. Chị Liên</b><br/>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:'Inter',sans-serif;" data-lang="vi">(Đại diện Hưng &amp; Liên · Phụ trách Thuê nhà + Quỹ Mèo)</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:'Inter',sans-serif;" data-lang="en">(Hưng &amp; Liên Chia 2 · Manages Rent + Cat Care)</span>
+                </td>
+                <td style="font-family:'Inter',sans-serif;font-size:0.79rem;color:var(--text-muted);">
+                  <span data-lang="vi">• Hoàn NVL T10: <code>2,858,000 ₫</code><br/>• Quỹ Mèo 5%: <code>1,649,001 ₫</code><br/>• Thuê MB + Điện nước: <code>6,000,000 ₫</code><br/>• Vốn ứng T11: <code>3,000,000 ₫</code><br/>• Trả nợ gốc 50% (Hưng+Liên): <code id="sum-lien-debt-note">2,199,404 ₫</code></span>
+                  <span data-lang="en">• Oct NVL: <code>2,858,000 ₫</code><br/>• 5% Cat Fund: <code>1,649,001 ₫</code><br/>• Rent + Utilities: <code>6,000,000 ₫</code><br/>• 3M Float: <code>3,000,000 ₫</code><br/>• 50% Debt Paydown (Hưng+Liên): <code id="sum-lien-debt-note-en">2,199,404 ₫</code></span>
+                </td>
+                <td class="num">10,507,001 ₫</td>
+                <td class="num">3,000,000 ₫</td>
+                <td class="num" id="sum-lien-s3">2,199,404 ₫</td>
+                <td class="num" style="color:#5CD69C;font-weight:700;font-size:0.96rem;" id="sum-lien-all">15,706,405 ₫</td>
+                <td class="num" style="color:var(--copper-light);font-weight:700;font-size:0.96rem;" id="sum-lien-rem">5,199,404 ₫</td>
+              </tr>
+              <tr>
+                <td>
+                  <b>2. Hạ</b><br/>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:'Inter',sans-serif;">(25% · Chia 4)</span>
+                </td>
+                <td style="font-family:'Inter',sans-serif;font-size:0.79rem;color:var(--text-muted);">
+                  <span data-lang="vi">• Hoàn NVL T10 (2,816.5k − 374.5k nợ): <code>2,442,000 ₫</code><br/>• Vốn ứng T11: <code>3,000,000 ₫</code><br/>• Trả nợ gốc 25%: <code id="sum-ha-debt-note">1,099,702 ₫</code></span>
+                  <span data-lang="en">• Oct NVL net of debit: <code>2,442,000 ₫</code><br/>• 3M Float: <code>3,000,000 ₫</code><br/>• 25% Debt Paydown: <code id="sum-ha-debt-note-en">1,099,702 ₫</code></span>
+                </td>
+                <td class="num">2,442,000 ₫</td>
+                <td class="num">3,000,000 ₫</td>
+                <td class="num" id="sum-ha-s3">1,099,702 ₫</td>
+                <td class="num" style="color:#5CD69C;font-weight:700;font-size:0.96rem;" id="sum-ha-all">6,541,702 ₫</td>
+                <td class="num" style="color:var(--copper-light);font-weight:700;font-size:0.96rem;" id="sum-ha-rem">4,099,702 ₫</td>
+              </tr>
+              <tr>
+                <td>
+                  <b>3. Tín</b><br/>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:'Inter',sans-serif;">(25% · Chia 4)</span>
+                </td>
+                <td style="font-family:'Inter',sans-serif;font-size:0.79rem;color:var(--text-muted);">
+                  <span data-lang="vi">• Hoàn NVL T10 (591k − 300k mượn): <code>291,000 ₫</code><br/>• Vốn ứng T11: <code>3,000,000 ₫</code><br/>• Trả nợ gốc 25%: <code id="sum-tin-debt-note">1,099,702 ₫</code></span>
+                  <span data-lang="en">• Oct NVL net of borrow: <code>291,000 ₫</code><br/>• 3M Float: <code>3,000,000 ₫</code><br/>• 25% Debt Paydown: <code id="sum-tin-debt-note-en">1,099,702 ₫</code></span>
+                </td>
+                <td class="num">291,000 ₫</td>
+                <td class="num">3,000,000 ₫</td>
+                <td class="num" id="sum-tin-s3">1,099,702 ₫</td>
+                <td class="num" style="color:#5CD69C;font-weight:700;font-size:0.96rem;" id="sum-tin-all">4,390,702 ₫</td>
+                <td class="num" style="color:var(--copper-light);font-weight:700;font-size:0.96rem;" id="sum-tin-rem">4,099,702 ₫</td>
+              </tr>
+              <tr>
+                <td>
+                  <b>4. Anh Hưng</b><br/>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:'Inter',sans-serif;" data-lang="vi">(25% · Nhận chung qua TK Chị Liên)</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:'Inter',sans-serif;" data-lang="en">(25% · Settled via Chị Liên's transfer)</span>
+                </td>
+                <td style="font-family:'Inter',sans-serif;font-size:0.79rem;color:var(--text-muted);">
+                  <span data-lang="vi">• Phần Trả nợ gốc 25% (<code id="sum-hung-debt-note">1,099,702 ₫</code>) đã gộp trong khoản <code>2,199,404 ₫</code> chuyển cho Chị Liên ở mục 1.</span>
+                  <span data-lang="en">• 25% Debt Paydown (<code id="sum-hung-debt-note-en">1,099,702 ₫</code>) is included inside Chị Liên's 50% transfer in row 1.</span>
+                </td>
+                <td class="num">0 ₫</td>
+                <td class="num">0 ₫</td>
+                <td class="num" style="color:var(--text-muted);">(Gộp ở mục 1)</td>
+                <td class="num" style="color:var(--text-muted);">0 ₫ (Qua Liên)</td>
+                <td class="num" style="color:var(--text-muted);">0 ₫ (Qua Liên)</td>
+              </tr>
+              <tr>
+                <td>
+                  <b>5. Giữ Lại Tại Quán</b><br/>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:'Inter',sans-serif;" data-lang="vi">(Két Quán 1M + Hũ Tái Đầu Tư 20%)</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:'Inter',sans-serif;" data-lang="en">(1M Bar Cash Box + 20% Reserve Sub-Pot)</span>
+                </td>
+                <td style="font-family:'Inter',sans-serif;font-size:0.79rem;color:var(--text-muted);">
+                  <span data-lang="vi">• <b>Két Quán tại quầy:</b> <code>1,000,000 ₫</code> (tiền mặt lẻ)<br/>• <b>Hũ Quỹ Tái Đầu Tư 20%:</b> <code id="sum-res-note">1,099,702 ₫</code> (giữ trong TK NH Quán)</span>
+                  <span data-lang="en">• <b>In-Bar Cash Box:</b> <code>1,000,000 ₫</code> (physical bills)<br/>• <b>20% Reinvestment Sub-Pot:</b> <code id="sum-res-note-en">1,099,702 ₫</code> (kept in bar bank app)</span>
+                </td>
+                <td class="num">0 ₫</td>
+                <td class="num">1,000,000 ₫</td>
+                <td class="num" id="sum-res-s3">1,099,702 ₫</td>
+                <td class="num" style="color:#F2B95E;font-weight:700;" id="sum-res-all">2,099,702 ₫</td>
+                <td class="num" style="color:#F2B95E;font-weight:700;" id="sum-res-rem">2,099,702 ₫</td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="2" data-lang="vi">TỔNG CỘNG ĐỐI CHIẾU TOÀN BỘ TIỀN T10 (Cash K3 7.45M + Bank K4 21.29M)</td>
+                <td colspan="2" data-lang="en">GRAND TOTAL RECONCILIATION (Cash K3 7.45M + Bank K4 21.29M)</td>
+                <td class="num">13,240,001 ₫</td>
+                <td class="num">10,000,000 ₫</td>
+                <td class="num">5,498,510 ₫</td>
+                <td class="num" style="color:#5CD69C;font-size:1rem;">28,738,511 ₫</td>
+                <td class="num" style="color:var(--copper-light);font-size:1rem;">15,498,510 ₫</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -1635,7 +1765,7 @@
 
   <script>
     let currentLang = 'vi';
-    let currentSurplusMode = 'A';
+    let currentSurplusMode = 'B';
 
     function switchPageView(view) {
       const guideEl = document.getElementById('view-guidebook');
@@ -1695,6 +1825,37 @@
       document.getElementById('act-ha-amt').textContent = fmt(haPay);
       document.getElementById('act-tin-amt').textContent = fmt(tinPay);
       document.getElementById('act-new-debt').textContent = fmt(newDebt);
+
+      // Update Step 5 Final Summary Table dynamically
+      const lienS1 = 10507001, haS1 = 2442000, tinS1 = 291000;
+      const floatAmt = 3000000, boxAmt = 1000000;
+
+      document.getElementById('sum-lien-debt-note').textContent = fmt(lienPay);
+      document.getElementById('sum-lien-debt-note-en').textContent = fmt(lienPay);
+      document.getElementById('sum-ha-debt-note').textContent = fmt(haPay);
+      document.getElementById('sum-ha-debt-note-en').textContent = fmt(haPay);
+      document.getElementById('sum-tin-debt-note').textContent = fmt(tinPay);
+      document.getElementById('sum-tin-debt-note-en').textContent = fmt(tinPay);
+      document.getElementById('sum-hung-debt-note').textContent = fmt(haPay);
+      document.getElementById('sum-hung-debt-note-en').textContent = fmt(haPay);
+      document.getElementById('sum-res-note').textContent = fmt(resAmt);
+      document.getElementById('sum-res-note-en').textContent = fmt(resAmt);
+
+      document.getElementById('sum-lien-s3').textContent = fmt(lienPay);
+      document.getElementById('sum-lien-all').textContent = fmt(lienS1 + floatAmt + lienPay);
+      document.getElementById('sum-lien-rem').textContent = fmt(floatAmt + lienPay);
+
+      document.getElementById('sum-ha-s3').textContent = fmt(haPay);
+      document.getElementById('sum-ha-all').textContent = fmt(haS1 + floatAmt + haPay);
+      document.getElementById('sum-ha-rem').textContent = fmt(floatAmt + haPay);
+
+      document.getElementById('sum-tin-s3').textContent = fmt(tinPay);
+      document.getElementById('sum-tin-all').textContent = fmt(tinS1 + floatAmt + tinPay);
+      document.getElementById('sum-tin-rem').textContent = fmt(floatAmt + tinPay);
+
+      document.getElementById('sum-res-s3').textContent = fmt(resAmt);
+      document.getElementById('sum-res-all').textContent = fmt(boxAmt + resAmt);
+      document.getElementById('sum-res-rem').textContent = fmt(boxAmt + resAmt);
     }
 
     function setLang(lang) {
@@ -1878,7 +2039,7 @@
     }
 
     // Initialize
-    setSurplusMode('A');
+    setSurplusMode('B');
     updateFloats();
     updateKet();
     updateWaterfall();
