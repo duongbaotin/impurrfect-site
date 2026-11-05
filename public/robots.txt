@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /ops-finance
 Allow: /
 
 Sitemap: https://impurrfect-bar.meowracle.space/sitemap-index.xml

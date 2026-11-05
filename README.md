@@ -1,6 +1,6 @@
 # impurrfect-site
 
-Brand site for **The Impurrfect Speakeasy** — a dark-themed speakeasy bar built with Astro and Tailwind CSS.
+Brand site for **impurrfect (a cat dive bar)** — a neighborhood cat dive bar built with Astro and Tailwind CSS.
 
 ## Stack
 

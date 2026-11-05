@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>impurrfect (a cat dive bar) — Financial & Operating Blueprint</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-night: #0F0F12;
+      --bg-card: #16171C;
+      --bg-elevated: #1E2027;
+      --text-cream: #F6F3EF;
+      --text-muted: #A39E95;
+      --text-dim: #6E6A63;
+      --copper: #B75A2A;
+      --copper-light: #E0824F;
+      --copper-glow: rgba(183, 90, 42, 0.16);
+      --border: #2C2E35;
+      --emerald: #3B9B6E;
+      --emerald-bg: rgba(59, 155, 110, 0.14);
+      --amber: #D99B38;
+      --amber-bg: rgba(217, 155, 56, 0.14);
+      --crimson: #D15852;
+      --crimson-bg: rgba(209, 88, 82, 0.14);
+      --blue: #4E8AD9;
+      --blue-bg: rgba(78, 138, 217, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-night);
+      color: var(--text-cream);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .brand-word {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-word i {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      color: var(--copper-light);
+      font-weight: 600;
+    }
+
+    /* Sticky Top Bar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 15, 18, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+    }
+
+    .topbar-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .brand-title {
+      font-size: 1.35rem;
+    }
+
+    .brand-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border);
+      padding-left: 10px;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-pill {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .nav-pill:hover, .nav-pill.active {
+      color: var(--text-cream);
+      border-color: var(--copper);
+      background: var(--copper-glow);
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      background: var(--bg-card);
+      border: 1px solid var(--copper);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-left: 6px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 5px 11px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: var(--copper);
+      color: var(--text-cream);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 28px 24px;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, rgba(183, 90, 42, 0.14) 0%, rgba(22, 23, 28, 0.95) 65%);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--copper);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .hero h1 {
+      font-size: 1.65rem;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      max-width: 720px;
+    }
+
+    .stakeholder-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--copper-light);
+    }
+
+    /* Section Headers */
+    .section {
+      margin-bottom: 44px;
+      scroll-margin-top: 76px;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .section-num {
+      color: var(--copper-light);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+
+    .section-tag {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* Grid Layouts */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card-highlight {
+      border-color: var(--copper);
+      background: linear-gradient(180deg, rgba(183, 90, 42, 0.09) 0%, var(--bg-card) 100%);
+    }
+
+    .kpi-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .kpi-value {
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .kpi-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .pill-status {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .pill-green { background: var(--emerald-bg); color: #5CD69C; border: 1px solid rgba(59, 155, 110, 0.35); }
+    .pill-amber { background: var(--amber-bg); color: #F2B95E; border: 1px solid rgba(217, 155, 56, 0.35); }
+    .pill-red   { background: var(--crimson-bg); color: #F07B75; border: 1px solid rgba(209, 88, 82, 0.35); }
+    .pill-blue  { background: var(--blue-bg); color: #7EB0F5; border: 1px solid rgba(78, 138, 217, 0.35); }
+
+    /* Visual Stacked Bars */
+    .bar-track {
+      width: 100%;
+      height: 16px;
+      background: var(--bg-elevated);
+      border-radius: 999px;
+      overflow: hidden;
+      display: flex;
+      margin: 12px 0 16px;
+      border: 1px solid var(--border);
+    }
+
+    .bar-seg {
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    /* Breakdown List */
+    .row-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .row-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      background: var(--bg-elevated);
+      border-radius: 8px;
+      font-size: 0.86rem;
+    }
+
+    .row-item-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: var(--bg-elevated);
+    }
+
+    td.num, th.num {
+      text-align: right;
+    }
+
+    tr.total-row td {
+      font-weight: 700;
+      border-top: 2px solid var(--copper);
+      background: rgba(183, 90, 42, 0.08);
+    }
+
+    /* Callout Alert */
+    .callout {
+      background: var(--amber-bg);
+      border: 1px solid rgba(217, 155, 56, 0.4);
+      border-left: 4px solid var(--amber);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.85rem;
+      margin-top: 16px;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      color: #F2B95E;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Sliders & Inputs */
+    .control-group {
+      margin-bottom: 16px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--copper-light);
+      cursor: pointer;
+    }
+
+    .num-input {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-cream);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      width: 100%;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .num-input:focus {
+      outline: none;
+      border-color: var(--copper-light);
+    }
+
+    /* Waterfall Step Nodes */
+    .waterfall-chain {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .wf-step {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--copper);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wf-step.step-green { border-left-color: var(--emerald); }
+    .wf-step.step-blue  { border-left-color: var(--blue); }
+    .wf-step.step-amber { border-left-color: var(--amber); }
+
+    .wf-step-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .wf-step-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .wf-step-amount {
+      font-size: 1.05rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .zalo-box {
+      background: #111318;
+      border: 1px dashed var(--copper);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.83rem;
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .copy-btn {
+      background: var(--copper);
+      color: var(--text-cream);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: var(--copper-light);
+    }
+
+    /* Language switching helper */
+    [data-lang="en"] { display: none; }
+    body.lang-en [data-lang="vi"] { display: none; }
+    body.lang-en [data-lang="en"] { display: inline; }
+    body.lang-en div[data-lang="en"],
+    body.lang-en p[data-lang="en"],
+    body.lang-en span[data-lang="en"] { display: revert; }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 { font-size: 1.35rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Topbar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-header">
+        <span class="brand-word brand-title">im<i>purr</i>fect <span style="font-size:0.85rem;font-weight:400;color:var(--text-muted);">(a cat dive bar)</span></span>
+        <span class="brand-sub" data-lang="vi">Hệ Thống Tài Chính & Vận Hành</span>
+        <span class="brand-sub" data-lang="en">Financial & Operating Blueprint</span>
+      </div>
+      <div class="nav-controls">
+        <button class="nav-pill" id="tab-btn-guide" onclick="switchPageView('guide')" style="border-color:var(--copper-light);color:var(--text-cream);">
+          <span data-lang="vi">📖 Sổ Tay Dễ Hiểu</span>
+          <span data-lang="en">📖 Simple Guidebook</span>
+        </button>
+        <button class="nav-pill" id="tab-btn-dash" onclick="switchPageView('dash')">
+          <span data-lang="vi">📊 Số Liệu & Công Cụ</span>
+          <span data-lang="en">📊 Dashboard & Tools</span>
+        </button>
+        <button class="nav-pill active" id="tab-btn-all" onclick="switchPageView('all')">
+          <span data-lang="vi">📑 Xem Tất Cả</span>
+          <span data-lang="en">📑 View All</span>
+        </button>
+        <a href="#sec-action" class="nav-pill" onclick="switchPageView('all')" data-lang="vi">⚡ Việc Cần Làm</a>
+        <a href="#sec-action" class="nav-pill" onclick="switchPageView('all')" data-lang="en">⚡ Action Plan</a>
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="btn-vi" onclick="setLang('vi')">VI</button>
+          <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <h1 class="serif">
+          <span data-lang="vi">Bức Tranh Tài Chính & Kiến Trúc Vận Hành <span class="brand-word">im<i>purr</i>fect</span></span>
+          <span data-lang="en"><span class="brand-word">im<i>purr</i>fect</span> Financial & Operating Architecture</span>
+        </h1>
+        <p data-lang="vi">
+          Đồng bộ trực tiếp từ Google Sheet <code>P&amp;L - Impurrfect</code> (<code>M10</code>, <code>Balance</code>, <code>Principle</code>). Chuyển đổi từ mô hình "tự ứng tiền túi" sang <b>Quỹ Vốn Lưu Động 10,000,000 ₫ (Cuốn Chiếu + Két Quán 1M)</b> từ Tháng 11/2026.
+        </p>
+        <p data-lang="en">
+          Verified directly against Google Sheet <code>P&amp;L - Impurrfect</code> (<code>M10</code>, <code>Balance</code>, <code>Principle</code>). Transitioning from personal out-of-pocket spending to a permanent <b>10,000,000 VND Revolving Working Capital System</b> starting November 2026.
+        </p>
+      </div>
+      <div class="stakeholder-badges">
+        <div class="badge"><span class="badge-dot"></span><b>Tín</b>&nbsp;(25% · Chia 4)</div>
+        <div class="badge"><span class="badge-dot"></span><b>Hạ</b>&nbsp;(25% · Chia 4)</div>
+        <div class="badge"><span class="badge-dot"></span><b>Liên + Hưng</b>&nbsp;(50% · Chia 2)</div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SUB-PAGE: SIMPLE GUIDEBOOK (HOW IT WORKED VS HOW IT WILL WORK)    -->
+    <!-- ================================================================= -->
+    <div id="view-guidebook">
+      <section class="section" id="sec-guide">
+        <div class="section-header">
+          <div>
+            <span class="section-num" data-lang="vi">📖 Sổ Tay Vận Hành Dễ Hiểu Dành Cho 4 Co-Founders</span>
+            <span class="section-num" data-lang="en">📖 Simple Co-Founder Guidebook (Zero Accounting Jargon)</span>
+            <h2 class="section-title" data-lang="vi">Cách Tài Chính <span class="brand-word">im<i>purr</i>fect</span> Đã Chạy (T4–T10) &amp; Cách Mới Sẽ Chạy (Từ T11/2026)</h2>
+            <h2 class="section-title" data-lang="en">How <span class="brand-word">im<i>purr</i>fect</span> Finance Worked Before (Apr–Oct) &amp; How It Works Now (Nov 2026+)</h2>
+          </div>
+          <span class="section-tag" data-lang="vi">Đọc 3 phút nắm trọn quy trình</span>
+          <span class="section-tag" data-lang="en">3-Minute Plain-Language Read</span>
+        </div>
+
+        <!-- Part 1: Before vs Now Comparison -->
+        <div class="grid-2">
+          <div class="card" style="border-left:4px solid var(--crimson);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <h3 style="font-size:1.05rem;color:#F07B75;" data-lang="vi">❌ Cách Cũ (Tháng 4 – Tháng 10/2026): "Tự Móc Tiền Túi &amp; Chia Sạch"</h3>
+              <h3 style="font-size:1.05rem;color:#F07B75;" data-lang="en">❌ The Old Way (Apr – Oct 2026): "Out-of-Pocket &amp; Split Clean"</h3>
+              <span class="pill-status pill-red" data-lang="vi">Đã khép lại</span>
+              <span class="pill-status pill-red" data-lang="en">Retired</span>
+            </div>
+            <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px;" data-lang="vi">
+              Trong suốt 7 tháng đầu, tụi mình vận hành theo kiểu tự phát:
+            </p>
+            <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px;" data-lang="en">
+              During the first 7 months, the bar ran on ad-hoc personal outlays:
+            </p>
+            <div class="row-list">
+              <div class="row-item">
+                <span data-lang="vi">1. <b>Ai đi mua đồ thì tự ứng tiền túi:</b> Hạ, Liên, Tín tự bỏ tiền cá nhân mua rượu, chanh, nguyên liệu (mỗi tháng ứng 2.8M – 4.9M/người) hoặc rút thẳng tiền mặt trong ngăn kéo quán.</span>
+                <span data-lang="en">1. <b>Founders fronted personal cash:</b> Whoever bought spirits, citrus, or supplies paid out of their own pocket (2.8M–4.9M/mo) or pulled cash straight from the bar drawer.</span>
+              </div>
+              <div class="row-item">
+                <span data-lang="vi">2. <b>Cuối tháng gom lại trả nợ ứng + chia sạch tiền lời:</b> Chốt sổ xong trả lại tiền mọi người đã ứng, còn dư bao nhiêu tiền lời (như T9 lời 9.46M) thì chia hết 100% về túi 4 người.</span>
+                <span data-lang="en">2. <b>Month-end reimbursement + 100% profit split:</b> At month-end, out-of-pocket bills were reimbursed and 100% of remaining profit (e.g., 9.46M in Sep) was distributed clean.</span>
+              </div>
+              <div class="row-item" style="border:1px solid rgba(209,88,82,0.35);">
+                <span data-lang="vi">⚠️ <b>3 Hệ quả lớn:</b> (1) Người hay đi mua hàng luôn bị thâm hụt tiền tiêu cá nhân trong tháng; (2) Quán không có nổi 1 đồng quỹ dự phòng khi hư quạt/thiết bị; (3) Khoản lỗ đầu tư ban đầu (<code>-28.28 triệu</code>) đứng im không giảm.</span>
+                <span data-lang="en">⚠️ <b>3 Pain Points:</b> (1) Constant personal cash strain on buyers; (2) Zero cash buffer left in the bar for repairs or slow months; (3) The <code>-28.28M VND</code> initial setup debt remained frozen.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-highlight" style="border-left:4px solid var(--emerald);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <h3 style="font-size:1.05rem;color:#5CD69C;" data-lang="vi">✅ Cách Mới (Từ Tháng 11/2026): "Tiền Quán Tự Nuôi Quán"</h3>
+              <h3 style="font-size:1.05rem;color:#5CD69C;" data-lang="en">✅ The New Way (Nov 2026+): "Self-Funding Bar System"</h3>
+              <span class="pill-status pill-green" data-lang="vi">Đang áp dụng</span>
+              <span class="pill-status pill-green" data-lang="en">Active Now</span>
+            </div>
+            <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px;" data-lang="vi">
+              Nhờ Tháng 10 quán lãi ròng <b>15,498,510 ₫</b>, tụi mình giữ lại <b>10,000,000 ₫</b> làm vốn cố định của quán để tách hẳn ví cá nhân ra khỏi ví quán:
+            </p>
+            <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px;" data-lang="en">
+              Using <b>10,000,000 VND</b> from October's <b>15,498,510 VND</b> net profit, the bar now funds its own daily operations without touching personal wallets:
+            </p>
+            <div class="row-list">
+              <div class="row-item">
+                <span data-lang="vi">1. <b>Cấp sẵn tiền quán cho người mua (9 triệu):</b> Liên cầm <code>3M</code>, Hạ cầm <code>3M</code>, Tín cầm <code>3M</code>. Đi mua đồ cho quán là tiêu tiền của quán cấp sẵn, không ai phải bỏ tiền túi nữa.</span>
+                <span data-lang="en">1. <b>Pre-funded 3M floats (9M total):</b> Liên holds <code>3M</code>, Hạ holds <code>3M</code>, Tín holds <code>3M</code>. Every purchase uses pre-funded bar cash—zero personal money fronted.</span>
+              </div>
+              <div class="row-item">
+                <span data-lang="vi">2. <b>Két tiền mặt tại quầy tự xoay vòng (1 triệu):</b> Luôn có sẵn <code>1M</code> tiền lẻ tại quầy vừa làm tiền thối cho khách, vừa mua đá/hành/sả lặt vặt dưới 50k.</span>
+                <span data-lang="en">2. <b>Self-balancing 1M Bar Cash Box:</b> <code>1M</code> sits at the bar counter for guest change and &lt;50k micro-purchases (ice, herbs).</span>
+              </div>
+              <div class="row-item" style="border:1px solid rgba(59,155,110,0.4);">
+                <span data-lang="vi">🌟 <b>3 Lợi ích tức thì:</b> (1) Cả 4 người đi làm ban ngày nhẹ đầu, không lo ứng tiền; (2) Mỗi tháng quán tự để dành được <b>20% Lãi Ròng</b> vào Hũ Dự Phòng; (3) <b>80% Lãi Ròng</b> còn lại trả dần khoản nợ gốc <code>28.28M</code> rõ ràng từng tháng.</span>
+                <span data-lang="en">🌟 <b>3 Wins:</b> (1) Zero personal cash stress; (2) Automatic <b>20% Net Profit</b> Reinvestment Reserve every month; (3) Remaining <b>80% Net Profit</b> steadily pays down the <code>28.28M</code> legacy debt &amp; pays partners.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Part 2: The 4 Money Boxes Explained Simply -->
+        <div class="card" style="margin-bottom:20px;">
+          <h3 style="font-size:1.05rem;margin-bottom:6px;" data-lang="vi">📦 4 "Chiếc Hộp Tiền" Của Quán Hoạt Động Thế Nào Hàng Ngày?</h3>
+          <h3 style="font-size:1.05rem;margin-bottom:6px;" data-lang="en">📦 How the Bar's 4 "Money Boxes" Work Day-to-Day</h3>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px;" data-lang="vi">
+            Toàn bộ tiền của <span class="brand-word">im<i>purr</i>fect</span> chỉ nằm trong đúng 4 chiếc hộp đơn giản này — không cần kế toán, không cần giữ hoá đơn giấy phức tạp:
+          </p>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px;" data-lang="en">
+            Every đồng in <span class="brand-word">im<i>purr</i>fect</span> lives in one of these 4 simple buckets—no accountant or paper-receipt filing required:
+          </p>
+
+          <div class="grid-4">
+            <div class="card" style="background:var(--bg-elevated);padding:16px;">
+              <div style="color:var(--copper-light);font-weight:700;font-size:0.88rem;margin-bottom:6px;" data-lang="vi">HỘP 1: QUỸ ỨNG 3M × 3 NGƯỜI (9,000,000 ₫)</div>
+              <div style="color:var(--copper-light);font-weight:700;font-size:0.88rem;margin-bottom:6px;" data-lang="en">BOX 1: 3M × 3 FOUNDER FLOATS (9,000,000 VND)</div>
+              <p style="font-size:0.8rem;color:var(--text-muted);" data-lang="vi">
+                • <b>Ai giữ:</b> Liên (3M), Hạ (3M), Tín (3M) để trong 1 hũ/túi phụ riêng trên app ngân hàng.<br/>
+                • <b>Cách tiêu:</b> Mua rượu, nguyên liệu, đồ vận hành ⇒ lấy từ hũ 3M này trả ⇒ nhắn 1 dòng lên Zalo Group: <code>[Ngày - Món - Tiền - Nơi mua]</code>.<br/>
+                • <b>Khi nào nạp lại ("Cuốn chiếu"):</b> Cứ thấy hũ tụt xuống <b>dưới 1 triệu</b> (VD đã tiêu 2.2M, còn 800k) ⇒ báo TK Quán bắn bù đúng 2.2M để hũ đầy lại <b>3,000,000 ₫</b>.
+              </p>
+              <p style="font-size:0.8rem;color:var(--text-muted);" data-lang="en">
+                • <b>Who holds it:</b> Liên (3M), Hạ (3M), Tín (3M) in a separate bank sub-pot.<br/>
+                • <b>How to spend:</b> Pay for spirits/supplies from this pot ⇒ drop 1 line in Zalo Group: <code>[Date - Item - Amount - Supplier]</code>.<br/>
+                • <b>When to refill:</b> Whenever your pot drops <b>below 1M</b> (e.g., spent 2.2M, 800k left) ⇒ Bar Bank Account transfers 2.2M to restore you to <b>3,000,000 VND</b>.
+              </p>
+            </div>
+
+            <div class="card" style="background:var(--bg-elevated);padding:16px;">
+              <div style="color:#5CD69C;font-weight:700;font-size:0.88rem;margin-bottom:6px;" data-lang="vi">HỘP 2: KÉT TIỀN MẶT TẠI QUÁN (1,000,000 ₫)</div>
+              <div style="color:#5CD69C;font-weight:700;font-size:0.88rem;margin-bottom:6px;" data-lang="en">BOX 2: IN-BAR CASH BOX (1,000,000 VND)</div>
+              <p style="font-size:0.8rem;color:var(--text-muted);" data-lang="vi">
+                • <b>Việc 1 (Tiền thối mỗi đêm):</b> Đóng quán đếm két, chừa lại đúng gốc <b>1,000,000 ₫</b> (tiền mặt + giấy note), phần tiền mặt dư ra là <b>Doanh thu tiền mặt</b> ⇒ rút ra cất riêng/nộp NH.<br/>
+                • <b>Việc 2 (Chi lặt vặt &lt;50k):</b> Lấy tiền mua đá, rau, sả ⇒ bỏ ngay mảnh giấy <code>[Số tiền - Mua gì]</code> vào két.<br/>
+                • <b>Luật bất biến:</b> <code>Tiền mặt + Giấy note = 1,000,000 ₫</code>. Cuối tháng gom note tính vào chi phí &amp; lấy doanh thu bù tiền mặt về lại 1M sạch sẽ.
+              </p>
+              <p style="font-size:0.8rem;color:var(--text-muted);" data-lang="en">
+                • <b>Job 1 (Nightly Change):</b> At close, keep <b>1,000,000 VND</b> base (cash + notes) in box; sweep excess cash out as <b>Daily Cash Revenue</b>.<br/>
+                • <b>Job 2 (Petty Cash &lt;50k):</b> Take cash for ice/herbs ⇒ drop a paper note <code>[Amount - Item]</code> in box.<br/>
+                • <b>Golden Rule:</b> <code>Cash + Notes = 1,000,000 VND</code>. Month-end: book notes to expenses &amp; top up cash from revenue back to a clean 1M.
+              </p>
+            </div>
+
+            <div class="card" style="background:var(--bg-elevated);padding:16px;">
+              <div style="color:#7EB0F5;font-weight:700;font-size:0.88rem;margin-bottom:6px;" data-lang="vi">HỘP 3: TK NGÂN HÀNG CHÍNH CỦA QUÁN</div>
+              <div style="color:#7EB0F5;font-weight:700;font-size:0.88rem;margin-bottom:6px;" data-lang="en">BOX 3: MAIN BAR OPERATING BANK ACCOUNT</div>
+              <p style="font-size:0.8rem;color:var(--text-muted);" data-lang="vi">
+                • <b>Tiền vào:</b> Khách chuyển khoản/quẹt thẻ mỗi đêm + Tiền mặt doanh thu nộp vào.<br/>
+                • <b>Tiền ra trong tháng:</b> Bắn bù vào Hộp 1 (Quỹ 3M) mỗi khi Liên/Hạ/Tín báo vơi dưới 1M.<br/>
+                • <b>Tiền ra cuối tháng:</b> Trả tiền mặt bằng + điện nước (<code>6,000,000 ₫</code>), trích <code>5%</code> doanh thu cho Quỹ Mèo, và bù phần tiền lẻ cuối cùng để Hộp 1 + Hộp 2 tròn lại đúng <code>10,000,000 ₫</code>.
+              </p>
+              <p style="font-size:0.8rem;color:var(--text-muted);" data-lang="en">
+                • <b>Inflows:</b> Nightly guest bank transfers + swept cash revenue deposits.<br/>
+                • <b>Mid-month outflows:</b> Replenishes Box 1 (3M floats) whenever a founder drops below 1M.<br/>
+                • <b>Month-end outflows:</b> Pays Rent + Utilities (<code>6,000,000 VND</code>), <code>5%</code> Cat Care Fund, and tops up Boxes 1 &amp; 2 back to <code>10,000,000 VND</code>.
+              </p>
+            </div>
+
+            <div class="card" style="background:var(--bg-elevated);padding:16px;">
+              <div style="color:#F2B95E;font-weight:700;font-size:0.88rem;margin-bottom:6px;" data-lang="vi">HỘP 4: HŨ "QUỸ TÁI ĐẦU TƯ 20%" &amp; QUỸ MÈO 5%</div>
+              <div style="color:#F2B95E;font-weight:700;font-size:0.88rem;margin-bottom:6px;" data-lang="en">BOX 4: "20% REINVESTMENT POT" &amp; 5% CAT FUND</div>
+              <p style="font-size:0.8rem;color:var(--text-muted);" data-lang="vi">
+                • <b>Quỹ Mèo (5% Doanh thu):</b> Trích ngay từ đầu mỗi tháng (do Chị Liên quản lý) để lo thức ăn, cát, thú y cho đàn mèo.<br/>
+                • <b>Hũ Tái Đầu Tư (Cố định 20% Lãi Ròng):</b> Nằm trong ngăn tiết kiệm riêng trên app NH Quán. Dùng khi cần sửa quán, mua thiết bị mới hoặc làm đệm an toàn mùa mưa vắng khách.
+              </p>
+              <p style="font-size:0.8rem;color:var(--text-muted);" data-lang="en">
+                • <b>Cat Care Fund (5% Gross Revenue):</b> Carved out first every month (managed by Chị Liên) for cat food, litter &amp; vet care.<br/>
+                • <b>Reinvestment Reserve (Fixed 20% of Net Profit):</b> Held in a dedicated savings sub-pot in the bar's bank app for equipment, repairs, and seasonal safety buffer.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Part 3: Monthly Closing Routine & FAQ -->
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="font-size:1rem;margin-bottom:10px;" data-lang="vi">🗓️ Lịch Trình Chốt Sổ Cuối Tháng (6 Bước Cực Gọn)</h3>
+            <h3 style="font-size:1rem;margin-bottom:10px;" data-lang="en">🗓️ The 6-Step Month-End Closing Routine</h3>
+            <div class="row-list">
+              <div class="row-item">
+                <span data-lang="vi"><b>Bước 0 (Quy tắc 0h đêm cuối tháng):</b> Đêm cuối tháng (VD đêm 30/11 rạng sáng 01/12), các bill nhập vào Loyverse <b>sau 12h đêm</b> được giữ lại tính vào doanh thu tháng sau.</span>
+                <span data-lang="en"><b>Step 0 (Midnight Cutoff Rule):</b> On the last night of the month, any Loyverse bill entered <b>after 12:00 AM midnight</b> is deferred and counted in next month's revenue.</span>
+              </div>
+              <div class="row-item">
+                <span data-lang="vi"><b>Bước 1 &amp; 2 (Doanh thu &amp; Quỹ Mèo 5%):</b> Chốt tổng Doanh thu thực thu trong tháng ⇒ Trích ngay <b>5% Doanh thu</b> chuyển vào Quỹ Chăm Sóc Mèo.</span>
+                <span data-lang="en"><b>Steps 1 &amp; 2 (Revenue &amp; 5% Cat Fund):</b> Tally total Actual Revenue ⇒ Carve out <b>5% of Gross Revenue</b> for the Cat Care Fund.</span>
+              </div>
+              <div class="row-item">
+                <span data-lang="vi"><b>Bước 3 &amp; 4 (Trả mặt bằng 6M &amp; Bơm đầy lại Quỹ 10M):</b> Trả <code>6,000,000 ₫</code> thuê mặt bằng + điện nước, gom note trong Két Quán 1M và bắn bù cho Liên/Hạ/Tín để cả 4 hộp vốn quay về đúng <b>10,000,000 ₫</b> như ngày đầu tháng.</span>
+                <span data-lang="en"><b>Steps 3 &amp; 4 (Pay 6M Rent &amp; Reset 10M Working Capital):</b> Pay <code>6,000,000 VND</code> rent/utilities, tally box notes, and top up Liên (3M), Hạ (3M), Tín (3M), and the Bar Box (1M) back to a clean <b>10,000,000 VND</b>.</span>
+              </div>
+              <div class="row-item">
+                <span data-lang="vi"><b>Bước 5 &amp; 6 (Cất 20% Dự Phòng &amp; Chia 80% Trả Nợ Gốc/Lãi):</b> Tiền còn lại sau Bước 4 chính là <b>Lãi Ròng</b>. Cất cố định <b>20%</b> vào Hũ Tái Đầu Tư; <b>80%</b> còn lại chuyển cho 4 Co-founders để trừ dần nợ gốc <code>28.28M</code> và chia lãi (<code>Hưng+Liên 50%</code>, <code>Tín 25%</code>, <code>Hạ 25%</code>).</span>
+                <span data-lang="en"><b>Steps 5 &amp; 6 (20% Reserve &amp; 80% Debt Paydown/Dividend):</b> Remaining cash equals <b>Net Profit</b>. Move a fixed <b>20%</b> into the Reinvestment Pot; distribute the remaining <b>80%</b> to pay down the <code>28.28M</code> legacy debt and/or pay dividends (<code>Hưng+Liên 50%</code>, <code>Tín 25%</code>, <code>Hạ 25%</code>).</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:1rem;margin-bottom:10px;" data-lang="vi">💬 Câu Hỏi Thường Gặp Giữa 4 Anh Chị Em (FAQ)</h3>
+            <h3 style="font-size:1rem;margin-bottom:10px;" data-lang="en">💬 Co-Founder Practical FAQ</h3>
+            <div class="row-list">
+              <div class="row-item">
+                <div>
+                  <div style="font-weight:600;color:var(--copper-light);" data-lang="vi">1. Đang đi mua rượu hết 1.5 triệu mà Hũ 3M chỉ còn 900k thì làm sao?</div>
+                  <div style="font-weight:600;color:var(--copper-light);" data-lang="en">1. What if aspirit order costs 1.5M but my 3M float only has 900k left?</div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);" data-lang="vi">Nhắn ngay vào nhóm Zalo để TK Quán bắn bù <code>2,100,000 ₫</code> (kéo hũ về lại 3M) rồi thanh toán, hoặc nhờ TK Quán chuyển khoản thẳng cho nhà cung cấp. Tuyệt đối không cần tự bù tiền túi!</div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);" data-lang="en">Message the Zalo group so the Bar Bank Account tops you up <code>2,100,000 VND</code> (back to 3M) right away, or pay the supplier directly from the Bar Bank Account. Never front personal money!</div>
+                </div>
+              </div>
+              <div class="row-item">
+                <div>
+                  <div style="font-weight:600;color:var(--copper-light);" data-lang="vi">2. Mua hạt, pate, cát vệ sinh hay khám bệnh cho mèo thì lấy tiền ở đâu?</div>
+                  <div style="font-weight:600;color:var(--copper-light);" data-lang="en">2. Which bucket pays for cat food, litter, or vet bills?</div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);" data-lang="vi">Lấy từ <b>Quỹ Mèo (5% Doanh thu hàng tháng)</b> do Chị Liên giữ riêng — không lẹm vào Quỹ 3M mua nguyên liệu pha chế của quán.</div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);" data-lang="en">Paid from the dedicated <b>5% Cat Care Fund</b> (held by Chị Liên)—never mixed with beverage COGS floats.</div>
+                </div>
+              </div>
+              <div class="row-item">
+                <div>
+                  <div style="font-weight:600;color:var(--copper-light);" data-lang="vi">3. Nhỡ một ngày có người bận việc riêng cần rút vốn nghỉ thì tính sao cho công bằng mà quán không sập?</div>
+                  <div style="font-weight:600;color:var(--copper-light);" data-lang="en">3. What happens if a co-founder ever needs to exit?</div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);" data-lang="vi">Người rút nhận đủ 4 phần quyền lợi: (1) Lãi tháng đó + (2) Phần trong Quỹ Tái Đầu Tư 20% được <b>nhận ngay lập tức</b>; còn (3) Phần Nợ gốc chưa thu hồi + (4) Cổ phần trong Quỹ Vốn 10M (<code>2.5M</code>) sẽ được quán <b>trả góp đều trong 3–6 tháng</b> từ tiền lời tiếp theo để quán không bị rút cạn vốn đột ngột.</div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);" data-lang="en">They receive all 4 fair buckets: Current Month Profit + 20% Reserve Share are <b>paid immediately</b>; Remaining Legacy Debt + 25% of the 10M Working Capital (<code>2.5M</code>) are <b>paid in monthly installments over 3–6 months</b> from ongoing cash flow so the bar never loses liquidity.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="view-dashboard">
+    <!-- ================================================================= -->
+    <!-- SECTION 0: REAL-WORLD ACTIONABLE EXECUTION PLAN (WHAT TO DO NOW)  -->
+    <!-- ================================================================= -->
+    <section class="section" id="sec-action">
+      <div class="section-header">
+        <div>
+          <span class="section-num" data-lang="vi">⚡ Hướng Dẫn Thực Thi Thực Tế Ngay Bây Giờ (Tháng 11/2026)</span>
+          <span class="section-num" data-lang="en">⚡ Real-World Actionable Execution Plan (November 2026 Rollout)</span>
+          <h2 class="section-title" data-lang="vi">Checklist Cần Làm Ngay: Chuyển Bao Nhiêu Tiền, Cho Ai & Tạo Các Quỹ Thế Nào?</h2>
+          <h2 class="section-title" data-lang="en">Actionable Checklist: Exact Transfers, Who Gets What & How to Set Up Each Fund</h2>
+        </div>
+        <span class="section-tag" data-lang="vi">Tick chọn từng bước khi hoàn tất</span>
+        <span class="section-tag" data-lang="en">Check off steps as you execute</span>
+      </div>
+
+      <!-- 4 Step-by-Step Action Cards -->
+      <div class="grid-2">
+        <!-- Action Step 1: Settlement of Oct Expenses -->
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:1rem;">
+              <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--emerald);">
+              <span data-lang="vi">Bước 1: Chuyển Khoản Quyết Toán Chi Phí T10 (13,240,001 ₫)</span>
+              <span data-lang="en">Step 1: Settle Oct Reimbursements, Rent & Cat Fund (13,240,001 VND)</span>
+            </label>
+            <span class="pill-status pill-green" data-lang="vi">Đã chốt 03/11</span>
+            <span class="pill-status pill-green" data-lang="en">Settled Nov 3</span>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;" data-lang="vi">
+            Từ tổng tiền mặt + ngân hàng cuối T10 (<code>7,450,000 ₫ Cash + 21,288,511 ₫ Bank = 28,738,511 ₫</code>), thực hiện 3 lệnh chuyển khoản hoàn ứng &amp; chi phí cố định:
+          </p>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;" data-lang="en">
+            From Oct Cash + Bank (<code>7,450,000 Cash + 21,288,511 Bank = 28,738,511 VND</code>), execute the 3 settlement transfers:
+          </p>
+          <div class="row-list">
+            <div class="row-item">
+              <span data-lang="vi">1. <b>CK Chị Liên</b> (2.858M NVL + 1.649M Quỹ Mèo 5% + 6M Thuê MB):</span>
+              <span data-lang="en">1. <b>Transfer to Chị Liên</b> (2.858M NVL + 1.649M Cat Fund + 6M Rent):</span>
+              <span class="mono" style="font-weight:700;">10,507,001 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">2. <b>CK Hạ</b> (2,816.5k NVL − 374.5k Bill nợ):</span>
+              <span data-lang="en">2. <b>Transfer to Hạ</b> (2,816.5k NVL − 374.5k Debit):</span>
+              <span class="mono" style="font-weight:700;">2,442,000 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">3. <b>CK Tín</b> (591k NVL − 300k Tín mượn):</span>
+              <span data-lang="en">3. <b>Transfer to Tín</b> (591k NVL − 300k Borrow):</span>
+              <span class="mono" style="font-weight:700;">291,000 ₫</span>
+            </div>
+            <div class="row-item" style="border:1px solid rgba(59,155,110,0.4);">
+              <span data-lang="vi"><b>⇒ Tiền thực còn lại của T10 sau Bước 1:</b></span>
+              <span data-lang="en"><b>⇒ True Oct Cash + Bank Remaining After Step 1:</b></span>
+              <span class="mono" style="color:#5CD69C;font-weight:700;">15,498,510 ₫</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Step 2: Create the 10M Working Capital Fund -->
+        <div class="card card-highlight">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:1rem;">
+              <input type="checkbox" style="width:18px;height:18px;accent-color:var(--copper-light);">
+              <span data-lang="vi">Bước 2: Cách Lập Quỹ Vốn Lưu Động 10,000,000 ₫</span>
+              <span data-lang="en">Step 2: How to Initialize the 10,000,000 VND Working Capital Fund</span>
+            </label>
+            <span class="pill-status pill-amber" data-lang="vi">Trích từ 15.50M</span>
+            <span class="pill-status pill-amber" data-lang="en">From 15.50M Profit</span>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;" data-lang="vi">
+            Lấy <b>10,000,000 ₫</b> từ <code>15,498,510 ₫</code> lãi ròng T10 chia làm 4 phần cố định (Còn lại <code>6,450,000 ₫</code> tiền mặt K3 sau khi bớt 1M Két Quán thì nộp vào TK Ngân hàng Quán hoặc cấn trừ trực tiếp vào gói 3M bên dưới):
+          </p>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;" data-lang="en">
+            Carve out <b>10,000,000 VND</b> from the <code>15,498,510 VND</code> Oct profit into 4 fixed buckets (deposit the remaining <code>6,450,000 VND</code> physical cash into the Bar Bank Account after keeping 1M in the bar box):
+          </p>
+          <div class="row-list">
+            <div class="row-item">
+              <span data-lang="vi">1. <b>Bỏ vào Két Quán tại quầy</b> (Tiền mặt lẻ làm vốn thối + chi vặt &lt;50k):</span>
+              <span data-lang="en">1. <b>Place in Bar Cash Box ("Két Quán")</b> (Physical bills for change + &lt;50k petty cash):</span>
+              <span class="mono" style="color:var(--copper-light);font-weight:700;">1,000,000 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">2. <b>CK cấp vốn ứng cho Chị Liên</b> (Nội dung: <code>Cap von luu dong 3M - Lien</code>):</span>
+              <span data-lang="en">2. <b>Transfer Float to Chị Liên</b> (Memo: <code>Cap von luu dong 3M - Lien</code>):</span>
+              <span class="mono" style="color:var(--copper-light);font-weight:700;">3,000,000 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">3. <b>CK cấp vốn ứng cho Hạ</b> (Nội dung: <code>Cap von luu dong 3M - Ha</code>):</span>
+              <span data-lang="en">3. <b>Transfer Float to Hạ</b> (Memo: <code>Cap von luu dong 3M - Ha</code>):</span>
+              <span class="mono" style="color:var(--copper-light);font-weight:700;">3,000,000 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">4. <b>CK cấp vốn ứng cho Tín</b> (Nội dung: <code>Cap von luu dong 3M - Tin</code>):</span>
+              <span data-lang="en">4. <b>Transfer Float to Tín</b> (Memo: <code>Cap von luu dong 3M - Tin</code>):</span>
+              <span class="mono" style="color:var(--copper-light);font-weight:700;">3,000,000 ₫</span>
+            </div>
+          </div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:10px;" data-lang="vi">
+            💡 <b>Mẹo quản lý 3M cá nhân không lẫn tiền túi:</b> Mỗi người (Liên, Hạ, Tín) tạo 1 <b>Hũ / Túi phụ</b> trên app ngân hàng cá nhân (VD: Timo Goal Save, Vietcombank/Techcombank, hoặc Túi Thần Tài) tên <code>"Quỹ Mua Hàng Impurrfect 3M"</code>. Mua đồ cho quán thì rút từ hũ này + nhắn Zalo. Khi hũ còn <code>&lt; 1,000,000 ₫</code> thì báo TK Quán bắn bù về đúng <code>3,000,000 ₫</code>.
+          </div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:10px;" data-lang="en">
+            💡 <b>Zero-Friction Tip for Founders:</b> Each custodian (Liên, Hạ, Tín) creates a separate sub-pot/pocket in their banking app named <code>"Impurrfect 3M Float"</code> so bar money never mixes with personal cash.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Action Step 3: Create the 20% Reinvestment Fund & Handle Remaining 5,498,510 VND -->
+        <div class="card card-highlight">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:1rem;">
+              <input type="checkbox" style="width:18px;height:18px;accent-color:var(--amber);">
+              <span data-lang="vi">Bước 3: Tạo Quỹ Tái Đầu Tư (20%) & Xử Lý 5,498,510 ₫ Dư T10</span>
+              <span data-lang="en">Step 3: Create 20% Reinvestment Fund & Allocate 5,498,510 VND Oct Surplus</span>
+            </label>
+            <span class="pill-status pill-amber">5,498,510 ₫</span>
+          </div>
+
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px;" data-lang="vi">
+            <b>Cách tạo Quỹ Tái Đầu Tư 20% ngoài đời thực:</b> Không cần mở tài khoản ngân hàng mới. Ngay trên app Ngân hàng đang giữ tiền Quán, mở 1 <b>Hũ Tiết Kiệm / Ngăn chứa phụ (Goal Save / Tiết kiệm linh hoạt)</b> đặt tên <code>"QUỸ TÁI ĐẦU TƯ &amp; DỰ PHÒNG 20%"</code> để tách khỏi tiền vận hành hàng ngày.<br/>
+            Chọn 1 trong 3 cách phân bổ <b>5,498,510 ₫</b> tiền dư cuối T10 dưới đây:
+          </p>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px;" data-lang="en">
+            <b>How to create the 20% Reinvestment Fund:</b> Inside the bar's main banking app, open a dedicated sub-pot/Goal Save named <code>"20% REINVESTMENT &amp; RESERVE FUND"</code>.<br/>
+            Select how to allocate the remaining <b>5,498,510 VND</b> Oct surplus below:
+          </p>
+
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+            <button class="nav-pill active" id="mode-btn-a" onclick="setSurplusMode('A')" data-lang="vi">PA A: Trích 20% Lãi T10 (3.10M) + Trả nợ 2.40M (Khuyên dùng)</button>
+            <button class="nav-pill active" id="mode-btn-a-en" onclick="setSurplusMode('A')" data-lang="en">Option A: 20% of Oct Profit (3.10M) + 2.40M Debt Paydown</button>
+            <button class="nav-pill" id="mode-btn-b" onclick="setSurplusMode('B')" data-lang="vi">PA B: Trích 20% Phần Dư (1.10M) + Trả nợ 4.40M</button>
+            <button class="nav-pill" id="mode-btn-b-en" onclick="setSurplusMode('B')" data-lang="en">Option B: 20% of Surplus (1.10M) + 4.40M Debt Paydown</button>
+            <button class="nav-pill" id="mode-btn-c" onclick="setSurplusMode('C')" data-lang="vi">PA C: Giữ 100% (5.50M) vào Quỹ Dự Phòng</button>
+            <button class="nav-pill" id="mode-btn-c-en" onclick="setSurplusMode('C')" data-lang="en">Option C: Keep 100% (5.50M) in Reserve</button>
+          </div>
+
+          <div class="row-list">
+            <div class="row-item" style="border-left:3px solid var(--amber);">
+              <span data-lang="vi">1. <b>Nạp vào Hũ "Quỹ Tái Đầu Tư 20%"</b> (Giữ tại TK Quán):</span>
+              <span data-lang="en">1. <b>Move into "20% Reinvestment Reserve" Sub-Pot:</b></span>
+              <span class="mono" style="color:#F2B95E;font-weight:700;" id="act-res-amt">3,099,702 ₫</span>
+            </div>
+            <div class="row-item" style="border-left:3px solid var(--emerald);">
+              <span data-lang="vi">2. <b>CK Trả Nợ Gốc cho Chị Liên</b> (Hưng + Liên · 50% Chia 2):</span>
+              <span data-lang="en">2. <b>Transfer Debt Paydown to Chị Liên</b> (Hưng + Liên · 50%):</span>
+              <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-lien-amt">1,199,404 ₫</span>
+            </div>
+            <div class="row-item" style="border-left:3px solid var(--emerald);">
+              <span data-lang="vi">3. <b>CK Trả Nợ Gốc cho Hạ</b> (25% Chia 4):</span>
+              <span data-lang="en">3. <b>Transfer Debt Paydown to Hạ</b> (25%):</span>
+              <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-ha-amt">599,702 ₫</span>
+            </div>
+            <div class="row-item" style="border-left:3px solid var(--emerald);">
+              <span data-lang="vi">4. <b>CK Trả Nợ Gốc cho Tín</b> (25% Chia 4):</span>
+              <span data-lang="en">4. <b>Transfer Debt Paydown to Tín</b> (25%):</span>
+              <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-tin-amt">599,702 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi"><b>⇒ Nợ Gốc Luỹ Kế (Balance!H4) giảm từ -28,288,304 ₫ xuống còn:</b></span>
+              <span data-lang="en"><b>⇒ Legacy Debt (Balance!H4) drops from -28,288,304 VND to:</b></span>
+              <span class="mono" style="color:#F07B75;font-weight:700;" id="act-new-debt">-25,889,496 ₫</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Step 4: Clean Starting State for Month 11 -->
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:1rem;">
+              <input type="checkbox" style="width:18px;height:18px;accent-color:var(--blue);">
+              <span data-lang="vi">Bước 4: Kiểm Tra Trạng Thái Chuẩn Khi Bắt Đầu Tháng 11</span>
+              <span data-lang="en">Step 4: Verify Clean Starting Balances for November (M11)</span>
+            </label>
+            <span class="pill-status pill-blue" data-lang="vi">Chuẩn bị vận hành T11</span>
+            <span class="pill-status pill-blue" data-lang="en">M11 Ready State</span>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;" data-lang="vi">
+            Sau khi hoàn tất Bước 1, 2 và 3, toàn bộ hệ thống tài chính của <span class="brand-word">im<i>purr</i>fect</span> hoàn toàn tách bạch và tự vận hành:
+          </p>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;" data-lang="en">
+            Once Steps 1–3 are completed, <span class="brand-word">im<i>purr</i>fect</span>'s financial system is 100% separated and self-running:
+          </p>
+
+          <div class="row-list">
+            <div class="row-item">
+              <span data-lang="vi">🏦 <b>Ngăn 1 — TK Giao Dịch Chính Quán:</b> Giữ sẵn 3 bill đêm 1/11 + doanh thu mới T11 (Dùng để bắn bù Quỹ 3M khi ai đó báo &lt;1M)</span>
+              <span data-lang="en">🏦 <b>Bucket 1 — Main Bar Operating Account:</b> Holds Nov 1 post-midnight bills + incoming M11 sales (Used to replenish 3M floats)</span>
+              <span class="mono" style="color:#7EB0F5;font-weight:700;">621,000 ₫ + Sales T11</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">🛡️ <b>Ngăn 2 — Hũ "Quỹ Tái Đầu Tư 20%":</b> Tách riêng trên app NH Quán, chỉ chi khi mua sắm/sửa chữa lớn có sự đồng thuận</span>
+              <span data-lang="en">🛡️ <b>Bucket 2 — "20% Reinvestment Reserve" Sub-Pot:</b> Separated in bank app for approved repairs/upgrades</span>
+              <span class="mono" style="color:#F2B95E;font-weight:700;" id="act-verify-res">3,099,702 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">🔄 <b>Ngăn 3 — Vốn Lưu Động 9M (3 Co-founders):</b> Liên 3M · Hạ 3M · Tín 3M (Không ai phải bỏ tiền túi nữa!)</span>
+              <span data-lang="en">🔄 <b>Bucket 3 — 9M Founder Purchasing Floats:</b> Liên 3M · Hạ 3M · Tín 3M (Zero personal out-of-pocket!)</span>
+              <span class="mono" style="color:#5CD69C;font-weight:700;">9,000,000 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">💵 <b>Ngăn 4 — Két Quán Tại Quầy:</b> Tiền mặt lẻ làm tiền thối + chi vặt &lt;50k (Đá, hành, sả...)</span>
+              <span data-lang="en">💵 <b>Bucket 4 — In-Bar Cash Box ("Két Quán"):</b> Change float + &lt;50k petty cash</span>
+              <span class="mono" style="color:var(--copper-light);font-weight:700;">1,000,000 ₫</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 1: OCTOBER 2026 CERTIFIED AUDIT (M10)                     -->
+    <!-- ================================================================= -->
+    <section class="section" id="sec-m10">
+      <div class="section-header">
+        <div>
+          <span class="section-num" data-lang="vi">Phần 01 · Dữ Liệu Thực Tế Từ Sheet M10 & Balance</span>
+          <span class="section-num" data-lang="en">Section 01 · Verified Sheet Audit (M10 & Balance)</span>
+          <h2 class="section-title" data-lang="vi">Tổng Kết Tài Chính Tháng 10/2026 & Khởi Tạo Quỹ 10M</h2>
+          <h2 class="section-title" data-lang="en">October 2026 Financial Close-Out & 10M Fund Initialization</h2>
+        </div>
+        <span class="section-tag mono">01/10/2026 – 31/10/2026 (W40–W44)</span>
+      </div>
+
+      <!-- 4 Top KPIs -->
+      <div class="grid-4">
+        <div class="card">
+          <div class="kpi-label">
+            <span data-lang="vi">Doanh Thu Thực (M10!K7)</span>
+            <span data-lang="en">Actual Revenue (M10!K7)</span>
+            <span class="pill-status pill-blue">POS: 33.36M</span>
+          </div>
+          <div class="kpi-value mono">32,980,011 ₫</div>
+          <div class="kpi-sub" data-lang="vi">Đã trừ 621,000 ₫ (3 bill sau 0h đêm 1/11 chuyển sang T11)</div>
+          <div class="kpi-sub" data-lang="en">Excludes 621,000 VND (3 post-midnight Nov 1 bills deferred to M11)</div>
+        </div>
+
+        <div class="card">
+          <div class="kpi-label">
+            <span data-lang="vi">Tổng Chi Phí + Mèo (Balance!E2)</span>
+            <span data-lang="en">Total Cost + Cat Fund (Balance!E2)</span>
+            <span class="pill-status pill-amber">53.0% Rev</span>
+          </div>
+          <div class="kpi-value mono">17,481,501 ₫</div>
+          <div class="kpi-sub" data-lang="vi">Chi phí VH & NVL: 15,832,500 ₫ + Quỹ Mèo 5%: 1,649,001 ₫</div>
+          <div class="kpi-sub" data-lang="en">OpEx & COGS: 15,832,500 VND + 5% Cat Fund: 1,649,001 VND</div>
+        </div>
+
+        <div class="card card-highlight">
+          <div class="kpi-label">
+            <span data-lang="vi">Lợi Nhuận Ròng / Tiền Còn Lại Thực</span>
+            <span data-lang="en">Net Profit / True Cash Left (M10!K16)</span>
+            <span class="pill-status pill-green">47.0% Margin</span>
+          </div>
+          <div class="kpi-value mono" style="color:#5CD69C;">15,498,510 ₫</div>
+          <div class="kpi-sub" data-lang="vi">Trích <b>10,000,000 ₫</b> lập Quỹ Vốn Lưu Động ⇒ Dư <b>5,498,510 ₫</b></div>
+          <div class="kpi-sub" data-lang="en">Carved out <b>10,000,000 VND</b> Working Capital ⇒ <b>5,498,510 VND</b> Surplus</div>
+        </div>
+
+        <div class="card">
+          <div class="kpi-label">
+            <span data-lang="vi">Nợ Gốc Luỹ Kế (Balance!H4)</span>
+            <span data-lang="en">Cumulative Legacy Debt (Balance!H4)</span>
+            <span class="pill-status pill-red">1/4 – 30/8</span>
+          </div>
+          <div class="kpi-value mono" style="color:#F07B75;">-28,288,304 ₫</div>
+          <div class="kpi-sub" data-lang="vi">Hưng+Liên: 14,144,152 ₫ · Tín: 7,072,076 ₫ · Hạ: 7,072,076 ₫</div>
+          <div class="kpi-sub" data-lang="en">Hưng+Liên: 14.14M VND · Tín: 7.07M VND · Hạ: 7.07M VND</div>
+        </div>
+      </div>
+
+      <!-- Revenue vs Cost Breakdown Columns -->
+      <div class="grid-2">
+        <!-- Left: Revenue Composition & Outflow -->
+        <div class="card">
+          <h3 style="font-size:1rem;margin-bottom:4px;" data-lang="vi">1A. Cấu Trúc Doanh Thu Thực (32,980,011 ₫)</h3>
+          <h3 style="font-size:1rem;margin-bottom:4px;" data-lang="en">1A. Actual Revenue Composition (32,980,011 VND)</h3>
+          <p style="font-size:0.78rem;color:var(--text-muted);" data-lang="vi">Tỷ trọng nguồn tiền cấu thành 32,980,011 ₫ trong tháng 10:</p>
+          <p style="font-size:0.78rem;color:var(--text-muted);" data-lang="en">Breakdown of the 32,980,011 VND collected in October:</p>
+
+          <div class="bar-track">
+            <div class="bar-seg" style="width:64.55%;background:var(--blue);" title="Bank: 21,288,511"></div>
+            <div class="bar-seg" style="width:22.59%;background:var(--emerald);" title="Cash: 7,450,000"></div>
+            <div class="bar-seg" style="width:10.82%;background:var(--copper-light);" title="Tiền Quán Chi: 3,567,000"></div>
+            <div class="bar-seg" style="width:2.04%;background:var(--amber);" title="Debit: 674,500"></div>
+          </div>
+
+          <div class="row-list">
+            <div class="row-item">
+              <div class="row-item-left"><span class="swatch" style="background:var(--blue);"></span><span data-lang="vi"><b>Bank (K4)</b> — Đã trừ 621k bill sau 0h ngày 1/11</span><span data-lang="en"><b>Bank (K4)</b> — Net of 621k post-midnight Nov 1 bills</span></div>
+              <span class="mono">21,288,511 ₫ (64.5%)</span>
+            </div>
+            <div class="row-item">
+              <div class="row-item-left"><span class="swatch" style="background:var(--emerald);"></span><span data-lang="vi"><b>Tiền Mặt Tại Quán (K3)</b> — Cash tồn cuối kỳ</span><span data-lang="en"><b>Cash on Hand (K3)</b> — Physical cash remaining</span></div>
+              <span class="mono">7,450,000 ₫ (22.6%)</span>
+            </div>
+            <div class="row-item">
+              <div class="row-item-left"><span class="swatch" style="background:var(--copper-light);"></span><span data-lang="vi"><b>Tiền Quán Chi (K5)</b> — Rút trực tiếp tại két mua NVL</span><span data-lang="en"><b>Drawer Cash Spent (K5)</b> — Spent directly at bar</span></div>
+              <span class="mono">3,567,000 ₫ (10.8%)</span>
+            </div>
+            <div class="row-item">
+              <div class="row-item-left"><span class="swatch" style="background:var(--amber);"></span><span data-lang="vi"><b>Bill Nợ / Debit (K6)</b> — Hạ 374.5k + Tín mượn 300k</span><span data-lang="en"><b>Founder Debit (K6)</b> — Hạ 374.5k + Tín 300k</span></div>
+              <span class="mono">674,500 ₫ (2.0%)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Expense & Profit Allocation -->
+        <div class="card">
+          <h3 style="font-size:1rem;margin-bottom:4px;" data-lang="vi">1B. Phân Bổ Chi Phí & Lợi Nhuận (32,980,011 ₫)</h3>
+          <h3 style="font-size:1rem;margin-bottom:4px;" data-lang="en">1B. Cost & Profit Allocation (32,980,011 VND)</h3>
+          <p style="font-size:0.78rem;color:var(--text-muted);" data-lang="vi">COGS nguyên liệu thực tế (7.93M) chỉ chiếm <b>24.0%</b> doanh thu:</p>
+          <p style="font-size:0.78rem;color:var(--text-muted);" data-lang="en">Actual ingredient COGS (7.93M) was just <b>24.0%</b> of revenue:</p>
+
+          <div class="bar-track">
+            <div class="bar-seg" style="width:24.04%;background:var(--copper);" title="COGS NVL: 7,928,500"></div>
+            <div class="bar-seg" style="width:18.19%;background:var(--crimson);" title="Thuê MB + Điện Nước: 6,000,000"></div>
+            <div class="bar-seg" style="width:5.77%;background:var(--amber);" title="Vận hành + Décor: 1,904,000"></div>
+            <div class="bar-seg" style="width:5.00%;background:#A864D9;" title="Donate Mèo 5%: 1,649,001"></div>
+            <div class="bar-seg" style="width:47.00%;background:var(--emerald);" title="Lợi nhuận: 15,498,510"></div>
+          </div>
+
+          <div class="row-list">
+            <div class="row-item">
+              <div class="row-item-left"><span class="swatch" style="background:var(--copper);"></span><span data-lang="vi"><b>Tổng NVL (COGS)</b> — NVL khác 4,612.5k + Rượu/Bia 3,316k</span><span data-lang="en"><b>Ingredient COGS</b> — Other 4,612.5k + Spirits/Beer 3,316k</span></div>
+              <span class="mono">7,928,500 ₫ (24.0%)</span>
+            </div>
+            <div class="row-item">
+              <div class="row-item-left"><span class="swatch" style="background:var(--crimson);"></span><span data-lang="vi"><b>Thuê Mặt Bằng + Điện Nước (K13)</b> — Cố định hàng tháng</span><span data-lang="en"><b>Rent + Utilities (K13)</b> — Fixed monthly</span></div>
+              <span class="mono">6,000,000 ₫ (18.2%)</span>
+            </div>
+            <div class="row-item">
+              <div class="row-item-left"><span class="swatch" style="background:var(--amber);"></span><span data-lang="vi"><b>Vận Hành & Décor (K11+K12)</b> — Quạt, nến, ly, khăn giấy</span><span data-lang="en"><b>Ops & Décor (K11+K12)</b> — Fan, candles, glassware</span></div>
+              <span class="mono">1,904,000 ₫ (5.8%)</span>
+            </div>
+            <div class="row-item">
+              <div class="row-item-left"><span class="swatch" style="background:#A864D9;"></span><span data-lang="vi"><b>Quỹ Mèo / Donate Mèo (5% Doanh thu)</b></span><span data-lang="en"><b>Cat Care Mission Fund (5% Revenue)</b></span></div>
+              <span class="mono">1,649,001 ₫ (5.0%)</span>
+            </div>
+            <div class="row-item" style="border:1px solid rgba(59,155,110,0.4);">
+              <div class="row-item-left"><span class="swatch" style="background:var(--emerald);"></span><span data-lang="vi"><b>Lợi Nhuận Ròng (K16)</b> — Trước khi trích Quỹ 10M</span><span data-lang="en"><b>Accounting Net Profit (K16)</b> — Pre-10M Reserve</span></div>
+              <span class="mono" style="color:#5CD69C;font-weight:700;">15,498,510 ₫ (47.0%)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settlement Table & P25 Audit Note -->
+      <div class="card">
+        <h3 style="font-size:1rem;margin-bottom:12px;" data-lang="vi">1C. Bảng Quyết Toán Chuyển Khoản Tháng 10 (M10!J18:P25) & Đối Chiếu Tiền Thực</h3>
+        <h3 style="font-size:1rem;margin-bottom:12px;" data-lang="en">1C. October Settlement Transfers (M10!J18:P25) & True Cash Reconciliation</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-lang="vi">Người Nhận</th>
+                <th data-lang="en">Recipient</th>
+                <th class="num" data-lang="vi">Hoàn Tiền Ứng NVL (L)</th>
+                <th class="num" data-lang="en">Reimburse NVL (L)</th>
+                <th class="num" data-lang="vi">Trừ Bill Nợ (M)</th>
+                <th class="num" data-lang="en">Less Debit (M)</th>
+                <th class="num" data-lang="vi">Quỹ Mèo 5% (N)</th>
+                <th class="num" data-lang="en">Cat Fund 5% (N)</th>
+                <th class="num" data-lang="vi">Thuê Mặt Bằng (O)</th>
+                <th class="num" data-lang="en">Rent + Util (O)</th>
+                <th class="num" data-lang="vi">Thực Chuyển (P = Tổng CK)</th>
+                <th class="num" data-lang="en">Net Transfer (P = Tổng CK)</th>
+              </tr>
+            </thead>
+            <tbody class="mono">
+              <tr>
+                <td><b>Chị Liên</b> <span style="color:var(--text-muted);font-size:0.78rem;">(Hưng & Liên · Chia 2)</span></td>
+                <td class="num">2,858,000 ₫</td>
+                <td class="num">0 ₫</td>
+                <td class="num">1,649,001 ₫</td>
+                <td class="num">6,000,000 ₫</td>
+                <td class="num"><b>10,507,001 ₫</b></td>
+              </tr>
+              <tr>
+                <td><b>Tín</b> <span style="color:var(--text-muted);font-size:0.78rem;">(Chia 4)</span></td>
+                <td class="num">591,000 ₫</td>
+                <td class="num" style="color:#F07B75;">-300,000 ₫</td>
+                <td class="num">0 ₫</td>
+                <td class="num">0 ₫</td>
+                <td class="num"><b>291,000 ₫</b></td>
+              </tr>
+              <tr>
+                <td><b>Hạ</b> <span style="color:var(--text-muted);font-size:0.78rem;">(Chia 4)</span></td>
+                <td class="num">2,816,500 ₫</td>
+                <td class="num" style="color:#F07B75;">-374,500 ₫</td>
+                <td class="num">0 ₫</td>
+                <td class="num">0 ₫</td>
+                <td class="num"><b>2,442,000 ₫</b></td>
+              </tr>
+              <tr class="total-row">
+                <td data-lang="vi">TỔNG CHUYỂN KHOẢN (P24)</td>
+                <td data-lang="en">TOTAL TRANSFERRED (P24)</td>
+                <td class="num">6,265,500 ₫</td>
+                <td class="num" style="color:#F07B75;">-674,500 ₫</td>
+                <td class="num">1,649,001 ₫</td>
+                <td class="num">6,000,000 ₫</td>
+                <td class="num" style="color:var(--copper-light);">13,240,001 ₫</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">
+            <span>⚠️</span>
+            <span data-lang="vi">Ghi Chú Kiểm Toán: Lỗi Công Thức Tính Trùng 674,500 ₫ Tại Ô M10!P25</span>
+            <span data-lang="en">Audit Finding: 674,500 VND Double-Count Formula Bug in Cell M10!P25</span>
+          </div>
+          <p data-lang="vi">
+            Trong Sheet <code>M10</code>, ô <code>P25 (Còn lại)</code> đang dùng công thức <code>= K3 + K4 + K6 - P24 = 16,173,010 ₫</code>. Tuy nhiên khoản <code>K6 (Debit = 674,500 ₫)</code> đã được cấn trừ trực tiếp vào tiền chuyển khoản của Tín (<code>-300k</code>) và Hạ (<code>-374.5k</code>) nằm trong <code>P24</code>. Vì vậy cộng thêm <code>K6</code> lần nữa làm dư ảo <code>674,500 ₫</code>.<br/>
+            👉 <b>Tiền thực tế còn lại (Cash + Bank):</b> <code>7,450,000 + 21,288,511 - 13,240,001 = <b>15,498,510 ₫</b></code> (Khớp tuyệt đối 100% tới từng đồng với <code>K16 Lợi nhuận = 15,498,510 ₫</code>). Sau khi giữ lại <b>10,000,000 ₫</b> làm Quỹ Vốn Lưu Động, thặng dư thực tế còn lại của T10 là <b>5,498,510 ₫</b>.
+          </p>
+          <p data-lang="en">
+            In Sheet <code>M10</code>, cell <code>P25 (Còn lại)</code> uses <code>= K3 + K4 + K6 - P24 = 16,173,010 VND</code>. Because <code>K6 (Debit = 674,500 VND)</code> was already deducted from Tín (<code>-300k</code>) and Hạ (<code>-374.5k</code>) inside <code>P24</code>, adding <code>K6</code> again double-counts <code>674,500 VND</code>.<br/>
+            👉 <b>True Liquid Cash + Bank Remaining:</b> <code>7,450,000 + 21,288,511 - 13,240,001 = <b>15,498,510 VND</b></code> (Matches <code>K16 Net Profit = 15,498,510 VND</code> to the exact đồng). After carving out <b>10,000,000 VND</b> for the Working Capital Fund, the true remaining Oct surplus is <b>5,498,510 VND</b>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 2: 10M WORKING CAPITAL & 1M KÉT QUÁN                      -->
+    <!-- ================================================================= -->
+    <section class="section" id="sec-wc">
+      <div class="section-header">
+        <div>
+          <span class="section-num" data-lang="vi">Phần 02 · Cơ Chế Vận Hành Từ Tháng 11/2026</span>
+          <span class="section-num" data-lang="en">Section 02 · Active Operating Mechanism (Nov 2026+)</span>
+          <h2 class="section-title" data-lang="vi">Quỹ Vốn Lưu Động 10,000,000 ₫ ("Cuốn Chiếu") & Két Quán 1,000,000 ₫</h2>
+          <h2 class="section-title" data-lang="en">10,000,000 VND Revolving Working Capital & 1,000,000 VND Imprest Cash Box</h2>
+        </div>
+        <span class="section-tag" data-lang="vi">Tương tác trực tiếp bên dưới</span>
+        <span class="section-tag" data-lang="en">Interactive Live Checker Below</span>
+      </div>
+
+      <div class="grid-2">
+        <!-- Left: 3M x 3 Founder Floats Simulator -->
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <h3 style="font-size:1.02rem;" data-lang="vi">2A. Quỹ Ứng Mua Hàng ("Cuốn Chiếu" · 9,000,000 ₫)</h3>
+            <h3 style="font-size:1.02rem;" data-lang="en">2A. Founder Purchasing Floats (9,000,000 VND)</h3>
+            <span class="pill-status pill-green" id="float-total-badge">3M × 3 = 9,000,000 ₫</span>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px;" data-lang="vi">
+            Kéo thanh trượt để thử mô phỏng số tiền đã chi của từng người. Khi quỹ còn <b>dưới 1,000,000 ₫</b>, hệ thống báo cần chuyển khoản bù về lại đúng <b>3,000,000 ₫</b>:
+          </p>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px;" data-lang="en">
+            Drag sliders to simulate spending from each 3M float. When a float drops <b>below 1,000,000 VND</b>, it triggers a replenishment transfer back to <b>3,000,000 VND</b>:
+          </p>
+
+          <!-- Liên Float -->
+          <div class="control-group">
+            <div class="control-header">
+              <span><b>Chị Liên</b> (Hạn mức: 3,000,000 ₫)</span>
+              <span class="mono" id="lien-status">Còn: 3,000,000 ₫</span>
+            </div>
+            <input type="range" id="lien-spent" min="0" max="3000000" step="50000" value="850000" oninput="updateFloats()">
+          </div>
+
+          <!-- Hạ Float -->
+          <div class="control-group">
+            <div class="control-header">
+              <span><b>Hạ</b> (Hạn mức: 3,000,000 ₫)</span>
+              <span class="mono" id="ha-status">Còn: 3,000,000 ₫</span>
+            </div>
+            <input type="range" id="ha-spent" min="0" max="3000000" step="50000" value="2200000" oninput="updateFloats()">
+          </div>
+
+          <!-- Tín Float -->
+          <div class="control-group">
+            <div class="control-header">
+              <span><b>Tín</b> (Hạn mức: 3,000,000 ₫)</span>
+              <span class="mono" id="tin-status">Còn: 3,000,000 ₫</span>
+            </div>
+            <input type="range" id="tin-spent" min="0" max="3000000" step="50000" value="400000" oninput="updateFloats()">
+          </div>
+
+          <div class="row-item" style="margin-top:12px;border:1px solid var(--border);">
+            <span data-lang="vi"><b>Tổng cần Doanh thu bù lại (Top-up về 9M):</b></span>
+            <span data-lang="en"><b>Total Revenue Top-Up Needed (Restore to 9M):</b></span>
+            <span class="mono" id="float-topup-total" style="color:var(--copper-light);font-weight:700;">3,450,000 ₫</span>
+          </div>
+
+          <div class="zalo-box">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;" data-lang="vi">Mẫu Note Chi Phí Nhanh Trên Zalo Group</div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;" data-lang="en">Quick Zalo Group Expense Log Template</div>
+              <code class="mono" id="zalo-template">[05/11 - Beefeater Gin x2 - 720k - Chợ Đồ Uống]</code>
+            </div>
+            <button class="copy-btn" onclick="copyZaloTemplate()" id="copy-btn">Copy</button>
+          </div>
+        </div>
+
+        <!-- Right: 1M Két Quán Imprest Box -->
+        <div class="card card-highlight">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <h3 style="font-size:1.02rem;" data-lang="vi">2B. Cơ Chế Két Quán (1,000,000 ₫ Dual-Use)</h3>
+            <h3 style="font-size:1.02rem;" data-lang="en">2B. In-Bar Cash Box ("Két Quán" · 1,000,000 VND Dual-Use)</h3>
+            <span class="pill-status pill-green" id="ket-badge">Khớp Két (1,000,000 ₫)</span>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;" data-lang="vi">
+            • <b>Tiền thối (Change Float):</b> Tự cân đối mỗi đêm (đóng quán rút hết doanh thu tiền mặt dôi ra, giữ lại đúng 1M gốc; qua tháng mới không cần hạch toán).<br/>
+            • <b>Chi lặt vặt (Petty Cash &lt; 50k):</b> Lấy tiền mua đá, rau... ⇒ bỏ ngay tờ note <code>[Số tiền - Mua gì]</code> vào két. Cuối tháng gom note vào Chi phí tháng cũ &amp; trích doanh thu bù tiền mặt về lại đúng <b>1,000,000 ₫</b> sạch sẽ.
+          </p>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;" data-lang="en">
+            • <b>Change Float:</b> Self-balancing nightly (sweep excess cash revenue at close, keep 1M base in box; zero P&amp;L effect across months).<br/>
+            • <b>Petty Cash (&lt; 50k):</b> Take cash for ice/herbs ⇒ drop note <code>[Amount - Item]</code> in box. At month-end, book notes to old month's cost &amp; top up from revenue to start Day 1 with a clean <b>1,000,000 VND</b> cash.
+          </p>
+
+          <div class="grid-2" style="gap:12px;margin-bottom:12px;">
+            <div>
+              <label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:4px;" data-lang="vi">Tiền mặt thực đếm trong két (₫):</label>
+              <label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:4px;" data-lang="en">Physical Cash in Box (VND):</label>
+              <input type="number" class="num-input" id="ket-cash" value="765000" step="5000" oninput="updateKet()">
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:4px;" data-lang="vi">Tổng Note chi lẻ &lt; 50k (đá, hành, sả...):</label>
+              <label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:4px;" data-lang="en">Sum of Petty Cash Notes (&lt; 50k):</label>
+              <input type="number" class="num-input" id="ket-notes" value="235000" step="5000" oninput="updateKet()">
+            </div>
+          </div>
+
+          <div class="row-list">
+            <div class="row-item">
+              <span data-lang="vi">Tổng Đối Chiếu (<code>Tiền mặt còn lại + Tổng Note</code>):</span>
+              <span data-lang="en">Imprest Total (<code>Remaining Cash + Notes</code>):</span>
+              <span class="mono" id="ket-sum" style="font-weight:700;">1,000,000 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">Trạng Thái Kiểm Két:</span>
+              <span data-lang="en">Reconciliation Status:</span>
+              <span class="mono" id="ket-diff-text" style="color:#5CD69C;">✅ Khớp chuẩn 1,000,000 ₫</span>
+            </div>
+            <div class="row-item">
+              <span data-lang="vi">Cuối tháng: Gom Note vào Chi phí tháng cũ &amp; trích Doanh thu bù Két:</span>
+              <span data-lang="en">Month-End: Book Notes to Old Month Cost &amp; Top Up Box from Revenue:</span>
+              <span class="mono" id="ket-topup" style="color:var(--copper-light);font-weight:700;">235,000 ₫</span>
+            </div>
+          </div>
+
+          <div class="table-wrap" style="margin-top:14px;">
+            <table>
+              <thead>
+                <tr>
+                  <th data-lang="vi">Dòng Tiền Két 1M</th>
+                  <th data-lang="en">1M Box Flow</th>
+                  <th data-lang="vi">Thao Tác Cuối Đêm / Cuối Tháng</th>
+                  <th data-lang="en">Nightly / Month-End Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b data-lang="vi">1. Tiền Thối (Change Float)</b><b data-lang="en">1. Change Float</b></td>
+                  <td data-lang="vi">Mỗi đêm đóng quán: giữ lại đúng <b>1,000,000 ₫</b> gốc, rút toàn bộ tiền dôi ra làm <b>Doanh thu tiền mặt</b>. Cuối tháng <b>không cần làm gì cả</b> (không ảnh hưởng Lãi/Lỗ).</td>
+                  <td data-lang="en">Nightly close: keep <b>1,000,000 VND</b> base, sweep excess as <b>Daily Cash Revenue</b>. At month-end: <b>do nothing</b> (zero P&amp;L impact).</td>
+                </tr>
+                <tr>
+                  <td><b data-lang="vi">2. Chi Lặt Vặt (Petty Cash)</b><b data-lang="en">2. Petty Cash (&lt;50k)</b></td>
+                  <td data-lang="vi">Cuối tháng: (1) Gom toàn bộ note đưa vào <b>Chi phí tháng cũ</b>; (2) Trích <b>Doanh thu nạp bù</b> đúng số tiền note để reset két về <b>1,000,000 ₫ tiền mặt sạch sẽ</b> cho mùng 1.</td>
+                  <td data-lang="en">Month-end: (1) Book all notes into <b>old month's cost</b>; (2) Top up cash from <b>Revenue</b> to reset box to a clean <b>1,000,000 VND cash</b> on Day 1.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 3: MONTHLY WATERFALL & 28.28M DEBT PAYOFF SIMULATOR       -->
+    <!-- ================================================================= -->
+    <section class="section" id="sec-waterfall">
+      <div class="section-header">
+        <div>
+          <span class="section-num" data-lang="vi">Phần 03 · Mô Phỏng Dòng Tiền Hàng Tháng & Lộ Trình Trả Nợ Gốc</span>
+          <span class="section-num" data-lang="en">Section 03 · Monthly Cash Flow Waterfall & Legacy Debt Paydown Simulator</span>
+          <h2 class="section-title" data-lang="vi">Thác Dòng Tiền 6 Bước & Kế Hoạch Xoá Nợ Gốc (-28,288,304 ₫)</h2>
+          <h2 class="section-title" data-lang="en">6-Step Cash Flow Waterfall & Legacy Debt (-28,288,304 VND) Payoff Model</h2>
+        </div>
+        <span class="section-tag" data-lang="vi">Mặc định theo chuẩn thực tế Tháng 10</span>
+        <span class="section-tag" data-lang="en">Defaulted to Verified Oct 2026 Baseline</span>
+      </div>
+
+      <div class="grid-2">
+        <!-- Sliders Panel -->
+        <div class="card">
+          <h3 style="font-size:1rem;margin-bottom:14px;" data-lang="vi">Tham Số Mô Phỏng Hàng Tháng</h3>
+          <h3 style="font-size:1rem;margin-bottom:14px;" data-lang="en">Monthly Simulation Parameters</h3>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span data-lang="vi">1. Doanh thu thực / tháng (POS):</span>
+              <span data-lang="en">1. Monthly Actual Revenue:</span>
+              <span class="mono" id="sim-rev-val" style="color:var(--copper-light);font-weight:700;">33,000,000 ₫</span>
+            </div>
+            <input type="range" id="sim-rev" min="15000000" max="70000000" step="500000" value="33000000" oninput="updateWaterfall()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span data-lang="vi">2. Chi phí NVL + Vận hành (Bù Quỹ 9M & Két 1M):</span>
+              <span data-lang="en">2. Variable COGS & Ops (Float + Box Replenishments):</span>
+              <span class="mono" id="sim-var-val">9,832,500 ₫</span>
+            </div>
+            <input type="range" id="sim-var" min="4000000" max="25000000" step="250000" value="9832500" oninput="updateWaterfall()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span data-lang="vi">3. Thuê mặt bằng + Điện nước cố định:</span>
+              <span data-lang="en">3. Fixed Rent + Utilities:</span>
+              <span class="mono" id="sim-rent-val">6,000,000 ₫</span>
+            </div>
+            <input type="range" id="sim-rent" min="5000000" max="12000000" step="500000" value="6000000" oninput="updateWaterfall()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span data-lang="vi">4. Tỷ lệ trích Quỹ Tái Đầu Tư / Dự Phòng:</span>
+              <span data-lang="en">4. Retained Earnings / Reinvestment Reserve:</span>
+              <span class="pill-status pill-amber mono" id="sim-res-val">Chốt cố định 20% Lãi Ròng</span>
+            </div>
+            <input type="hidden" id="sim-res" value="20">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span data-lang="vi">5. Tỷ lệ dùng Lợi nhuận còn lại để Trả Nợ Gốc 28.28M:</span>
+              <span data-lang="en">5. Share of Distributable Profit Used for 28.28M Debt Paydown:</span>
+              <span class="mono" id="sim-debtpct-val">50% Trả nợ / 50% Chia lãi</span>
+            </div>
+            <input type="range" id="sim-debtpct" min="0" max="100" step="10" value="50" oninput="updateWaterfall()">
+          </div>
+
+          <!-- Debt Payoff Output Card -->
+          <div class="card card-highlight" style="padding:14px 16px;margin-top:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-size:0.82rem;font-weight:600;" data-lang="vi">⏱️ Thời Gian Xoá Sạch Nợ Gốc (28,288,304 ₫):</span>
+              <span style="font-size:0.82rem;font-weight:600;" data-lang="en">⏱️ Months to Clear Legacy Debt (28,288,304 VND):</span>
+              <span class="mono" id="sim-debt-months" style="font-size:1.15rem;font-weight:700;color:#5CD69C;">~4.6 tháng</span>
+            </div>
+            <div style="font-size:0.8rem;color:var(--text-muted);" id="sim-founder-split">
+              Mỗi tháng mỗi Co-founder (25%) nhận tổng cộng <b>3,099,702 ₫</b> (gồm 1,549,851 ₫ thu hồi nợ gốc + 1,549,851 ₫ chia lãi).
+            </div>
+          </div>
+        </div>
+
+        <!-- 6-Step Waterfall Visual -->
+        <div class="card">
+          <h3 style="font-size:1rem;margin-bottom:14px;" data-lang="vi">Thác Phân Bổ Dòng Tiền 6 Bước (Waterfall)</h3>
+          <h3 style="font-size:1rem;margin-bottom:14px;" data-lang="en">Live 6-Step Monthly Cash Flow Waterfall</h3>
+
+          <div class="waterfall-chain">
+            <div class="wf-step step-blue">
+              <div>
+                <div class="wf-step-title" data-lang="vi">Bước 1: Tổng Doanh Thu Thực (POS)</div>
+                <div class="wf-step-title" data-lang="en">Step 1: Total Actual Revenue (POS)</div>
+                <div class="wf-step-desc" data-lang="vi">Sau khi áp dụng quy tắc cắt bill 0h đêm cuối tháng</div>
+                <div class="wf-step-desc" data-lang="en">After applying month-end midnight Loyverse cutoff</div>
+              </div>
+              <div class="wf-step-amount mono" id="wf-1">33,000,000 ₫</div>
+            </div>
+
+            <div class="wf-step">
+              <div>
+                <div class="wf-step-title" data-lang="vi">Bước 2: Quỹ Chăm Sóc Mèo (5% Doanh Thu)</div>
+                <div class="wf-step-title" data-lang="en">Step 2: Cat Care Mission Fund (5% Revenue)</div>
+                <div class="wf-step-desc" data-lang="vi">Chi phí sứ mệnh bắt buộc (Thức ăn, cát, thú y cho mèo)</div>
+                <div class="wf-step-desc" data-lang="en">Mandatory social mission OpEx</div>
+              </div>
+              <div class="wf-step-amount mono" style="color:#E0824F;" id="wf-2">-1,650,000 ₫</div>
+            </div>
+
+            <div class="wf-step">
+              <div>
+                <div class="wf-step-title" data-lang="vi">Bước 3 & 4: Chi Phí VH + Reset Quỹ 10,000,000 ₫</div>
+                <div class="wf-step-title" data-lang="en">Steps 3 & 4: COGS/OpEx + Reset Working Capital to 10M</div>
+                <div class="wf-step-desc" data-lang="vi">Thuê MB (6M) + Bù Quỹ 3M×3 & Két Quán 1M về mốc 10,000,000 ₫</div>
+                <div class="wf-step-desc" data-lang="en">Fixed Rent + Replenish Founder Floats & 1M Cash Box back to 10M</div>
+              </div>
+              <div class="wf-step-amount mono" style="color:#F07B75;" id="wf-34">-15,832,500 ₫</div>
+            </div>
+
+            <div class="wf-step step-green">
+              <div>
+                <div class="wf-step-title" data-lang="vi">⇒ Lợi Nhuận Vận Hành Ròng (Net Operating Profit)</div>
+                <div class="wf-step-title" data-lang="en">⇒ Net Operating Profit</div>
+                <div class="wf-step-desc" id="wf-margin-txt">Biên lợi nhuận ròng: 47.0%</div>
+              </div>
+              <div class="wf-step-amount mono" style="color:#5CD69C;" id="wf-net">15,517,500 ₫</div>
+            </div>
+
+            <div class="wf-step step-amber">
+              <div>
+                <div class="wf-step-title" data-lang="vi">Bước 5: Quỹ Tái Đầu Tư / Dự Phòng (Cố định 20% Lãi Ròng)</div>
+                <div class="wf-step-title" data-lang="en">Step 5: Retained Earnings / Reinvestment Fund (Fixed 20% of Net Profit)</div>
+                <div class="wf-step-desc" data-lang="vi">Giữ lại tài khoản quán để bảo trì, nâng cấp, dự phòng mùa thấp điểm</div>
+                <div class="wf-step-desc" data-lang="en">Retained inside business for equipment, upgrades & buffer</div>
+              </div>
+              <div class="wf-step-amount mono" style="color:#F2B95E;" id="wf-5">3,103,500 ₫</div>
+            </div>
+
+            <div class="wf-step step-green">
+              <div>
+                <div class="wf-step-title" data-lang="vi">Bước 6: Trả Nợ Gốc 28.28M & Chia Lợi Nhuận 4 Co-Founders (80% Lãi Ròng)</div>
+                <div class="wf-step-title" data-lang="en">Step 6: Legacy Debt Paydown & Co-Founder Distribution (80% of Net Profit)</div>
+                <div class="wf-step-desc" id="wf-6-desc">Trả nợ gốc: 6,207,000 ₫ · Chia lãi: 6,207,000 ₫</div>
+              </div>
+              <div class="wf-step-amount mono" style="color:#5CD69C;" id="wf-6">12,414,000 ₫</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 4: CO-FOUNDER EXIT BUYOUT CALCULATOR                      -->
+    <!-- ================================================================= -->
+    <section class="section" id="sec-exit">
+      <div class="section-header">
+        <div>
+          <span class="section-num" data-lang="vi">Phần 04 · Quản Trị Rủi Ro Thanh Khoản</span>
+          <span class="section-num" data-lang="en">Section 04 · Liquidity Protection & Partner Governance</span>
+          <h2 class="section-title" data-lang="vi">Bộ Tính Toán Rút Vốn Co-Founder (Buyout Calculator)</h2>
+          <h2 class="section-title" data-lang="en">Co-Founder Exit & Buyout Calculator</h2>
+        </div>
+        <span class="section-tag" data-lang="vi">Bảo vệ dòng tiền quán 100%</span>
+        <span class="section-tag" data-lang="en">Zero Working Capital Disruption</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="font-size:1rem;margin-bottom:12px;" data-lang="vi">Tham Số Giả Định Khi Có Co-Founder Rút Vốn (25% Cổ Phần)</h3>
+          <h3 style="font-size:1rem;margin-bottom:12px;" data-lang="en">Exit Scenario Inputs (Per 25% Co-Founder Stake)</h3>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span data-lang="vi">Tổng Nợ Gốc còn lại của cả quán (hiện tại 28,288,304 ₫):</span>
+              <span data-lang="en">Total Remaining Legacy Debt Pool (currently 28,288,304 VND):</span>
+              <span class="mono" id="exit-debt-val">28,288,304 ₫</span>
+            </div>
+            <input type="range" id="exit-debt" min="0" max="28288304" step="500000" value="28288304" oninput="updateExit()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span data-lang="vi">Số dư Quỹ Tái Đầu Tư luỹ kế chưa dùng:</span>
+              <span data-lang="en">Accumulated Unspent Reinvestment Reserve:</span>
+              <span class="mono" id="exit-res-val">5,498,510 ₫</span>
+            </div>
+            <input type="range" id="exit-res" min="0" max="30000000" step="500000" value="5498510" oninput="updateExit()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span data-lang="vi">Lợi nhuận phân phối của tháng hiện tại:</span>
+              <span data-lang="en">Current Active Month Distributable Profit:</span>
+              <span class="mono" id="exit-prof-val">12,400,000 ₫</span>
+            </div>
+            <input type="range" id="exit-prof" min="0" max="30000000" step="500000" value="12400000" oninput="updateExit()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span data-lang="vi">Kỳ hạn trả góp Nợ gốc + Vốn lưu động (3 – 6 tháng):</span>
+              <span data-lang="en">Installment Term for Legacy Debt + Working Capital (3–6 mos):</span>
+              <span class="mono" id="exit-months-val">4 tháng</span>
+            </div>
+            <input type="range" id="exit-months" min="3" max="6" step="1" value="4" oninput="updateExit()">
+          </div>
+        </div>
+
+        <div class="card card-highlight">
+          <h3 style="font-size:1rem;margin-bottom:12px;" data-lang="vi">Cấu Trúc Thanh Toán Cho 1 Co-Founder (25%)</h3>
+          <h3 style="font-size:1rem;margin-bottom:12px;" data-lang="en">Payout Breakdown for 1 Exiting Co-Founder (25%)</h3>
+
+          <div class="row-list">
+            <div class="row-item">
+              <div>
+                <div style="font-weight:600;" data-lang="vi">Khoản 4 + 3: Thanh Toán Ngay Khi Rút (Immediate Payout)</div>
+                <div style="font-weight:600;" data-lang="en">Buckets 4 + 3: Paid Immediately Upon Exit</div>
+                <div style="font-size:0.76rem;color:var(--text-muted);" id="exit-imm-sub">25% Lãi tháng hiện tại (3,100,000 ₫) + 25% Quỹ Tái đầu tư (1,374,628 ₫)</div>
+              </div>
+              <span class="mono" style="color:#5CD69C;font-weight:700;font-size:1.05rem;" id="exit-imm-total">4,474,628 ₫</span>
+            </div>
+
+            <div class="row-item">
+              <div>
+                <div style="font-weight:600;" data-lang="vi">Khoản 1 + 2: Trả Góp Dần (Installment Payout)</div>
+                <div style="font-weight:600;" data-lang="en">Buckets 1 + 2: Paid via Monthly Installments</div>
+                <div style="font-size:0.76rem;color:var(--text-muted);" id="exit-inst-sub">25% Nợ gốc (7,072,076 ₫) + 25% Vốn lưu động 10M (2,500,000 ₫)</div>
+              </div>
+              <span class="mono" style="color:var(--copper-light);font-weight:700;font-size:1.05rem;" id="exit-inst-total">9,572,076 ₫</span>
+            </div>
+
+            <div class="row-item" style="border:1px solid var(--copper);">
+              <div>
+                <div style="font-weight:700;" data-lang="vi">👉 Mức Trả Góp Hàng Tháng Từ Dòng Tiền Quán:</div>
+                <div style="font-weight:700;" data-lang="en">👉 Monthly Installment from Ongoing Cash Flow:</div>
+                <div style="font-size:0.76rem;color:var(--text-muted);" data-lang="vi">(Lưu ý: Nếu người rút đang giữ 3,000,000 ₫ tiền ứng mua hàng thì hoàn lại/cấn trừ trước)</div>
+                <div style="font-size:0.76rem;color:var(--text-muted);" data-lang="en">(Note: Any 3M purchasing float held by the exiting founder is returned/netted first)</div>
+              </div>
+              <span class="mono" style="color:#F2B95E;font-weight:700;font-size:1.1rem;" id="exit-monthly-pay">2,393,019 ₫ / tháng</span>
+            </div>
+
+            <div class="row-item">
+              <span data-lang="vi"><b>Tổng Giá Trị Quyền Lợi Rút Vốn (4 Khoản):</b></span>
+              <span data-lang="en"><b>Total 4-Bucket Exit Valuation (25% Partner):</b></span>
+              <span class="mono" style="font-weight:700;font-size:1.1rem;" id="exit-grand-total">14,046,704 ₫</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+  </main>
+
+  <script>
+    let currentLang = 'vi';
+    let currentSurplusMode = 'A';
+
+    function switchPageView(view) {
+      const guideEl = document.getElementById('view-guidebook');
+      const dashEl = document.getElementById('view-dashboard');
+      document.getElementById('tab-btn-guide').classList.toggle('active', view === 'guide');
+      document.getElementById('tab-btn-dash').classList.toggle('active', view === 'dash');
+      document.getElementById('tab-btn-all').classList.toggle('active', view === 'all');
+
+      if (view === 'guide') {
+        guideEl.style.display = 'block';
+        dashEl.style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (view === 'dash') {
+        guideEl.style.display = 'none';
+        dashEl.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        guideEl.style.display = 'block';
+        dashEl.style.display = 'block';
+      }
+    }
+
+    function fmt(n) {
+      return Math.round(n).toLocaleString('en-US') + ' ₫';
+    }
+
+    function setSurplusMode(mode) {
+      currentSurplusMode = mode;
+      ['a', 'b', 'c'].forEach(k => {
+        const isAct = k.toUpperCase() === mode;
+        const b1 = document.getElementById('mode-btn-' + k);
+        const b2 = document.getElementById('mode-btn-' + k + '-en');
+        if (b1) b1.classList.toggle('active', isAct);
+        if (b2) b2.classList.toggle('active', isAct);
+      });
+
+      const totalSurplus = 5498510;
+      const baseDebt = 28288304;
+      let resAmt = 0;
+      if (mode === 'A') {
+        resAmt = 3099702; // 20% of 15,498,510 Net Profit
+      } else if (mode === 'B') {
+        resAmt = 1099702; // 20% of 5,498,510 Remaining Surplus
+      } else {
+        resAmt = 5498510; // 100% kept in Reserve
+      }
+
+      const debtPayPool = totalSurplus - resAmt;
+      const lienPay = Math.round(debtPayPool * 0.5);
+      const haPay = Math.round(debtPayPool * 0.25);
+      const tinPay = debtPayPool - lienPay - haPay;
+      const newDebt = -(baseDebt - debtPayPool);
+
+      document.getElementById('act-res-amt').textContent = fmt(resAmt);
+      document.getElementById('act-verify-res').textContent = fmt(resAmt);
+      document.getElementById('act-lien-amt').textContent = fmt(lienPay);
+      document.getElementById('act-ha-amt').textContent = fmt(haPay);
+      document.getElementById('act-tin-amt').textContent = fmt(tinPay);
+      document.getElementById('act-new-debt').textContent = fmt(newDebt);
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.body.classList.toggle('lang-en', lang === 'en');
+      document.getElementById('btn-vi').classList.toggle('active', lang === 'vi');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      updateFloats();
+      updateKet();
+      updateWaterfall();
+      updateExit();
+    }
+
+    function updateFloats() {
+      const limit = 3000000;
+      const founders = [
+        { id: 'lien', spent: Number(document.getElementById('lien-spent').value) },
+        { id: 'ha',   spent: Number(document.getElementById('ha-spent').value) },
+        { id: 'tin',  spent: Number(document.getElementById('tin-spent').value) }
+      ];
+
+      let totalSpent = 0;
+      founders.forEach(f => {
+        totalSpent += f.spent;
+        const rem = limit - f.spent;
+        const el = document.getElementById(f.id + '-status');
+        const low = rem < 1000000;
+        if (currentLang === 'vi') {
+          el.innerHTML = `Đã chi: ${fmt(f.spent)} · <b>Còn: ${fmt(rem)}</b> ` +
+            (low ? `<span class="pill-status pill-red">⚠️ &lt; 1M: Cần bù ${fmt(f.spent)}</span>` : `<span class="pill-status pill-green">An toàn</span>`);
+        } else {
+          el.innerHTML = `Spent: ${fmt(f.spent)} · <b>Left: ${fmt(rem)}</b> ` +
+            (low ? `<span class="pill-status pill-red">⚠️ &lt; 1M: Top up ${fmt(f.spent)}</span>` : `<span class="pill-status pill-green">Healthy</span>`);
+        }
+      });
+
+      document.getElementById('float-topup-total').textContent = fmt(totalSpent);
+    }
+
+    function updateKet() {
+      const cash = Number(document.getElementById('ket-cash').value) || 0;
+      const notes = Number(document.getElementById('ket-notes').value) || 0;
+      const sum = cash + notes;
+      const diff = sum - 1000000;
+
+      document.getElementById('ket-sum').textContent = fmt(sum);
+      document.getElementById('ket-topup').textContent = fmt(notes);
+
+      const diffEl = document.getElementById('ket-diff-text');
+      const badgeEl = document.getElementById('ket-badge');
+
+      if (diff === 0) {
+        diffEl.style.color = '#5CD69C';
+        diffEl.textContent = currentLang === 'vi'
+          ? '✅ Khớp chuẩn 1,000,000 ₫ (Tiền mặt + Note = 1M)'
+          : '✅ Balanced at 1,000,000 VND (Cash + Notes = 1M)';
+        badgeEl.className = 'pill-status pill-green';
+        badgeEl.textContent = currentLang === 'vi' ? 'Khớp Két (1,000,000 ₫)' : 'Balanced (1,000,000 VND)';
+      } else if (diff < 0) {
+        diffEl.style.color = '#F07B75';
+        diffEl.textContent = currentLang === 'vi'
+          ? `⚠️ Thiếu hụt ${fmt(Math.abs(diff))} (Chưa ghi note hoặc lệch tiền thối)`
+          : `⚠️ Short by ${fmt(Math.abs(diff))} (Missing note or change variance)`;
+        badgeEl.className = 'pill-status pill-red';
+        badgeEl.textContent = currentLang === 'vi' ? `Lệch ${fmt(diff)}` : `Variance ${fmt(diff)}`;
+      } else {
+        diffEl.style.color = '#F2B95E';
+        diffEl.textContent = currentLang === 'vi'
+          ? `ℹ️ Dư ${fmt(diff)} trong két`
+          : `ℹ️ Overage of ${fmt(diff)} in box`;
+        badgeEl.className = 'pill-status pill-amber';
+        badgeEl.textContent = `+${fmt(diff)}`;
+      }
+    }
+
+    function updateWaterfall() {
+      const rev = Number(document.getElementById('sim-rev').value);
+      const varCost = Number(document.getElementById('sim-var').value);
+      const rent = Number(document.getElementById('sim-rent').value);
+      const resPct = Number(document.getElementById('sim-res').value);
+      const debtPct = Number(document.getElementById('sim-debtpct').value);
+
+      const catFund = Math.round(rev * 0.05);
+      const totalOpEx = varCost + rent;
+      const netProfit = Math.max(0, rev - catFund - totalOpEx);
+      const marginPct = rev > 0 ? ((netProfit / rev) * 100).toFixed(1) : '0.0';
+
+      const reserveAmt = Math.round(netProfit * (resPct / 100));
+      const distributable = Math.max(0, netProfit - reserveAmt);
+      const debtPaydown = Math.round(distributable * (debtPct / 100));
+      const dividendPool = distributable - debtPaydown;
+
+      document.getElementById('sim-rev-val').textContent = fmt(rev);
+      document.getElementById('sim-var-val').textContent = fmt(varCost);
+      document.getElementById('sim-rent-val').textContent = fmt(rent);
+      document.getElementById('sim-res-val').textContent = currentLang === 'vi'
+        ? 'Chốt cố định 20% Lãi Ròng'
+        : 'Fixed 20% of Net Profit';
+      document.getElementById('sim-debtpct-val').textContent = currentLang === 'vi'
+        ? `${debtPct}% Trả nợ / ${100 - debtPct}% Chia lãi`
+        : `${debtPct}% Debt / ${100 - debtPct}% Dividend`;
+
+      document.getElementById('wf-1').textContent = fmt(rev);
+      document.getElementById('wf-2').textContent = '-' + fmt(catFund);
+      document.getElementById('wf-34').textContent = '-' + fmt(totalOpEx);
+      document.getElementById('wf-net').textContent = fmt(netProfit);
+      document.getElementById('wf-margin-txt').textContent = currentLang === 'vi'
+        ? `Biên lợi nhuận ròng: ${marginPct}%`
+        : `Net Operating Margin: ${marginPct}%`;
+      document.getElementById('wf-5').textContent = fmt(reserveAmt);
+      document.getElementById('wf-6').textContent = fmt(distributable);
+
+      document.getElementById('wf-6-desc').textContent = currentLang === 'vi'
+        ? `Trả nợ gốc: ${fmt(debtPaydown)} · Chia lãi: ${fmt(dividendPool)}`
+        : `Debt Paydown: ${fmt(debtPaydown)} · Dividend: ${fmt(dividendPool)}`;
+
+      const legacyDebt = 28288304;
+      const monthsEl = document.getElementById('sim-debt-months');
+      if (debtPaydown <= 0) {
+        monthsEl.textContent = currentLang === 'vi' ? 'Không trả nợ (∞)' : 'No paydown (∞)';
+        monthsEl.style.color = '#F2B95E';
+      } else {
+        const mos = (legacyDebt / debtPaydown).toFixed(1);
+        monthsEl.textContent = currentLang === 'vi' ? `~${mos} tháng` : `~${mos} months`;
+        monthsEl.style.color = '#5CD69C';
+      }
+
+      const perFounderTotal = Math.round(distributable / 4);
+      const perFounderDebt = Math.round(debtPaydown / 4);
+      const perFounderDiv = Math.round(dividendPool / 4);
+
+      document.getElementById('sim-founder-split').innerHTML = currentLang === 'vi'
+        ? `Mỗi tháng mỗi Co-founder (25% · Chia 4) nhận tổng cộng <b>${fmt(perFounderTotal)}</b> (gồm <b>${fmt(perFounderDebt)}</b> thu hồi nợ gốc + <b>${fmt(perFounderDiv)}</b> chia lãi). Anh Hưng + Chị Liên (50% · Chia 2) nhận <b>${fmt(perFounderTotal * 2)}</b>.`
+        : `Each 25% Co-founder (Chia 4) receives <b>${fmt(perFounderTotal)}/mo</b> (<b>${fmt(perFounderDebt)}</b> debt recovery + <b>${fmt(perFounderDiv)}</b> dividend). Hưng + Liên (50% · Chia 2) receive <b>${fmt(perFounderTotal * 2)}/mo</b>.`;
+    }
+
+    function updateExit() {
+      const debtPool = Number(document.getElementById('exit-debt').value);
+      const resPool = Number(document.getElementById('exit-res').value);
+      const profPool = Number(document.getElementById('exit-prof').value);
+      const months = Number(document.getElementById('exit-months').value);
+
+      document.getElementById('exit-debt-val').textContent = fmt(debtPool);
+      document.getElementById('exit-res-val').textContent = fmt(resPool);
+      document.getElementById('exit-prof-val').textContent = fmt(profPool);
+      document.getElementById('exit-months-val').textContent = currentLang === 'vi' ? `${months} tháng` : `${months} months`;
+
+      const b1_debt = Math.round(debtPool * 0.25);
+      const b2_wc = 2500000; // 25% of 10,000,000 VND
+      const b3_res = Math.round(resPool * 0.25);
+      const b4_prof = Math.round(profPool * 0.25);
+
+      const immTotal = b3_res + b4_prof;
+      const instTotal = b1_debt + b2_wc;
+      const monthlyPay = Math.round(instTotal / months);
+      const grandTotal = immTotal + instTotal;
+
+      document.getElementById('exit-imm-total').textContent = fmt(immTotal);
+      document.getElementById('exit-imm-sub').textContent = currentLang === 'vi'
+        ? `25% Lãi tháng hiện tại (${fmt(b4_prof)}) + 25% Quỹ Tái đầu tư (${fmt(b3_res)})`
+        : `25% Current Month Profit (${fmt(b4_prof)}) + 25% Reinvestment Reserve (${fmt(b3_res)})`;
+
+      document.getElementById('exit-inst-total').textContent = fmt(instTotal);
+      document.getElementById('exit-inst-sub').textContent = currentLang === 'vi'
+        ? `25% Nợ gốc (${fmt(b1_debt)}) + 25% Vốn lưu động 10M (${fmt(b2_wc)})`
+        : `25% Legacy Debt (${fmt(b1_debt)}) + 25% of 10M Working Capital (${fmt(b2_wc)})`;
+
+      document.getElementById('exit-monthly-pay').textContent = currentLang === 'vi'
+        ? `${fmt(monthlyPay)} / tháng (×${months} tháng)`
+        : `${fmt(monthlyPay)} / mo (×${months} mos)`;
+
+      document.getElementById('exit-grand-total').textContent = fmt(grandTotal);
+    }
+
+    function copyZaloTemplate() {
+      const txt = document.getElementById('zalo-template').textContent;
+      navigator.clipboard.writeText(txt);
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = currentLang === 'vi' ? 'Đã chép!' : 'Copied!';
+      setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+    }
+
+    // Initialize
+    setSurplusMode('A');
+    updateFloats();
+    updateKet();
+    updateWaterfall();
+    updateExit();
+  </script>
+</body>
+</html>

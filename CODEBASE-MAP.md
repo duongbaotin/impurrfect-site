@@ -7,7 +7,7 @@ Quick-reference guide for navigating the codebase. Updated alongside the project
 ## Architecture overview
 
 ```
-public/              → Static assets served at root (robots.txt, favicon.ico, og-image.svg). Files must be at exact URL.
+public/              → Static assets served at root (robots.txt, favicon.ico, og-image.svg) and internal static routes (ops-finance/index.html). Files must be at exact URL.
 docs/menu-drafts/    → Scratch dump for menu bones (.md only, never .yaml). Astro-safe; never affects build or live site.
 src/assets/images/   → Images imported by components (SVGs/WebPs). Imported with `?url` suffix for direct URL.
 src/
@@ -38,6 +38,7 @@ src/
 │   ├── 404.astro           → Branded 404
 │   ├── menu/index.astro    → Menu listing (fetches YAML, sorts, renders)
 │   └── menu-preview/index.astro → Staging menu listing (Baserow + preview UX, noindex, unlinked)
+│   (public/ops-finance/index.html → Internal Financial & Operating Blueprint, standalone static HTML, noindex, unlinked)
 ├── content/menu/*.yaml     → One YAML per menu item (drinks/snacks)
 ├── content.config.ts       → Zod schema for YAML validation + `menuBaserow` collection
 ├── data/
@@ -255,7 +256,7 @@ env var.
 - **No raw hex values** — use `bg-night`, `text-cream`, `text-gold`, `border-charcoal`, etc. from `@theme` in `global.css`
 - **Font classes only:** `.font-display`, `.font-body`, `.font-accent` — do NOT use Tailwind's `fontFamily` theme config
 - **Pricing format:** `"VND 180k"` (Vietnamese Dong with "k" shorthand)
-- **Images live in `src/assets/images/`** — imported in components via `?url` suffix. YAML `image` values are lookup keys resolved by `src/lib/menu-images.ts` (`resolveMenuImage`). Only `robots.txt`, `favicon.ico`, and `og-image.svg` remain in `public/` (must be at root URL; OG image needs absolute URL for social crawlers).
+- **Images live in `src/assets/images/`** — imported in components via `?url` suffix. YAML `image` values are lookup keys resolved by `src/lib/menu-images.ts` (`resolveMenuImage`). Only root assets (`robots.txt`, `favicon.ico`, `og-image.svg`) and internal static routes (`public/ops-finance/index.html`) remain in `public/`.
 - **Preview-only theme tokens** live in `src/styles/menu-preview.css`; do not add them to `global.css` or apply them to `/menu`. `MainLayout` takes `preview={true}` only on `/menu-preview`.
 - **No React** — pure Astro + Tailwind; client interactivity via Alpine.js
 - **No tests, no linter, no formatter** in the repo

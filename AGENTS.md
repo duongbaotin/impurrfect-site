@@ -28,8 +28,9 @@ No tests, no linter, no formatter config in this repo. Pre-merge verification: `
 ## Routes
 
 - `/` — landing page
-- `/menu` — production cocktail menu listing with the new UX/UI (`[ 🌙 Dark | ☀️ Light ]` theme toggle, 6-category 3×2 grid with `Zero Alcohol`, dynamic faceted `Taste ▾` + `Spirit ▾` drawers, concise `ingredients` + tap-to-expand story cards, photo viewer), powered by the YAML `menu` collection. Included in sitemap.
-- `/menu-preview` — **staging** mirror of `/menu` built from the Baserow `menuBaserow` collection; renders the exact same UX as `/menu`. `noindex`, unlinked from nav, excluded from the sitemap. Used for soak-testing Baserow + Zalo Bot sync.
+- `/menu` — **locked production** cocktail menu listing with the new UX/UI (`[ 🌙 Dark | ☀️ Light ]` theme toggle, 6-category 3×2 grid with `Zero Alcohol`, dynamic faceted `Taste ▾` + `Spirit ▾` drawers, concise `ingredients` + tap-to-expand story cards, photo viewer), powered by the YAML `menu` collection. Included in sitemap.
+- `/menu-preview` — **staging sandbox** mirror of `/menu` built from the Baserow `menuBaserow` collection; `noindex`, unlinked from nav, excluded from the sitemap. **Strict Staging Rule:** Any future menu tweak, UX experiment, or feature upgrade MUST be staged on `/menu-preview` only (do not let changes leak to `/menu` via shared components unless the owner explicitly says *"apply to `/menu`"*).
+- `/ops-finance` — **internal-only** Financial & Operating Blueprint (`public/ops-finance/index.html`, synced from `../operation-finance/docs/financial-blueprint.html`); standalone self-contained HTML (no Astro layout), `noindex, nofollow, noarchive` via meta tag + `vercel.json` HTTP header + `robots.txt`, unlinked from nav, excluded from sitemap.
 - `/contact` — contact info and inquiry note
 - `*` — 404 page (branded)
 
@@ -44,7 +45,7 @@ Key conventions an agent is likely to miss:
 - **Font classes only:** `.font-display`, `.font-body` (Tailwind `@theme` utilities), `.font-accent` (global style in `MainLayout.astro`, not a Tailwind class). Only Playfair Display is loaded via Google Fonts; Satoshi and Freight Big Pro resolve to system fallbacks.
 - **No raw hex colors** — use `bg-night`, `text-cream`, `text-gold`, `border-charcoal` etc. (defined in `src/styles/global.css` `@theme`).
 - **Pricing format:** Vietnamese Dong with "k" shorthand, e.g. `VND 180k`.
-- **Images:** SVGs live in `src/assets/images/`, imported with `?url` suffix in Astro frontmatter. YAML `image` values are lookup keys resolved by `MenuItem.astro`'s `imageSrcMap`. Only `robots.txt`, `favicon.ico`, and `og-image.svg` stay in `public/` (must be at root URL; OG image needs absolute URL for social crawlers).
+- **Images:** SVGs live in `src/assets/images/`, imported with `?url` suffix in Astro frontmatter. YAML `image` values are lookup keys resolved by `MenuItem.astro`'s `imageSrcMap`. Only root assets (`robots.txt`, `favicon.ico`, `og-image.svg`) and internal static routes (`public/ops-finance/index.html`) live in `public/`.
 - **No React** — pure Astro + Tailwind; client interactivity via Alpine.js.
 - `src/styles/global.css` imported only by `MainLayout`.
 - `HoursLocation.astro` — pre-built venue block; import instead of duplicating markup.

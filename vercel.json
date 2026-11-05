@@ -14,5 +14,25 @@
       "destination": "/menu/:path*",
       "permanent": true
     }
+  ],
+  "headers": [
+    {
+      "source": "/ops-finance",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
+      "source": "/ops-finance/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    }
   ]
 }

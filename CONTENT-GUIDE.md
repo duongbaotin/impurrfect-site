@@ -11,6 +11,7 @@ How to edit site content for **impurrfect (a cat dive bar)** / **impurrfect bar*
 | Landing page (`/`) | `src/pages/index.astro` |
 | Contact (`/contact`) | `src/pages/contact.astro` |
 | 404 page | `src/pages/404.astro` |
+| Financial & Operating Blueprint (`/ops-finance`) | `public/ops-finance/index.html` (internal-only standalone HTML, synced from `../operation-finance/docs/financial-blueprint.html`) |
 | SEO titles, descriptions | `title` and `description` props on `<MainLayout>` in each page |
 
 The brand word "impurrfect" is a reusable component:
