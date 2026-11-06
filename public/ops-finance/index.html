@@ -968,9 +968,9 @@
               <span class="mono" style="color:#5CD69C;font-weight:700;" id="act-tin-amt">1,099,702 ₫</span>
             </div>
             <div class="row-item">
-              <span data-lang="vi"><b>⇒ Nợ Gốc Luỹ Kế (Balance!H4) giảm từ -28,288,304 ₫ xuống còn:</b></span>
-              <span data-lang="en"><b>⇒ Legacy Debt (Balance!H4) drops from -28,288,304 VND to:</b></span>
-              <span class="mono" style="color:#F07B75;font-weight:700;" id="act-new-debt">-23,889,496 ₫</span>
+              <span data-lang="vi"><b>⇒ Nợ Gốc Luỹ Kế (Balance!H5) sau khi trừ T9 (+9.46M) &amp; T10 còn:</b></span>
+              <span data-lang="en"><b>⇒ Cumulative Legacy Debt (Balance!H5) after M09 &amp; M10 drops to:</b></span>
+              <span class="mono" style="color:#F07B75;font-weight:700;" id="act-new-debt">-14,426,894 ₫</span>
             </div>
           </div>
         </div>
@@ -1200,13 +1200,13 @@
 
         <div class="card">
           <div class="kpi-label">
-            <span data-lang="vi">Nợ Gốc Luỹ Kế (Balance!H4)</span>
-            <span data-lang="en">Cumulative Legacy Debt (Balance!H4)</span>
-            <span class="pill-status pill-red">1/4 – 30/8</span>
+            <span data-lang="vi">Nợ Gốc Còn Lại (Balance!H5)</span>
+            <span data-lang="en">Remaining Legacy Debt (Balance!H5)</span>
+            <span class="pill-status pill-red">Đã trừ T9 &amp; T10</span>
           </div>
-          <div class="kpi-value mono" style="color:#F07B75;">-28,288,304 ₫</div>
-          <div class="kpi-sub" data-lang="vi">Hưng+Liên: 14,144,152 ₫ · Tín: 7,072,076 ₫ · Hạ: 7,072,076 ₫</div>
-          <div class="kpi-sub" data-lang="en">Hưng+Liên: 14.14M VND · Tín: 7.07M VND · Hạ: 7.07M VND</div>
+          <div class="kpi-value mono" style="color:#F07B75;">-14,426,894 ₫</div>
+          <div class="kpi-sub" data-lang="vi">Từ -28.29M trừ T9 (+9.46M) &amp; T10 (+4.40M) · Hưng+Liên: 7.21M · Tín: 3.61M · Hạ: 3.61M</div>
+          <div class="kpi-sub" data-lang="en">Down from -28.29M after M09 &amp; M10 · Hưng+Liên: 7.21M · Tín: 3.61M · Hạ: 3.61M</div>
         </div>
       </div>
 
@@ -1347,19 +1347,19 @@
           </table>
         </div>
 
-        <div class="callout">
-          <div class="callout-title">
-            <span>⚠️</span>
-            <span data-lang="vi">Ghi Chú Kiểm Toán: Lỗi Công Thức Tính Trùng 674,500 ₫ Tại Ô M10!P25</span>
-            <span data-lang="en">Audit Finding: 674,500 VND Double-Count Formula Bug in Cell M10!P25</span>
+        <div class="callout" style="background:var(--emerald-bg);border-color:rgba(59,155,110,0.4);border-left-color:var(--emerald);">
+          <div class="callout-title" style="color:#5CD69C;">
+            <span>✅</span>
+            <span data-lang="vi">Đã Đồng Bộ 100% Với Sheet M10 &amp; Balance Mới Nhất (M10!N30 = 15,498,510 ₫ · R30 = 0 ₫)</span>
+            <span data-lang="en">100% Synced with Latest M10 &amp; Balance Sheet (M10!N30 = 15,498,510 VND · R30 = 0 VND)</span>
           </div>
           <p data-lang="vi">
-            Trong Sheet <code>M10</code>, ô <code>P25 (Còn lại)</code> đang dùng công thức <code>= K3 + K4 + K6 - P24 = 16,173,010 ₫</code>. Tuy nhiên khoản <code>K6 (Debit = 674,500 ₫)</code> đã được cấn trừ trực tiếp vào tiền chuyển khoản của Tín (<code>-300k</code>) và Hạ (<code>-374.5k</code>) nằm trong <code>P24</code>. Vì vậy cộng thêm <code>K6</code> lần nữa làm dư ảo <code>674,500 ₫</code>.<br/>
-            👉 <b>Tiền thực tế còn lại (Cash + Bank):</b> <code>7,450,000 + 21,288,511 - 13,240,001 = <b>15,498,510 ₫</b></code> (Khớp tuyệt đối 100% tới từng đồng với <code>K16 Lợi nhuận = 15,498,510 ₫</code>). Sau khi giữ lại <b>10,000,000 ₫</b> làm Quỹ Vốn Lưu Động, thặng dư thực tế còn lại của T10 là <b>5,498,510 ₫</b>.
+            Co-founders đã cập nhật lại công thức trên Sheet <code>M10</code>: gộp <code>674,500 ₫ Debit</code> vào <code>K4</code>, thêm dòng <code>Working Fund (10,000,000 ₫)</code> ở <code>K17</code>, <code>Tái đầu tư 20% (1,099,702 ₫)</code> ở <code>K18</code>, và <code>Lợi nhuận chia (4,398,808 ₫)</code> ở <code>K19</code>.<br/>
+            👉 <b>Kết quả đối chiếu:</b> Ô <code>N30 (Còn lại)</code> khớp chuẩn <b>15,498,510 ₫</b> và sau khi chuyển đủ <code>28,738,511 ₫</code> tại <code>R29</code>, số dư <code>R30</code> về đúng <b>0 ₫</b>. Đồng thời trên tab <code>Balance!H5</code>, tổng nợ gốc luỹ kế sau khi trừ lãi T9 (<code>+9,462,602 ₫</code>) và T10 (<code>+4,398,808 ₫</code>) đã giảm một nửa từ <code>-28,288,304 ₫</code> xuống chỉ còn <b>-14,426,894 ₫</b>!
           </p>
           <p data-lang="en">
-            In Sheet <code>M10</code>, cell <code>P25 (Còn lại)</code> uses <code>= K3 + K4 + K6 - P24 = 16,173,010 VND</code>. Because <code>K6 (Debit = 674,500 VND)</code> was already deducted from Tín (<code>-300k</code>) and Hạ (<code>-374.5k</code>) inside <code>P24</code>, adding <code>K6</code> again double-counts <code>674,500 VND</code>.<br/>
-            👉 <b>True Liquid Cash + Bank Remaining:</b> <code>7,450,000 + 21,288,511 - 13,240,001 = <b>15,498,510 VND</b></code> (Matches <code>K16 Net Profit = 15,498,510 VND</code> to the exact đồng). After carving out <b>10,000,000 VND</b> for the Working Capital Fund, the true remaining Oct surplus is <b>5,498,510 VND</b>.
+            Co-founders updated Sheet <code>M10</code>: folded <code>674,500 VND Debit</code> into <code>K4</code>, added <code>Working Fund (10,000,000 VND)</code> at <code>K17</code>, <code>20% Reinvestment (1,099,702 VND)</code> at <code>K18</code>, and <code>Distributable Profit (4,398,808 VND)</code> at <code>K19</code>.<br/>
+            👉 <b>Reconciliation Result:</b> Cell <code>N30</code> matches <b>15,498,510 VND</b> and <code>R30</code> nets to exactly <b>0 VND</b>. On tab <code>Balance!H5</code>, cumulative legacy debt after netting M09 (<code>+9,462,602 VND</code>) and M10 (<code>+4,398,808 VND</code>) dropped by half from <code>-28,288,304 VND</code> down to <b>-14,426,894 VND</b>!
           </p>
         </div>
       </div>
@@ -1521,8 +1521,8 @@
         <div>
           <span class="section-num" data-lang="vi">Phần 03 · Mô Phỏng Dòng Tiền Hàng Tháng & Lộ Trình Trả Nợ Gốc</span>
           <span class="section-num" data-lang="en">Section 03 · Monthly Cash Flow Waterfall & Legacy Debt Paydown Simulator</span>
-          <h2 class="section-title" data-lang="vi">Thác Dòng Tiền 6 Bước & Kế Hoạch Xoá Nợ Gốc (-28,288,304 ₫)</h2>
-          <h2 class="section-title" data-lang="en">6-Step Cash Flow Waterfall & Legacy Debt (-28,288,304 VND) Payoff Model</h2>
+          <h2 class="section-title" data-lang="vi">Thác Dòng Tiền 6 Bước & Kế Hoạch Xoá Nợ Gốc Còn Lại (-14,426,894 ₫)</h2>
+          <h2 class="section-title" data-lang="en">6-Step Cash Flow Waterfall & Remaining Legacy Debt (-14,426,894 VND) Payoff Model</h2>
         </div>
         <span class="section-tag" data-lang="vi">Mặc định theo chuẩn thực tế Tháng 10</span>
         <span class="section-tag" data-lang="en">Defaulted to Verified Oct 2026 Baseline</span>
@@ -1572,8 +1572,8 @@
 
           <div class="control-group">
             <div class="control-header">
-              <span data-lang="vi">5. Tỷ lệ dùng Lợi nhuận còn lại để Trả Nợ Gốc 28.28M:</span>
-              <span data-lang="en">5. Share of Distributable Profit Used for 28.28M Debt Paydown:</span>
+              <span data-lang="vi">5. Tỷ lệ dùng Lợi nhuận còn lại để Trả Nợ Gốc (-14.43M):</span>
+              <span data-lang="en">5. Share of Distributable Profit Used for -14.43M Debt Paydown:</span>
               <span class="mono" id="sim-debtpct-val">50% Trả nợ / 50% Chia lãi</span>
             </div>
             <input type="range" id="sim-debtpct" min="0" max="100" step="10" value="50" oninput="updateWaterfall()">
@@ -1582,9 +1582,9 @@
           <!-- Debt Payoff Output Card -->
           <div class="card card-highlight" style="padding:14px 16px;margin-top:16px;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-              <span style="font-size:0.82rem;font-weight:600;" data-lang="vi">⏱️ Thời Gian Xoá Sạch Nợ Gốc (28,288,304 ₫):</span>
-              <span style="font-size:0.82rem;font-weight:600;" data-lang="en">⏱️ Months to Clear Legacy Debt (28,288,304 VND):</span>
-              <span class="mono" id="sim-debt-months" style="font-size:1.15rem;font-weight:700;color:#5CD69C;">~4.6 tháng</span>
+              <span style="font-size:0.82rem;font-weight:600;" data-lang="vi">⏱️ Thời Gian Xoá Sạch Nợ Gốc Còn Lại (14,426,894 ₫):</span>
+              <span style="font-size:0.82rem;font-weight:600;" data-lang="en">⏱️ Months to Clear Remaining Legacy Debt (14,426,894 VND):</span>
+              <span class="mono" id="sim-debt-months" style="font-size:1.15rem;font-weight:700;color:#5CD69C;">~2.3 tháng</span>
             </div>
             <div style="font-size:0.8rem;color:var(--text-muted);" id="sim-founder-split">
               Mỗi tháng mỗi Co-founder (25%) nhận tổng cộng <b>3,099,702 ₫</b> (gồm 1,549,851 ₫ thu hồi nợ gốc + 1,549,851 ₫ chia lãi).
@@ -1682,20 +1682,20 @@
 
           <div class="control-group">
             <div class="control-header">
-              <span data-lang="vi">Tổng Nợ Gốc còn lại của cả quán (hiện tại 28,288,304 ₫):</span>
-              <span data-lang="en">Total Remaining Legacy Debt Pool (currently 28,288,304 VND):</span>
-              <span class="mono" id="exit-debt-val">28,288,304 ₫</span>
+              <span data-lang="vi">Tổng Nợ Gốc còn lại của cả quán (Balance!H5 = 14,426,894 ₫):</span>
+              <span data-lang="en">Total Remaining Legacy Debt Pool (Balance!H5 = 14,426,894 VND):</span>
+              <span class="mono" id="exit-debt-val">14,426,894 ₫</span>
             </div>
-            <input type="range" id="exit-debt" min="0" max="28288304" step="500000" value="28288304" oninput="updateExit()">
+            <input type="range" id="exit-debt" min="0" max="28288304" step="500000" value="14426894" oninput="updateExit()">
           </div>
 
           <div class="control-group">
             <div class="control-header">
-              <span data-lang="vi">Số dư Quỹ Tái Đầu Tư luỹ kế chưa dùng:</span>
-              <span data-lang="en">Accumulated Unspent Reinvestment Reserve:</span>
-              <span class="mono" id="exit-res-val">5,498,510 ₫</span>
+              <span data-lang="vi">Số dư Quỹ Tái Đầu Tư luỹ kế chưa dùng (Balance!E11):</span>
+              <span data-lang="en">Accumulated Unspent Reinvestment Reserve (Balance!E11):</span>
+              <span class="mono" id="exit-res-val">1,099,702 ₫</span>
             </div>
-            <input type="range" id="exit-res" min="0" max="30000000" step="500000" value="5498510" oninput="updateExit()">
+            <input type="range" id="exit-res" min="0" max="30000000" step="500000" value="1099702" oninput="updateExit()">
           </div>
 
           <div class="control-group">
@@ -1803,7 +1803,7 @@
       });
 
       const totalSurplus = 5498510;
-      const baseDebt = 28288304;
+      const postM09Debt = 18825702; // 28,288,304 (through Aug) - 9,462,602 (M09)
       let resAmt = 0;
       if (mode === 'A') {
         resAmt = 3099702; // 20% of 15,498,510 Net Profit
@@ -1817,7 +1817,7 @@
       const lienPay = Math.round(debtPayPool * 0.5);
       const haPay = Math.round(debtPayPool * 0.25);
       const tinPay = debtPayPool - lienPay - haPay;
-      const newDebt = -(baseDebt - debtPayPool);
+      const newDebt = -(postM09Debt - debtPayPool); // For Mode B: -(18,825,702 - 4,398,808) = -14,426,894
 
       document.getElementById('act-res-amt').textContent = fmt(resAmt);
       document.getElementById('act-verify-res').textContent = fmt(resAmt);
@@ -1972,7 +1972,7 @@
         ? `Trả nợ gốc: ${fmt(debtPaydown)} · Chia lãi: ${fmt(dividendPool)}`
         : `Debt Paydown: ${fmt(debtPaydown)} · Dividend: ${fmt(dividendPool)}`;
 
-      const legacyDebt = 28288304;
+      const legacyDebt = 14426894;
       const monthsEl = document.getElementById('sim-debt-months');
       if (debtPaydown <= 0) {
         monthsEl.textContent = currentLang === 'vi' ? 'Không trả nợ (∞)' : 'No paydown (∞)';
