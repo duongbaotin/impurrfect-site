@@ -23,6 +23,8 @@ category: "Cocktails"          # must match a category exactly (see below)
 # subcategory: "Whiskey-based" # groups drinks within a category
 # tags: ["Smoky", "Bitter"]    # flavor tags shown on the menu
 # featured: true               # adds a ★ staff favorite badge
+# featuredTag: "New"           # /menu-preview only: New | Special | Promo | Seasonal | Limited — adds the drink to the Featured & Specials carousel
+# promoPrice: "VND 119k"       # /menu-preview only: shows the standard price struck through next to it
 # image: "/cocktail-placeholder.svg"  # lookup key resolved by MenuItem.astro's imageSrcMap (SVGs and .webp photos)
 # available: false             # set to false to show "Currently unavailable"
 ```

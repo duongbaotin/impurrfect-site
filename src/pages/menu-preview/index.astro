@@ -5,6 +5,7 @@ import MenuHeader from '../../components/MenuHeader.astro';
 import PreviewThemeToggle from '../../components/preview/PreviewThemeToggle.astro';
 import PreviewFilterBar from '../../components/preview/PreviewFilterBar.astro';
 import PreviewMenuCategory from '../../components/preview/PreviewMenuCategory.astro';
+import PreviewFeaturedSection from '../../components/preview/PreviewFeaturedSection.astro';
 import { categories } from '../../data/categories';
 import { menuMoods, menuSpirits, moodKeysFor } from '../../data/menu-moods';
 import '../../styles/menu-preview.css';
@@ -46,6 +47,15 @@ const categoryTabs = menuCategories.map((cat) => ({
   name: cat.category,
   count: cat.items.length,
 }));
+
+// Spotlight carousel: any active row carrying a featured_tag. Rows keep their
+// home category below, and the inline `featured` staff-favorite stamp is
+// untouched — the two triggers are deliberately independent.
+const featuredItems = menuCategories.flatMap((cat) =>
+  cat.items
+    .filter((item) => item.featuredTag && item.available !== false)
+    .map((item) => ({ ...item, category: cat.category }))
+);
 ---
 
 <MainLayout
@@ -72,6 +82,8 @@ const categoryTabs = menuCategories.map((cat) => ({
       moods={menuMoods}
       spirits={menuSpirits}
     />
+
+    <PreviewFeaturedSection items={featuredItems} />
 
     <div id="preview-menu-list" class="mt-8 space-y-14">
       {menuCategories.map((cat) => (

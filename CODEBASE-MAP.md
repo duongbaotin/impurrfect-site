@@ -27,6 +27,7 @@ src/
 │   ├── preview/            → /menu-preview-only UX (theme toggle, sticky filters, collapsible cards)
 │   │   ├── PreviewThemeToggle.astro
 │   │   ├── PreviewFilterBar.astro
+│   │   ├── PreviewFeaturedSection.astro → Featured & Specials spotlight carousel (Baserow `featured_tag`)
 │   │   ├── PreviewMenuCategory.astro
 │   │   └── PreviewMenuItem.astro
 │   └── lightbox/
@@ -82,7 +83,8 @@ scripts/
 | Single drink card layout (name, price, tags, badges) | `src/components/MenuItem.astro` (legacy static) / `src/components/preview/PreviewMenuItem.astro` (interactive) |
 | Menu filter bar (zero-scroll category tabs, taste & spirit drawers) | `src/components/preview/PreviewFilterBar.astro` |
 | Menu category / subcategory hide-when-filtered | `src/components/preview/PreviewMenuCategory.astro` |
-| Menu collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` — ingredients/tags/unavailable collapsed, story description in drawer with `.pv-story` styling |
+| Menu collapsible drink card + thumbnail column | `src/components/preview/PreviewMenuItem.astro` — ingredients/tags/unavailable collapsed, story description in drawer with `.pv-story` styling; promo badge (`.pv-promo-badge`) and struck-through price (`.pv-price-was`) when `featuredTag` / `promoPrice` are set |
+| Featured & Specials spotlight carousel (image-on-top swipe cards) | `src/components/preview/PreviewFeaturedSection.astro` + carousel styles in `src/styles/menu-preview.css` (`.pv-featured-*`). Hidden whenever any category/taste/spirit filter is active |
 | Menu 2-segment theme switch (`🌙 Dark \| ☀️ Light`) | `src/components/preview/PreviewThemeToggle.astro` |
 | Image viewer (zoom, drag-dismiss) | `src/components/lightbox/ImageViewer.astro` — singleton, mounted in MainLayout |
 | CTA button styling | Any `a` with `class="bg-gold ..."` |
@@ -150,7 +152,9 @@ scripts/
 | `category` | ✅ | string | `z.enum` built from `categories.ts` — unknown names fail the build |
 | `order` | ❌ | integer | Default `0` (sorts before positive numbers); must be whole |
 | `tags` | ❌ | string[] | e.g. `["Smoky", "Bitter"]`; each tag must be non-empty |
-| `featured` | ❌ | boolean | Shows ★ staff favorite badge |
+| `featured` | ❌ | boolean | Shows ★ staff favorite badge (independent of `featuredTag`) |
+| `featuredTag` | ❌ | `New \| Special \| Promo \| Seasonal \| Limited` | `/menu-preview`: adds the item to the Featured & Specials spotlight carousel and shows `[TAG]` on its category card. Baserow `featured_tag` |
+| `promoPrice` | ❌ | string | Must match the same price pattern; the loader only emits it for a real discount (`> 0` and `< price`). Renders the standard price struck through. Baserow `promo_price` (VND number) |
 | `image` | ❌ | string | Path key resolved by `MenuItem.astro`'s `imageSrcMap`, e.g. `"/cocktail-placeholder.svg"`. Must be `.svg`/`.webp` **and** exist in `src/assets/images/` |
 | `subcategory` | ❌ | string | Groups items within a category; must be non-empty after trim |
 | `available` | ❌ | boolean | Default `true`; set `false` to show "Currently unavailable" |
@@ -198,7 +202,7 @@ Baserow `recipe_ingredients` (1258955,    │
                                     │  filter status = active / unavailable
                                     │  map → name/price/description/ingredients/
                                     │        category/order/subcategory/tags/
-                                    │        featured/image/available
+                                    │        featured/featuredTag/promoPrice/image/available
                                     │  ingredients: web_ingredients, else derived
                                     │  fail on duplicate order per category
                                     ▼
@@ -213,11 +217,11 @@ Baserow `recipe_ingredients` (1258955,    │
                                     ▼
                     x-data="menuPreview"  (src/preview-menu.ts)
                                     │
-                    ┌───────────────┼────────────────┐
-                    ▼               ▼                ▼
-          PreviewFilterBar   PreviewMenuCategory   PreviewMenuItem
-          (tabs/pills)        (hide empty)          (expand/collapse,
-                                                        photo lightbox)
+                     ┌───────────────┼────────────────┬───────────────────┐
+                     ▼               ▼                ▼                   ▼
+          PreviewFilterBar   PreviewMenuCategory   PreviewMenuItem   PreviewFeaturedSection
+          (tabs/pills)        (hide empty)          (expand/collapse,  (featuredTag items,
+                                                         photo lightbox)  x-show="!isFiltered")
 ```
 
 `/menu` and `/menu-preview` render the exact same interactive menu UI, but read

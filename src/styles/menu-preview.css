@@ -136,7 +136,9 @@ html[data-preview] .menu-preview header .bg-charcoal {
 .pv-pill:focus-visible,
 .pv-taste-trigger:focus-visible,
 .pv-clear:focus-visible,
-.pv-item-toggle:focus-visible {
+.pv-item-toggle:focus-visible,
+.pv-featured-toggle:focus-visible,
+.pv-featured-photo-btn:focus-visible {
   outline: 2px solid var(--pv-accent);
   outline-offset: 2px;
 }
@@ -360,6 +362,204 @@ html[data-preview][data-preview-theme='paper'] .pv-photo {
   box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
 }
 
+/* --- Featured & Specials spotlight carousel (/menu-preview only) --- */
+
+.pv-featured {
+  margin-top: 1.5rem;
+}
+
+.pv-featured-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.pv-featured-title {
+  color: var(--pv-text);
+}
+
+.pv-featured-sub {
+  color: var(--pv-muted);
+}
+
+.pv-featured-hint {
+  flex-shrink: 0;
+  padding-bottom: 1px;
+  color: var(--pv-accent);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* align-items: flex-start keeps each card at its own height, so expanding one
+   story never stretches its neighbours. */
+.pv-featured-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.35rem;
+}
+
+.pv-featured-card {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  width: 72%;
+  overflow: hidden;
+  scroll-snap-align: start;
+  border: 1px solid var(--pv-border);
+  border-radius: 4px;
+  background-color: var(--pv-surface);
+}
+
+@media (min-width: 640px) {
+  .pv-featured-card {
+    width: 44%;
+  }
+}
+
+@media (min-width: 768px) {
+  .pv-featured-card {
+    width: 31%;
+  }
+}
+
+.pv-featured-card[data-single='true'] {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .pv-featured-card[data-single='true'] {
+    width: 50%;
+  }
+}
+
+.pv-featured-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.45rem 0.7rem;
+  border-bottom: 1px solid var(--pv-border);
+}
+
+.pv-featured-cat {
+  overflow: hidden;
+  color: var(--pv-muted);
+  font-family: var(--font-body);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pv-promo-badge {
+  display: inline-block;
+  flex-shrink: 0;
+  padding: 1px 6px;
+  border: 1px solid var(--pv-accent);
+  background-color: color-mix(in srgb, var(--pv-accent) 14%, transparent);
+  color: var(--pv-accent);
+  font-family: var(--font-body);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* Regular category rows: badge sits inline after the drink name. */
+.pv-name .pv-promo-badge {
+  margin-left: 0.4rem;
+}
+
+.pv-featured-stage {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--pv-border);
+}
+
+.pv-featured-photo-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pv-featured-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.2s ease;
+}
+
+.pv-featured-photo-btn:hover .pv-featured-photo {
+  opacity: 0.88;
+}
+
+.pv-featured-zoom {
+  position: absolute;
+  right: 0.4rem;
+  bottom: 0.4rem;
+  border-radius: 9999px;
+  padding: 0.2rem;
+}
+
+/* Warm speakeasy stage for drinks that only have a glassware silhouette. */
+.pv-featured-svg-stage {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      color-mix(in srgb, var(--pv-accent) 20%, transparent) 0%,
+      transparent 68%
+    ),
+    color-mix(in srgb, var(--pv-bg) 55%, var(--pv-surface));
+}
+
+.pv-featured-body {
+  flex: 1;
+  padding: 0.6rem 0.7rem 0.7rem;
+}
+
+.pv-featured-toggle {
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pv-featured-name {
+  color: var(--pv-text);
+  transition: color 0.2s ease;
+}
+
+.pv-featured-card:hover .pv-featured-name {
+  color: var(--pv-accent);
+}
+
+.pv-featured-price {
+  color: var(--pv-accent);
+}
+
+.pv-price-was {
+  margin-right: 0.3rem;
+  color: var(--pv-muted);
+  font-size: 0.82em;
+  text-decoration: line-through;
+}
+
 .pv-empty {
   border: 1px dashed var(--pv-border);
   color: var(--pv-muted);
@@ -374,7 +574,11 @@ html[data-preview][data-preview-theme='paper'] .pv-photo {
   .pv-chevron,
   .pv-glass-icon,
   .pv-item-toggle,
-  .pv-item-toggle * {
+  .pv-item-toggle *,
+  .pv-featured-name,
+  .pv-featured-photo,
+  .pv-featured-toggle,
+  .pv-featured-toggle * {
     transition: none !important;
   }
 }

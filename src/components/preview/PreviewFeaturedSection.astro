@@ -1,0 +1,198 @@
+---
+import type { PreviewMenuItemData } from '../../data/menu';
+import { resolveMenuImage } from '../../lib/menu-images';
+
+// /menu-preview only: "Featured & Specials" spotlight carousel. Image-on-top
+// vertical cards in a native scroll-snap track, so a guest sees one card plus a
+// peek of the next on mobile and three across on desktop.
+// Spec: Project Doc #21 (IMP-23), section 2.4.
+
+interface Props {
+  items: (PreviewMenuItemData & { category: string })[];
+}
+
+const { items } = Astro.props;
+
+// "Whiskey-based" reads like a spreadsheet; the bar says "Whiskey".
+function categoryLabel(category: string, subcategory?: string): string {
+  const short = subcategory?.replace(/\s*-based$/i, '').trim();
+  return short ? `${category} · ${short}` : category;
+}
+
+const cards = items.map((item) => {
+  const key = `featured/${item.key}`;
+  return {
+    ...item,
+    key,
+    contentId: `drink-${key.replace(/[^a-zA-Z0-9_-]+/g, '-')}`,
+    keyExpr: JSON.stringify(key),
+    imgSrc: resolveMenuImage(item.image),
+    isPhoto: item.image?.endsWith('.webp') ?? false,
+    label: categoryLabel(item.category, item.subcategory),
+  };
+});
+
+const singleCard = cards.length === 1;
+---
+
+{
+  cards.length > 0 && (
+    <section
+      class="pv-featured"
+      x-show="!isFiltered"
+      aria-labelledby="pv-featured-title"
+    >
+      <div class="pv-featured-head">
+        <div>
+          <h2
+            id="pv-featured-title"
+            class="pv-featured-title font-display text-xl tracking-wider uppercase md:text-2xl"
+          >
+            Featured &amp; Specials
+          </h2>
+          <p class="pv-featured-sub font-accent mt-1 text-xs md:text-sm">
+            New pours, seasonal experiments, and tonight's picks.
+          </p>
+        </div>
+        {cards.length > 1 && (
+          <span class="pv-featured-hint font-body" aria-hidden="true">
+            Swipe ➔
+          </span>
+        )}
+      </div>
+
+      <div class="pv-featured-track pv-scroll" role="list">
+        {cards.map((card) => (
+          <article
+            class="pv-featured-card"
+            role="listitem"
+            data-single={singleCard ? 'true' : undefined}
+          >
+            <!-- Zone 1: promo badge + category micro-label -->
+            <div class="pv-featured-eyebrow">
+              {card.featuredTag && (
+                <span class="pv-promo-badge">[{card.featuredTag}]</span>
+              )}
+              <span class="pv-featured-cat">{card.label}</span>
+            </div>
+
+            <!-- Zone 2: dual-mode image stage -->
+            <div class="pv-featured-stage h-36 sm:h-40">
+              {card.isPhoto && card.imgSrc ? (
+                <button
+                  type="button"
+                  class="pv-featured-photo-btn"
+                  @click.stop={`window.dispatchEvent(new CustomEvent('open-viewer', { detail: { url: ${JSON.stringify(card.imgSrc)}, alt: ${JSON.stringify(card.name)} } }))`}
+                  aria-label={`View larger image of ${card.name}`}
+                >
+                  <img
+                    src={card.imgSrc}
+                    alt={card.name}
+                    loading="lazy"
+                    decoding="async"
+                    class="pv-featured-photo"
+                  />
+                  <span class="pv-zoom-badge pv-featured-zoom" aria-hidden="true">
+                    <svg
+                      class="h-3 w-3"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              ) : (
+                <div class="pv-featured-svg-stage">
+                  {card.imgSrc && (
+                    <img
+                      src={card.imgSrc}
+                      alt=""
+                      aria-hidden="true"
+                      class="pv-glass-icon h-14 w-auto"
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+
+            <!-- Zone 3: full-width info + expandable story -->
+            <div class="pv-featured-body">
+              <div
+                class="pv-featured-toggle select-none"
+                role="button"
+                tabindex="0"
+                aria-controls={card.contentId}
+                :aria-expanded={`isExpanded(${card.keyExpr})`}
+                @click={`toggleItem(${card.keyExpr})`}
+                @keydown.enter.prevent={`toggleItem(${card.keyExpr})`}
+                @keydown.space.prevent={`toggleItem(${card.keyExpr})`}
+              >
+                <div class="flex items-baseline gap-2">
+                  <h3 class="pv-featured-name font-display text-sm leading-snug tracking-wide">
+                    {card.name}
+                  </h3>
+                  <span class="flex-1 border-b border-dashed border-[var(--pv-border)]"></span>
+                  <span class="pv-featured-price shrink-0 font-display text-sm font-medium">
+                    {card.promoPrice ? (
+                      <>
+                        <span class="pv-price-was">{card.price}</span>
+                        {card.promoPrice}
+                      </>
+                    ) : (
+                      card.price
+                    )}
+                  </span>
+                  <svg
+                    class="pv-chevron h-3.5 w-3.5 shrink-0"
+                    :data-expanded={`isExpanded(${card.keyExpr})`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    aria-hidden="true"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+
+                {card.ingredients && (
+                  <p class="pv-ingredients mt-1 text-[11px] leading-relaxed font-light">
+                    {card.ingredients}
+                  </p>
+                )}
+
+                {card.tags && card.tags.length > 0 && (
+                  <div class="mt-1.5 flex flex-wrap items-center gap-2">
+                    {card.tags.map((tag) => (
+                      <span class="pv-tag rounded-sm">{tag}</span>
+                    ))}
+                  </div>
+                )}
+
+                <div
+                  id={card.contentId}
+                  class="pv-expand"
+                  :data-expanded={`isExpanded(${card.keyExpr})`}
+                  :aria-hidden={`!isExpanded(${card.keyExpr})`}
+                >
+                  <div class="pt-2">
+                    <p class="pv-desc pv-story text-xs leading-relaxed font-light">
+                      {card.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}

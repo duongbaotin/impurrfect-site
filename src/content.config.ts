@@ -41,6 +41,15 @@ const menuSchema = z.object({
   order: z.number().int('order must be a whole number'),
   tags: z.array(z.string().trim().min(1)).optional(),
   featured: z.boolean().optional(),
+  // /menu-preview only: drives the Featured & Specials spotlight carousel and the
+  // inline badge. Decoupled from `featured`, which stays the staff-favorite stamp.
+  featuredTag: z.enum(['New', 'Special', 'Promo', 'Seasonal', 'Limited']).optional(),
+  // Optional promo price in the same display form as `price`; the loader only
+  // sets it when it is a real discount against the standard price.
+  promoPrice: z
+    .string()
+    .regex(pricePattern, 'promoPrice must look like "VND 119k"')
+    .optional(),
   image: z
     .string()
     .regex(imagePattern, 'image must look like "/rock-glass.svg" or "/drink.webp"')

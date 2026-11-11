@@ -48,6 +48,9 @@ interface BaserowRecipeRow {
   web_ingredients?: string | null;
   price?: string | number | null;
   price_display?: string | null;
+  featured_tag?: BaserowSelect | null;
+  /** Baserow returns numbers as strings, and null when unset. */
+  promo_price?: string | number | null;
   glassware?: BaserowSelect[] | null;
 }
 
@@ -131,6 +134,16 @@ function priceDisplay(row: BaserowRecipeRow): string {
     return '';
   }
   return `VND ${Math.round(amount / 1000)}k`;
+}
+
+// Only a real discount earns a struck-through price: a blank, zero, or higher
+// promo_price would advertise a "deal" that is not one.
+export function promoPriceDisplay(row: BaserowRecipeRow): string | undefined {
+  const promo = Number(row.promo_price);
+  const base = Number(row.price);
+  if (!Number.isFinite(promo) || promo <= 0) return undefined;
+  if (Number.isFinite(base) && base > 0 && promo >= base) return undefined;
+  return `VND ${Math.round(promo / 1000)}k`;
 }
 
 export const baserowMenuLoader: Loader = {
@@ -232,6 +245,8 @@ export const baserowMenuLoader: Loader = {
         subcategory: row.menu_subcategory?.value || undefined,
         tags: tags.length > 0 ? tags : undefined,
         featured: Boolean(row.featured),
+        featuredTag: row.featured_tag?.value.trim() || undefined,
+        promoPrice: promoPriceDisplay(row),
         image:
           row.web_image?.trim() ||
           (glasswareId === undefined ? undefined : glasswareImages.get(glasswareId)),

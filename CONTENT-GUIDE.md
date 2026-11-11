@@ -57,6 +57,8 @@ subcategory?: string    # optional grouping within a category, e.g. "Whiskey-bas
 order: number             # sort position within category (lower = first); whole numbers only
 tags?: string[]           # optional, e.g. ["Smoky", "Bitter"] — also drives preview mood pills
 featured?: boolean        # shows ★ staff favorite badge (and the preview Staff Favorites filter)
+featuredTag?: string      # preview only: New | Special | Promo | Seasonal | Limited — adds the drink to the Featured & Specials carousel
+promoPrice?: string       # preview only: "VND 119k" — shows the standard price struck through next to it
 image?: string          # "/cocktail-placeholder.svg" — must be .svg/.webp and exist in src/assets/images/
 available?: boolean     # default true; set false to show "Currently unavailable"
 ```
@@ -108,6 +110,7 @@ The production **`/menu`** route and the staging **`/menu-preview`** route share
   - **Drinks-only scope & dynamic faceted filtering**: selecting any taste or spirit filter strictly excludes food (`Snacks`), and viewing the `Snacks` category tab completely hides the filter trigger bar. Options with 0 matching drinks in the current category/spirit are hidden in real time, and switching categories auto-clears incompatible filters so guests never see a 0-result dead end.
   - Active filters show `Taste: <Label> ▾`, `Spirit: <Label> ▾`, `Clear ✕`, and `Showing N drinks`. Tapping a mood or category hides empty categories/subcategories and scrolls the list back under the bar if you were far down the page.
 - **Tap-to-expand cards**: collapsed shows the drink name, price, concise ingredient list, and flavor tags. Tap the text row to reveal the storytelling description with distinctive italic styling and accent left border (`.pv-story`).
+- **Featured & Specials carousel** (`/menu-preview` only): drinks with a Baserow `featured_tag` (`New`, `Special`, `Promo`, `Seasonal`, `Limited`) appear as image-on-top vertical cards in a horizontal swipe row at the top of the `All` view. Each card has a promo badge + category label eyebrow, a full-bleed photo (or glassware illustration/vignette), and the drink info below with its own tap-to-expand story. The row hides itself as soon as any category, taste, or spirit filter is active, and the drinks still appear in their home categories below. A `promo_price` below the standard price shows `~~VND 149k~~ VND 119k`.
 - **Ingredients**: concise guest-facing list (`ingredients:` in YAML; `web_ingredients` in Baserow). If a non-Snack drink leaves it blank on Baserow, the site derives a cleaned list from linked `recipe_ingredients`.
 - **Mood & Spirit mapping**:
   - `★ Staff Favorites` → `featured: true` (or Baserow `featured = true`)
@@ -123,6 +126,7 @@ The production **`/menu`** route and the staging **`/menu-preview`** route share
 | **Data Source** | Static Git YAML (`src/content/menu/*.yaml`) | Live Baserow `recipes` (`1258954`) |
 | **SEO / Indexing** | Indexed, in `sitemap-0.xml`, linked in Nav | `noindex, nofollow`, excluded from sitemap, unlinked |
 | **Purpose** | What real bar guests see right now | Safe soak-testing of Baserow + Zalo Bot updates |
+| **Featured & Specials carousel** | Not shown | Shown above the list in the `All` view, driven by Baserow `featured_tag` |
 - The same validation rules apply: a preview item with a bad price, unknown category, or duplicate order inside its category fails the build with the drink's name.
 - Only rows with `status` = `active` or `unavailable` appear (`planning` / `testing` / `retired` stay internal). If `web_image` is blank, the item falls back to its linked glassware's `image_key`.
 - The build needs a Baserow token, so `npm run build` now requires network access and either `BASEROW_TOKEN` in `.env` or a token file at `~/.secrets/baserow-token` (falls back to `~/.secrets/baserow-database-token`).
