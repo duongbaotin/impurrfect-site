@@ -12,6 +12,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy:staging": "node scripts/trigger-staging-deploy.mjs",
     "astro": "astro"
   },
   "dependencies": {

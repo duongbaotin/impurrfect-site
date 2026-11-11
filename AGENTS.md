@@ -94,8 +94,15 @@ Key gotchas:
 - **`src/preview-menu.ts`** — `menuPreview` Alpine data: active category/mood, visible counts, expand state, theme persistence, `astro:before-swap` cleanup.
 - **`src/styles/menu-preview.css`** — preview-only warm-dark/paper tokens and component styles; imported only by `src/pages/menu-preview/index.astro`.
 - **`src/lib/menu-images.ts`** — shared `image` basename → hashed asset URL map used by live and preview cards.
-- **`../brand-marketing/impurrfect-DNA.md`** — business DNA / tone-of-voice source of truth (maintained by `/brand-marketing`). Consult it before writing or editing any customer-facing copy.
-- **`../impurrfect-lab/`** (repo root) — **Head Architecture & Evolution Hub**. Cross-system upgrade specs and staged rollout plans live here (see `../impurrfect-lab/README.md` and `../impurrfect-lab/01-baserow-web-zalo-sync.md`).
+- **`../brand-marketing/impurrfect-DNA.md`** — business DNA / tone-of-voice source of truth (maintained by `/brand-marketing`, `@brand-marketing`). Consult it before writing or editing any customer-facing copy.
+- **`../` (Workspace Root)** — **General Manager & Executive Chief of Staff** (`@impurrfect-gm`; also live 24/7 in-app mobile chat on `plan.meowracle.space`). Triages raw founder ideas and routes them to the 3 Peer Heads.
+- **`../impurrfect-lab/`** — **Head Architecture & Evolution Hub** (`@impurrfect-lab`). Cross-system upgrade specs, staged rollout plans, and the Product Owner Playbook live here (see `../impurrfect-lab/README.md` and `../impurrfect-lab/PO-PLAYBOOK.md`).
+- **`../impurrfect-infra/`** — **Infrastructure & Home Server Hub** (`@impurrfect-infra`). Manages Mac Mini (`macmini`) Docker stacks (`itsaplan`, Coolify, `n8n`) and Cloudflare Tunnel (`*.meowracle.space`).
+- **PM Board (`https://plan.meowracle.space` — Project `IMP` — Strict Option B Protocol):**
+  - Your agent identity on the board is **`@impurrfect-site`** (API key in `~/.secrets/itsaplan-agent-keys.json` under `"impurrfect-site"`).
+  - **Board-First Rule:** At session start or when assigned any task, always query `IMP` on `plan.meowracle.space` first (`tools.itsaplan.*` — `get_issue_by_number`, `list_issue_documents`, `get_document`, `list_issue_activity`). Search before creating any issue to prevent duplicates.
+  - **Execution & Checklists:** When executing a delegated `IMP-xx` ticket, move it to `In Progress` (`columnId: 3`), read its spec/checklists/linked Docs from `plan.meowracle.space`, and run `npm run check && npm run build`.
+  - **Mandatory Vercel Staging Deploy (`/menu-preview`):** Because `impurrfect-site` compiles Baserow data at *build time*, local `npm run build` only updates the local `dist/` folder. When moving any ticket to `In Review / Staging` (`columnId: 8`) for Tin's mobile verification on `https://impurrfect-bar.meowracle.space/menu-preview`, you MUST trigger the Vercel Deploy Hook via `npm run deploy:staging`, wait ~30s, verify live via curl (`curl -s https://impurrfect-bar.meowracle.space/menu-preview | grep ...`), tick off completed checklist items (`update_checklist_item`), and post your verification report comment on `IMP-xx` under `@impurrfect-site`. When moved to `Done` (`columnId: 4`), always export/update the completed spec in local `.md`.
 - **`vercel.json`** — deploy config: `cleanUrls: true`, permanent redirect `/bar-menu` → `/menu`.
 - **Generated (do not edit):** `.astro/`, `dist/`, `.vercel/` (all in `.gitignore`)
 

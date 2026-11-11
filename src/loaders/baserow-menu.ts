@@ -136,6 +136,7 @@ function priceDisplay(row: BaserowRecipeRow): string {
 export const baserowMenuLoader: Loader = {
   name: 'baserow-menu',
   load: async ({ store, parseData, generateDigest, logger }) => {
+    store.clear();
     const token = resolveToken();
 
     const [recipeRows, glasswareRows] = await Promise.all([
