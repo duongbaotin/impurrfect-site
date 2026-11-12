@@ -14,7 +14,7 @@ src/
 ├── layouts/
 │   └── MainLayout.astro    → HTML shell: <head>, <Nav>, <Footer>, <slot>, <ImageViewer>
 ├── loaders/
-│   ├── baserow-menu.ts     → Build-time Baserow loader for the `menuBaserow` collection (/menu-preview)
+│   ├── baserow-menu.ts     → Build-time loader factory (`createBaserowMenuLoader`) for `menuBaserow` (/menu) + `menuBaserowPreview` (/menu-preview); one cached fetch per build
 │   └── guest-ingredients.ts → Cleans inventory names / drops packaging for the derived ingredient list
 ├── components/
 │   ├── Nav.astro           → Top nav bar + mobile hamburger menu (Alpine.js)
@@ -24,7 +24,7 @@ src/
 │   ├── MenuCategory.astro  → Category section + its drinks
 │   ├── MenuItem.astro      → Single drink card (name, price, tags, badges, zoom trigger)
 │   ├── BrandNameWord.astro → Reusable branded "impurrfect" word
-│   ├── preview/            → /menu-preview-only UX (theme toggle, sticky filters, collapsible cards)
+│   ├── preview/            → Shared interactive menu UX (theme toggle, sticky filters, featured spotlight, collapsible cards)
 │   │   ├── PreviewThemeToggle.astro
 │   │   ├── PreviewFilterBar.astro
 │   │   ├── PreviewFeaturedSection.astro → Featured & Specials spotlight carousel (Baserow `featured_tag`)
@@ -37,11 +37,12 @@ src/
 │   ├── about.astro         → Brand story
 │   ├── contact.astro       → Uses HoursLocation + inquiry note
 │   ├── 404.astro           → Branded 404
-│   ├── menu/index.astro    → Menu listing (fetches YAML, sorts, renders)
-│   └── menu-preview/index.astro → Staging menu listing (Baserow + preview UX, noindex, unlinked)
+│   ├── menu/index.astro    → Live customer menu (`menuBaserow`, canonical rows + Featured Carousel)
+│   ├── menu-preview/index.astro → Staging menu (`menuBaserowPreview`, canonical + complete `testing` rows, noindex, unlinked)
+│   └── menu-v0/index.astro → Hidden YAML archive (legacy `src/content/menu/*.yaml`, noindex, unlinked)
 │   (public/ops-finance/index.html → Internal Financial & Operating Blueprint, standalone static HTML, noindex, unlinked)
-├── content/menu/*.yaml     → One YAML per menu item (drinks/snacks)
-├── content.config.ts       → Zod schema for YAML validation + `menuBaserow` collection
+├── content/menu/*.yaml     → One YAML per menu item (archive behind /menu-v0)
+├── content.config.ts       → Zod schema + `menu` (YAML), `menuBaserow` (/menu) and `menuBaserowPreview` (/menu-preview) collections
 ├── data/
 │   ├── categories.ts       → Category metadata (name, description, order)
 │   ├── menu-moods.ts       → Preview mood-pill definitions + `moodKeysFor()` mapping
@@ -53,7 +54,7 @@ src/
 ├── viewer.ts               → `registerImageViewer`: singleton `open-viewer` relay, drag-down, pinch/wheel/double-tap zoom
 └── styles/
     ├── global.css          → Tailwind import + brand theme variables
-    └── menu-preview.css    → Preview-only warm-dark / paper tokens + component styles
+    └── menu-preview.css    → Shared menu warm-dark / paper tokens + component styles
 
 scripts/
 └── check-menu-order.mjs    → Cross-entry guard: fails the build if two items in one category share `order`
@@ -111,19 +112,20 @@ scripts/
 | 404 page copy | `src/pages/404.astro` |
 | SEO `<title>` / `<description>` | Each page's `<MainLayout>` props |
 | Venue info (address, hours, email) | `src/components/HoursLocation.astro` |
-| Menu tagline | `src/pages/menu/index.astro:8` |
+| Menu tagline | `src/pages/menu/index.astro`, `src/pages/menu-preview/index.astro`, `src/pages/menu-v0/index.astro` |
 | Social links (Instagram, Facebook) | `src/components/Footer.astro` lines 17-23 |
 
 ### Menu Data
 | Want to change… | Action |
 |---|---|
-| Draft a new drink (bones, not live) | Drop a `.md` in `docs/menu-drafts/` (copy `DRAFT-TEMPLATE.md`); promote to YAML later |
-| Add a new drink | Create `src/content/menu/my-drink.yaml` (copy TEMPLATE.md) |
-| Edit name / price / description / tags | Edit the YAML file for that drink |
-| Reorder drinks within a category | Change `order` in each YAML |
-| Mark a drink unavailable | Add `available: false` to its YAML |
-| Change what `/menu-preview` shows | Edit the Baserow `recipes` row (`1258954`) — the preview ignores YAML |
-| Add a web image key / description / tags / ingredients to the preview | Baserow `web_image`, `web_description`, `flavor_tags`, `web_ingredients` on the recipe row |
+| Draft a new drink (bones, not live) | Create it in Baserow with `status = testing`; it appears on `/menu-preview` once its web fields are complete |
+| Add / edit a live drink | Edit the Baserow `recipes` row (`1258954`) — `/menu` and `/menu-preview` ignore YAML |
+| Change what `/menu` shows | Baserow rows with `status = active` / `unavailable` (44 canonical items) |
+| Change what `/menu-preview` shows | The same rows **plus** complete `status = testing` rows (64 items); incomplete testing rows are skipped |
+| Add a web image key / description / tags / ingredients | Baserow `web_image`, `web_description`, `flavor_tags`, `web_ingredients` on the recipe row. All are required for a testing row to render |
+| Reorder drinks within a category | Change `menu_order` in Baserow (whole number, unique per category) |
+| Mark a drink unavailable | Set Baserow `status = unavailable` |
+| Edit the legacy static YAML archive (`/menu-v0`) | Edit `src/content/menu/*.yaml` — not customer-facing |
 | Change preview mood/spirit filter definitions | `src/data/menu-moods.ts` — `menuMoods` (taste) and `menuSpirits` (base spirits) |
 | Add / rename / remove a category | Edit `src/data/categories.ts` (the `Archived` category is internal-only and hidden from `/menu`) |
 | Reorder categories | Change `order` in `categories.ts` |
@@ -133,7 +135,7 @@ scripts/
 | File | Role | Must keep in sync with |
 |---|---|---|
 | `src/content.config.ts` | Zod schema (validates every YAML) | `menu.ts`, `CONTENT-GUIDE.md`, `TEMPLATE.md` |
-| `src/loaders/baserow-menu.ts` | Baserow → collection mapping for `menuBaserow` | `content.config.ts` (same `menuSchema`), `../bar-database/AGENTS.md` |
+| `src/loaders/baserow-menu.ts` | Baserow → collection mapping for `menuBaserow` + `menuBaserowPreview` | `content.config.ts` (same `menuSchema`), `../bar-database/AGENTS.md` |
 | `src/loaders/guest-ingredients.ts` | Inventory-name cleanup for the `web_ingredients` fallback | `baserow-menu.ts`, `CONTENT-GUIDE.md` |
 | `src/data/menu.ts` | TypeScript types consumed by components | `content.config.ts`, `CONTENT-GUIDE.md`, `TEMPLATE.md` |
 | `CONTENT-GUIDE.md` | End-user docs for content editors | All schema files |
@@ -153,7 +155,7 @@ scripts/
 | `order` | ❌ | integer | Default `0` (sorts before positive numbers); must be whole |
 | `tags` | ❌ | string[] | e.g. `["Smoky", "Bitter"]`; each tag must be non-empty |
 | `featured` | ❌ | boolean | Shows ★ staff favorite badge (independent of `featuredTag`) |
-| `featuredTag` | ❌ | `New \| Special \| Promo \| Seasonal \| Limited` | `/menu-preview`: adds the item to the Featured & Specials spotlight carousel and shows `[TAG]` on its category card. Baserow `featured_tag` |
+| `featuredTag` | ❌ | `New \| Special \| Promo \| Seasonal \| Limited` | `/menu` + `/menu-preview`: adds the item to the Featured & Specials spotlight carousel and shows `[TAG]` on its category card. Baserow `featured_tag` |
 | `promoPrice` | ❌ | string | Must match the same price pattern; the loader only emits it for a real discount (`> 0` and `< price`). Renders the standard price struck through. Baserow `promo_price` (VND number) |
 | `image` | ❌ | string | Path key resolved by `MenuItem.astro`'s `imageSrcMap`, e.g. `"/cocktail-placeholder.svg"`. Must be `.svg`/`.webp` **and** exist in `src/assets/images/` |
 | `subcategory` | ❌ | string | Groups items within a category; must be non-empty after trim |
@@ -161,61 +163,31 @@ scripts/
 
 ---
 
-## Data flow (menu page)
+## Data flow (3 menu routes)
 
 ```
-YAML files ──► content.config.ts ──► getCollection('menu')
-                    (Zod)                   │
-                                            ▼
-                                    sort by .data.order
-                                            │
-                                            ▼
-                                    filter by categories.ts names
-                                            │
-                                            ▼
-                                    map .data → MenuItemData
-                                            │
-                                            ▼
-                                    menu/index.astro
-                                            │
-                                ┌───────────┴───────────┐
-                                 ▼                       ▼
-                         MenuCategory.astro        The `Archived` category
-                                 │                 is filtered out before
-                                 ▼                 render (samples, hidden)
-                         MenuItem.astro
-                                 │
-                                 ▼
-                         Items with an unknown category
-                         in categories.ts fail the build in the
-                         Zod schema (before this point)
-```
+src/content/menu/*.yaml ──► `menu` collection ─────────────► menu-v0/index.astro
+                              (glob + Zod)                    (noindex, YAML archive)
 
-### Data flow (`/menu-preview`, staging)
+Baserow `recipes` (1258954) ─┐
+Baserow `glassware` (1259147)┤  (one cached fetch per build)
+Baserow `recipe_ingredients` ┘
+  (1258955, only when `web_ingredients` is blank)
+            │
+            ▼
+  createBaserowMenuLoader({ includeTesting: false })
+            │  active + unavailable only (44 canonical)
+            ▼
+     `menuBaserow` collection ──► menu/index.astro (indexed)
+            │
+            └─ same cached fetch, separate selection
+            ▼
+  createBaserowMenuLoader({ includeTesting: true })
+            │  active + unavailable + complete testing (64)
+            ▼
+  `menuBaserowPreview` collection ──► menu-preview/index.astro (noindex)
 
-```
-Baserow `recipes` (1258954) ──────────────┐
-Baserow `glassware` (1259147) ────────────┤
-Baserow `recipe_ingredients` (1258955,    │
-  only when `web_ingredients` is blank) ──┴► src/loaders/baserow-menu.ts
-                                    │  token: env → .env → ~/.secrets
-                                    │  filter status = active / unavailable
-                                    │  map → name/price/description/ingredients/
-                                    │        category/order/subcategory/tags/
-                                    │        featured/featuredTag/promoPrice/image/available
-                                    │  ingredients: web_ingredients, else derived
-                                    │  fail on duplicate order per category
-                                    ▼
-                            parseData() ── same `menuSchema` as `menu`
-                                    │
-                                    ▼
-                          getCollection('menuBaserow')
-                                    │
-                                    ▼
-                    menu-preview/index.astro  (noindex, unlinked)
-                                    │  build item keys + mood metadata
-                                    ▼
-                    x-data="menuPreview"  (src/preview-menu.ts)
+Both Baserow routes: parseData() ── same `menuSchema` ──► x-data="menuPreview"
                                     │
                      ┌───────────────┼────────────────┬───────────────────┐
                      ▼               ▼                ▼                   ▼
@@ -224,11 +196,17 @@ Baserow `recipe_ingredients` (1258955,    │
                                                          photo lightbox)  x-show="!isFiltered")
 ```
 
-`/menu` and `/menu-preview` render the exact same interactive menu UI, but read
-from different data sources: `/menu` reads from static Git YAML (`getCollection('menu')`),
-while `/menu-preview` reads from Baserow (`getCollection('menuBaserow')`) with `noindex`.
-This allows the bar team to continue soak-testing Baserow + Zalo Bot sync safely
-on `/menu-preview` without affecting production guests.
+`testing` rows are staging-only: they render on `/menu-preview` when they have
+`menu_category`, a positive `price` (or `price_display`), a non-empty
+`web_description`, and a positive integer `menu_order` with no collision in that
+category. Incomplete rows (e.g. 47, 51, 91) are skipped with a build log notice.
+On `/menu`, only `active` and `unavailable` rows exist; both render as orderable,
+and `unavailable` shows the badge. `testing` maps to `available: true` on the
+preview route.
+
+`/menu-v0` is a hidden archive of the legacy YAML lineup: `noindex`, unlinked
+from the nav, and excluded from the sitemap. It exists for comparison or an
+emergency rollback of the Baserow cutover, not for guests.
 
 ---
 
@@ -246,7 +224,7 @@ on `/menu-preview` without affecting production guests.
 Pre-merge verification: `npm run check && npm run build && npm run preview` (~10 seconds).
 
 `npm run build` (and `astro sync` / `check` / `dev`) now fetches Baserow for the
-`menuBaserow` collection, so it needs network access plus a database token:
+`menuBaserow` and `menuBaserowPreview` collections (one shared fetch per build), so it needs network access plus a database token:
 `BASEROW_TOKEN` in `.env` or the shell env, else `~/.secrets/baserow-token`
 (falls back to `~/.secrets/baserow-database-token`). Both are read at build time
 only — nothing is exposed to the browser. Vercel has `BASEROW_TOKEN` as a project
@@ -261,7 +239,7 @@ env var.
 - **Font classes only:** `.font-display`, `.font-body`, `.font-accent` — do NOT use Tailwind's `fontFamily` theme config
 - **Pricing format:** `"VND 180k"` (Vietnamese Dong with "k" shorthand)
 - **Images live in `src/assets/images/`** — imported in components via `?url` suffix. YAML `image` values are lookup keys resolved by `src/lib/menu-images.ts` (`resolveMenuImage`). Only root assets (`robots.txt`, `favicon.ico`, `og-image.svg`) and internal static routes (`public/ops-finance/index.html`) remain in `public/`.
-- **Preview-only theme tokens** live in `src/styles/menu-preview.css`; do not add them to `global.css` or apply them to `/menu`. `MainLayout` takes `preview={true}` only on `/menu-preview`.
+- **Menu theme tokens** live in `src/styles/menu-preview.css`; do not add them to `global.css`. `MainLayout` takes `preview={true}` on `/menu`, `/menu-preview`, and `/menu-v0`.
 - **No React** — pure Astro + Tailwind; client interactivity via Alpine.js
 - **No tests, no linter, no formatter** in the repo
 - **Satoshi and Freight Big Pro** are declared in CSS but not loaded — they resolve to system fallbacks. Only Playfair Display is loaded via Google Fonts.
@@ -284,6 +262,6 @@ All three are in `.gitignore`.
 - **Deploy:** Vercel auto-deploys from `main` branch
 - **Vercel config:** `vercel.json` — `cleanUrls: true`, redirects `/bar-menu` → `/menu`
 - **Required env var:** `BASEROW_TOKEN` (Baserow database token, read-only is enough) — builds fail without it
-- **Staging route:** `/menu-preview` — Baserow-sourced mirror of `/menu`, `noindex`, unlinked from the nav, excluded from the sitemap
+- **Menu routes:** `/menu` (live, Baserow canonical + Featured Carousel, indexed), `/menu-preview` (staging, canonical + complete `testing` rows, `noindex`, unlinked, excluded from the sitemap), `/menu-v0` (hidden YAML archive, `noindex`, unlinked, excluded from the sitemap)
 - **Cloudflare Page Rule** (do not modify): `meowracle.space/impurrfect-bar*` → `https://impurrfect-bar.meowracle.space/$1` (301)
 - **No CI / no `.github` directory**

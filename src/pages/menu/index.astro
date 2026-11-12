@@ -5,13 +5,18 @@ import MenuHeader from '../../components/MenuHeader.astro';
 import PreviewThemeToggle from '../../components/preview/PreviewThemeToggle.astro';
 import PreviewFilterBar from '../../components/preview/PreviewFilterBar.astro';
 import PreviewMenuCategory from '../../components/preview/PreviewMenuCategory.astro';
+import PreviewFeaturedSection from '../../components/preview/PreviewFeaturedSection.astro';
 import { categories } from '../../data/categories';
 import { menuMoods, menuSpirits, moodKeysFor } from '../../data/menu-moods';
 import '../../styles/menu-preview.css';
 
+// Live customer QR menu: Baserow is the source of truth. `menuBaserow` holds the
+// canonical active/unavailable rows only (44 items); testing drinks stay on
+// /menu-preview until promoted in Baserow.
+
 const tagline = 'Street-rescue cats, honest drinks, zero pretension.';
 
-const items = await getCollection('menu');
+const items = await getCollection('menuBaserow');
 items.sort((a, b) => a.data.order - b.data.order);
 
 const menuCategories = categories
@@ -42,6 +47,13 @@ const categoryTabs = menuCategories.map((cat) => ({
   name: cat.category,
   count: cat.items.length,
 }));
+
+// Spotlight carousel: any canonical row carrying a featured_tag.
+const featuredItems = menuCategories.flatMap((cat) =>
+  cat.items
+    .filter((item) => item.featuredTag && item.available !== false)
+    .map((item) => ({ ...item, category: cat.category }))
+);
 ---
 
 <MainLayout
@@ -67,6 +79,8 @@ const categoryTabs = menuCategories.map((cat) => ({
       moods={menuMoods}
       spirits={menuSpirits}
     />
+
+    <PreviewFeaturedSection items={featuredItems} />
 
     <div id="preview-menu-list" class="mt-8 space-y-14">
       {menuCategories.map((cat) => (

@@ -1,7 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
-import { baserowMenuLoader } from './loaders/baserow-menu';
+import { createBaserowMenuLoader } from './loaders/baserow-menu';
 import { categories } from './data/categories';
 
 const categoryNames = categories.map((cat) => cat.name);
@@ -21,9 +21,9 @@ const menuImageNames = new Set(
 const pricePattern = /^VND \d+k( \/ \d+k)?$/;
 const imagePattern = /^\/[\w.-]+\.(svg|webp)$/;
 
-// Shared by both collections: the YAML files that drive /menu today and the
-// Baserow rows that will drive it after cutover, so the preview route can never
-// accept data the live menu would reject.
+// Shared by all three menu collections: the YAML archive (/menu-v0), the Baserow
+// rows behind the live menu (/menu), and the staging preview (/menu-preview), so
+// no route can accept data the others would reject.
 const menuSchema = z.object({
   name: z.string().trim().min(1, 'name must not be empty'),
   price: z
@@ -67,20 +67,28 @@ const menuSchema = z.object({
   available: z.boolean().optional().default(true),
 });
 
-// Live customer menu: YAML files, unchanged until the production cutover.
+// Static YAML archive behind the hidden /menu-v0 backup route.
 const menuCollection = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: './src/content/menu' }),
   schema: menuSchema,
 });
 
-// Staging collection for /menu-preview: same schema, rows fetched from Baserow
-// at build time. Not linked from the site nav; the route is noindex.
+// Live customer menu (/menu): Baserow is the source of truth. Canonical rows only
+// (active + unavailable), so testing/planning/retired drinks stay internal.
 const menuBaserowCollection = defineCollection({
-  loader: baserowMenuLoader,
+  loader: createBaserowMenuLoader({ includeTesting: false }),
+  schema: menuSchema,
+});
+
+// Staging sandbox (/menu-preview): canonical rows plus complete `testing` rows
+// so new drinks can be reviewed before promotion. Both loaders share one fetch.
+const menuBaserowPreviewCollection = defineCollection({
+  loader: createBaserowMenuLoader({ includeTesting: true }),
   schema: menuSchema,
 });
 
 export const collections = {
   menu: menuCollection,
   menuBaserow: menuBaserowCollection,
+  menuBaserowPreview: menuBaserowPreviewCollection,
 };

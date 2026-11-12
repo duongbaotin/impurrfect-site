@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import MenuHeader from '../../components/MenuHeader.astro';
+import PreviewThemeToggle from '../../components/preview/PreviewThemeToggle.astro';
+import PreviewFilterBar from '../../components/preview/PreviewFilterBar.astro';
+import PreviewMenuCategory from '../../components/preview/PreviewMenuCategory.astro';
+import { categories } from '../../data/categories';
+import { menuMoods, menuSpirits, moodKeysFor } from '../../data/menu-moods';
+import '../../styles/menu-preview.css';
+
+// Hidden backup route: the legacy static YAML menu (src/content/menu/*.yaml),
+// kept intact for side-by-side comparison or emergency restore after the
+// Baserow cutover. Unlinked from the nav, noindex, and excluded from the sitemap.
+// The live customer menu is /menu; staging is /menu-preview.
+
+const tagline = 'Street-rescue cats, honest drinks, zero pretension.';
+
+const items = await getCollection('menu');
+items.sort((a, b) => a.data.order - b.data.order);
+
+const menuCategories = categories
+  .filter((cat) => cat.name !== 'Archived')
+  .sort((a, b) => a.order - b.order)
+  .map((cat) => ({
+    category: cat.name,
+    description: cat.description,
+    items: items
+      .filter((i) => i.data.category === cat.name)
+      .map((i) => ({
+        ...i.data,
+        key: `${cat.name}/${i.data.order}/${i.data.name}`,
+      })),
+  }))
+  .filter((cat) => cat.items.length > 0);
+
+const previewItems = menuCategories.flatMap((cat) =>
+  cat.items.map((item) => ({
+    key: item.key,
+    category: cat.category,
+    subcategory: item.subcategory ?? null,
+    moods: moodKeysFor(item),
+  }))
+);
+
+const categoryTabs = menuCategories.map((cat) => ({
+  name: cat.category,
+  count: cat.items.length,
+}));
+---
+
+<MainLayout
+  title="menu v0 - impurrfect"
+  description="Archived static menu of impurrfect (a cat dive bar). Kept as a backup of the pre-Baserow lineup."
+  noindex={true}
+  preview={true}
+>
+  <div
+    class="menu-preview"
+    x-data="menuPreview"
+    data-items={JSON.stringify(previewItems)}
+    data-moods={JSON.stringify(menuMoods)}
+    data-spirits={JSON.stringify(menuSpirits)}
+  >
+    <MenuHeader tagline={tagline} compact={true} />
+
+    <div class="pv-control-bar mb-6 flex justify-end">
+      <PreviewThemeToggle />
+    </div>
+
+    <PreviewFilterBar
+      categories={categoryTabs}
+      moods={menuMoods}
+      spirits={menuSpirits}
+    />
+
+    <div id="preview-menu-list" class="mt-8 space-y-14">
+      {menuCategories.map((cat) => (
+        <PreviewMenuCategory category={cat} />
+      ))}
+    </div>
+
+    <div
+      class="pv-empty mt-8 rounded-sm p-6 text-center font-body text-xs"
+      x-show="visibleCount === 0"
+      x-cloak
+    >
+      <p>No drinks match this filter.</p>
+      <button type="button" class="pv-clear mt-2" @click="clearFilters()">
+        Clear filter
+      </button>
+    </div>
+  </div>
+</MainLayout>
