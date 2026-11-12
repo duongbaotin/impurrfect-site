@@ -77,7 +77,7 @@ const singleCard = cards.length === 1;
             </div>
 
             <!-- Zone 2: dual-mode image stage -->
-            <div class="pv-featured-stage h-36 sm:h-40">
+            <div class="pv-featured-stage aspect-[3/4]">
               {card.isPhoto && card.imgSrc ? (
                 <button
                   type="button"
@@ -115,7 +115,7 @@ const singleCard = cards.length === 1;
                       src={card.imgSrc}
                       alt=""
                       aria-hidden="true"
-                      class="pv-glass-icon h-14 w-auto"
+                      class="pv-glass-icon w-auto"
                     />
                   )}
                 </div>
