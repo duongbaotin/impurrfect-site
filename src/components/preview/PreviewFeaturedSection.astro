@@ -61,7 +61,43 @@ const singleCard = cards.length === 1;
         )}
       </div>
 
-      <div class="pv-featured-track pv-scroll" role="list">
+      <div
+        class="pv-featured-track pv-scroll"
+        role="list"
+        x-data="{
+          isDown: false,
+          startX: 0,
+          scrollLeft: 0,
+          hasDragged: false,
+          start(e) {
+            if (e.pointerType === 'touch') return;
+            this.isDown = true;
+            this.hasDragged = false;
+            this.startX = e.pageX - $el.offsetLeft;
+            this.scrollLeft = $el.scrollLeft;
+            $el.classList.add('is-dragging');
+          },
+          move(e) {
+            if (!this.isDown) return;
+            const x = e.pageX - $el.offsetLeft;
+            const walk = (x - this.startX) * 1.2;
+            if (Math.abs(walk) > 4) {
+              this.hasDragged = true;
+            }
+            $el.scrollLeft = this.scrollLeft - walk;
+          },
+          end() {
+            this.isDown = false;
+            $el.classList.remove('is-dragging');
+          }
+        }"
+        @pointerdown="start($event)"
+        @pointermove="move($event)"
+        @pointerup="end()"
+        @pointerleave="end()"
+        @pointercancel="end()"
+        @click.capture="if (hasDragged) { $event.stopPropagation(); $event.preventDefault(); hasDragged = false; }"
+      >
         {cards.map((card) => (
           <article
             class="pv-featured-card"

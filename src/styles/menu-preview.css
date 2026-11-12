@@ -404,6 +404,14 @@ html[data-preview][data-preview-theme='paper'] .pv-photo {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 0.35rem;
+  cursor: grab;
+  user-select: none;
+}
+
+.pv-featured-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
 }
 
 .pv-featured-card {
